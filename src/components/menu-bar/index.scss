@@ -1,0 +1,13 @@
+$gap: 6px;
+
+.Menu-bar {
+  display: flex;
+  margin-top: $gap;
+  margin-bottom: $gap;
+
+  &__Menu {
+    font-size: 13px;
+    padding-left: $gap;
+    padding-right: $gap;
+  }
+}
