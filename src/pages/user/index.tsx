@@ -1,21 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.scss';
-import Button from '../../components/button';
 
 const User = () => {
-  const [selected, setSelected] = useState(false);
-  const handleOnClick = () => {
-    setSelected(!selected);
-  }
-
   return (
     <div className={'Userpage-container'}>
+      <div className={'Userpage-container__Username'}>
+        Username
+      </div>
+      <div className={'Userpage-container__Userinfo'}>
+        Info comes here
+      </div>
       <div className={'Userpage-container__Contents'}>
-        User Page
-        <Button
-          selected={selected}
-          onClick={handleOnClick}
-        />
+        Contents comes here
       </div>
     </div>
   );

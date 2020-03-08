@@ -1,5 +1,40 @@
 .Userpage-container {
+  display: flex;
+  flex-direction: column;
   background-image: inherit;
+
+  &__Username {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: {
+      size: 14px;
+      weight: bolder;
+    }
+    margin: 15px;
+  }
+
+  &__Userinfo {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 2px;
+
+    -webkit-box-shadow:
+      inset 0px -1px 0px 0px rgba(255,255,255,1),
+      inset 0px -2px 0px 0px rgba(0,0,0,1),
+      inset 0px 1px 0px 0px rgba(0,0,0,1),
+      inset 0px 2px 0px 0px rgba(255,255,255,1);
+    -moz-box-shadow:
+      inset 0px -1px 0px 0px rgba(255,255,255,1),
+      inset 0px -2px 0px 0px rgba(0,0,0,1),
+      inset 0px 1px 0px 0px rgba(0,0,0,1),
+      inset 0px 2px 0px 0px rgba(255,255,255,1);
+    box-shadow:
+      inset 0px -1px 0px 0px rgba(255,255,255,1),
+      inset 0px -2px 0px 0px rgba(0,0,0,1),
+      inset 0px 1px 0px 0px rgba(0,0,0,1),
+      inset 0px 2px 0px 0px rgba(255,255,255,1);
+  }
 
   &__Contents {
   }
