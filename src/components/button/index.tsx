@@ -11,20 +11,24 @@ interface ButtonProps {
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Button: React.FC<Props> = (props) => {
-  const { selected } = props;
+  const { selected, icon, ...otherProps } = props;
 
   return (
     <div
       className={classNames(
         'Button',
-        { 'Button__Selected': selected },
+        { 'Selected': selected },
         props.location,
       )}
+      {...otherProps}
     >
-      {props.icon &&
-        <img
-          alt=""
-          src={props.icon}
+      {icon &&
+        <div
+          style={{
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundImage: `url('${icon}')`
+          }}
         />}
       {props.children}
     </div>

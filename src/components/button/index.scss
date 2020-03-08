@@ -22,7 +22,7 @@ $static-folder-url: '../../static';
     inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
     inset 1.6px 1.6px 0px 1.6px rgba(224,224,224,1);
 
-  &__Selected {
+  &:active, .Selected {
     background-color: white;
     background-image:
       linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
@@ -55,10 +55,14 @@ $static-folder-url: '../../static';
     width: 18px;
     height: 18px;
 
-    img {
-      width: calc(100% - 7px);
-      height: calc(100% - 7px);
-      padding: 0px 1px 1px 0px;
+    div {
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+      margin: 0px 2px 1.5px 0px;
+
+      &:active {
+        margin: 2px 2px 1.5px 1.5px;
+      }
     }
   }
 }
