@@ -1,5 +1,5 @@
 // public/electron.ts
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
 
@@ -41,4 +41,12 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('minimize-app', () => {
+  BrowserWindow.getFocusedWindow().minimize();
+});
+
+ipcMain.on('close-app', () => {
+  app.quit();
 });
