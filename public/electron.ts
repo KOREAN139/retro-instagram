@@ -10,6 +10,8 @@ function createWindow() {
     center: true,
     kiosk: !isDev,
     resizable: true,
+    title: 'Instagram.exe',
+    frame: false,
     webPreferences: {
       nodeIntegration: true
     }
