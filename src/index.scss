@@ -37,7 +37,7 @@ body {
     inset 0.8px 0.8px 0px 0.8px rgba(224,224,224,1),
     inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
     inset 1.6px 1.6px 0px 1.6px rgba(255,255,255,1);
-  background-image: url('./static/background-pattern.png');
+  background-image: url('#{$static-folder-url}/background-pattern.png');
 }
 
 code {
