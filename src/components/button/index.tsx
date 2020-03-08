@@ -25,7 +25,6 @@ const Button: React.FC<Props> = (props) => {
       {icon &&
         <div
           style={{
-            backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundImage: `url('${icon}')`
           }}
