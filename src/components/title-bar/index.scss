@@ -1,0 +1,37 @@
+$static-folder-url: '../../static';
+
+.Title-bar {
+  display: flex;
+  height: 22px;
+  background: rgb(2,0,125);
+  background: linear-gradient(90deg, rgba(2,0,125,1) 0%, rgba(0,0,127,1) 58%, rgba(0,0,131,1) 100%);
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+
+  &__icon {
+    width: 18px;
+    height: inherit;
+    margin-left: 4px;
+    margin-right: 2px;
+    background: {
+      size: contain;
+      repeat: no-repeat;
+      position: center;
+      image: url('#{$static-folder-url}/instagram-icon-with-shadow.png');
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font: {
+      size: 13px;
+      weight: bolder;
+    }
+  }
+
+  &__buttons {
+  }
+}
