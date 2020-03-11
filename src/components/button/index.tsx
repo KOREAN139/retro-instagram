@@ -6,12 +6,13 @@ interface ButtonProps {
   icon?: string
   location?: string
   selected?: boolean
+  text?: string
 }
 
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Button: React.FC<Props> = (props) => {
-  const { selected, icon, ...otherProps } = props;
+  const { selected, icon, text, ...otherProps } = props;
 
   return (
     <div
@@ -30,6 +31,7 @@ const Button: React.FC<Props> = (props) => {
           }}
         />}
       {props.children}
+      {text}
     </div>
   );
 };

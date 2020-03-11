@@ -66,4 +66,25 @@ $static-folder-url: '../../static';
       }
     }
   }
+
+  &.Follow {
+    width: 100%;
+
+    div {
+      width: 24px;
+      height: 24px;
+      background-position: 48% 50%;
+      background-size: 10px 10px;
+
+      &:active {
+        background-position: 55% 60%;
+      }
+    }
+
+    &.More {
+      width: 24px;
+      height: 24px;
+      float: right;
+    }
+  }
 }

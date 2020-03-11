@@ -34,6 +34,55 @@
       inset 0px -2px 0px 0px rgba(0,0,0,1),
       inset 0px 1px 0px 0px rgba(0,0,0,1),
       inset 0px 2px 0px 0px rgba(255,255,255,1);
+
+    &__Profile {
+      display: flex;
+      flex-direction: row;
+      padding: 6px;
+
+      &__Picture {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: black;
+      }
+
+      &__Follow {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-left: 4px;
+
+        &__Numbers {
+          flex-basis: 100%;
+          display: flex;
+
+          &.Number {
+            display: flex;
+            flex-basis: 100%;
+            flex-direction: column;
+            justify-items: center;
+            align-items: center;
+          }
+        }
+
+        &__Buttons {
+          display: flex;
+          margin-left: 10px;
+          padding-top: 4px;
+          padding-bottom: 2px;
+          flex-basis: 100%;
+          flex-direction: row;
+
+          * + * {
+            margin-left: 3px;
+          }
+        }
+      }
+    }
+
+    &__Description {
+    }
   }
 
   &__Contents {
