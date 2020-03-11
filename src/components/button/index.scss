@@ -22,7 +22,8 @@ $static-folder-url: '../../static';
     inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
     inset 1.6px 1.6px 0px 1.6px rgba(224,224,224,1);
 
-  &:active, .Selected {
+  &:active,
+  &.Selected {
     background-color: white;
     background-image:
       linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
