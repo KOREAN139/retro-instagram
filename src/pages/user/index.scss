@@ -94,14 +94,17 @@
       margin-top: 1px;
       margin-bottom: 1px;
 
-      font-size: 14px;
+      font-size: 13px;
 
       * + * {
         margin-top: 4px;
       }
 
       &__Name {
-        font-weight: bolder;
+        font: {
+          size: 14px;
+          weight: bolder;
+        }
       }
 
       &__Bio {
