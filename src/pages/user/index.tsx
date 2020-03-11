@@ -52,6 +52,15 @@ const User = () => {
           </div>
         </div>
         <div className={'Userpage-container__Userinfo__Description'}>
+          <div className={'Userpage-container__Userinfo__Description__Name'}>
+            name
+          </div>
+          <div className={'Userpage-container__Userinfo__Description__Bio'}>
+            bio in here
+          </div>
+          <div className={'Userpage-container__Userinfo__Description__Website'}>
+            https://www.website-will-be-here.io
+          </div>
         </div>
       </div>
       <div className={'Userpage-container__Contents'}>
