@@ -89,4 +89,13 @@ $static-folder-url: '../../static';
       float: right;
     }
   }
+
+  &.User-contents-category {
+    div {
+      width: 18px;
+      height: 18px;
+      background-position: center;
+      background-size: 12px 12px;
+    }
+  }
 }

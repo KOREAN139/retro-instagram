@@ -116,5 +116,25 @@
   }
 
   &__Contents {
+    display: flex;
+
+    &__Categories {
+      display: flex;
+      flex-direction: row;
+      flex-basis: 100%;
+      margin: 2px;
+
+      * {
+        flex-basis: 100%;
+        height: 24px;
+      }
+
+      * + * {
+        margin-left: 1px;
+      }
+    }
+
+    &__Box {
+    }
   }
 }

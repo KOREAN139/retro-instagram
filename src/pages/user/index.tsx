@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import moreIcon from '../../static/more-button.png';
+import gridIcon from '../../static/grid-icon.png';
+import scrollIcon from '../../static/scroll-icon.png';
+import locationIcon from '../../static/location-icon.png';
+import tagIcon from '../../static/tag-icon.png';
 
 const User = () => {
+  const [currentCategory, setCurrentCategory] = useState('grid');
+
+  const onClickGrid = () => {
+    setCurrentCategory('grid');
+  }
+
+  const onClickScroll = () => {
+    setCurrentCategory('scroll');
+  }
+
+  const onClickLocation = () => {
+    setCurrentCategory('location');
+  }
+
+  const onClickTagged = () => {
+    setCurrentCategory('tagged');
+  }
+
   return (
     <div className={'Userpage-container'}>
       <div className={'Userpage-container__Username'}>
@@ -64,7 +86,34 @@ const User = () => {
         </div>
       </div>
       <div className={'Userpage-container__Contents'}>
-        Contents comes here
+        <div className={'Userpage-container__Contents__Categories'}>
+          <Button
+            location={'User-contents-category'}
+            icon={gridIcon}
+            selected={currentCategory === 'grid'}
+            onClick={onClickGrid}
+          />
+          <Button
+            location={'User-contents-category'}
+            icon={scrollIcon}
+            selected={currentCategory === 'scroll'}
+            onClick={onClickScroll}
+          />
+          <Button
+            location={'User-contents-category'}
+            icon={locationIcon}
+            selected={currentCategory === 'location'}
+            onClick={onClickLocation}
+          />
+          <Button
+            location={'User-contents-category'}
+            icon={tagIcon}
+            selected={currentCategory === 'tagged'}
+            onClick={onClickTagged}
+          />
+        </div>
+        <div className={'Userpage-container__Contents__Box'}>
+        </div>
       </div>
     </div>
   );
