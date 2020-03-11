@@ -53,6 +53,8 @@
         flex-grow: 1;
         margin-left: 4px;
 
+        font-size: 13px;
+
         &__Numbers {
           flex-basis: 100%;
           display: flex;
@@ -63,6 +65,10 @@
             flex-direction: column;
             justify-items: center;
             align-items: center;
+
+            * + * {
+              margin-top: 2px;
+            }
           }
         }
 
