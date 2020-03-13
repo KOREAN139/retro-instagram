@@ -7,9 +7,11 @@ let mainWindow: BrowserWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
+    width: 320,
+    height: 568,
     center: true,
     kiosk: !isDev,
-    resizable: true,
+    resizable: false,
     title: 'Instagram.exe',
     frame: false,
     webPreferences: {
