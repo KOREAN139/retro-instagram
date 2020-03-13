@@ -113,6 +113,8 @@ const User = () => {
           />
         </div>
         <div className={'Userpage-container__Contents__Box'}>
+          <div className={'Userpage-container__Contents__Box__Scrollable'}>
+          </div>
         </div>
       </div>
     </div>
