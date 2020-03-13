@@ -1,6 +1,11 @@
 import React from 'react';
 import './index.scss';
 import Button from '../../components/button';
+import homeFeedIcon from '../../static/home-feed-icon.png';
+import exploreIcon from '../../static/explore-icon.png';
+import cameraIcon from '../../static/camera-icon.png';
+import likesIcon from '../../static/likes-icon.png';
+import userIcon from '../../static/user-icon.png';
 
 interface FooterProps {
 }
@@ -12,19 +17,24 @@ const Footer: React.FC<Props> = (props) => {
     <div className={'Footer'}>
       <div className={'Footer__Pages'}>
         <Button
-          location={'Footer'}
+          location={'Footer Home-feed'}
+          icon={homeFeedIcon}
         />
         <Button
-          location={'Footer'}
+          location={'Footer Explore'}
+          icon={exploreIcon}
         />
         <Button
-          location={'Footer'}
+          location={'Footer Camera'}
+          icon={cameraIcon}
         />
         <Button
-          location={'Footer'}
+          location={'Footer Likes'}
+          icon={likesIcon}
         />
         <Button
-          location={'Footer'}
+          location={'Footer User'}
+          icon={userIcon}
         />
       </div>
     </div>
