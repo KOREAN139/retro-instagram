@@ -16,6 +16,8 @@ $static-folder-url: 'static';
 @include font('W95FA', '#{$static-folder-url}/fonts/W95FARegular');
 
 body {
+  width: 308px;
+  height: 556px;
   margin: 0;
   padding: 6px;
 	font-family: W95FA;

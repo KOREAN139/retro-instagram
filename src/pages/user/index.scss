@@ -1,4 +1,5 @@
 .Userpage-container {
+  height: 485px;
   display: flex;
   flex-direction: column;
   background-image: inherit;
@@ -118,11 +119,11 @@
   &__Contents {
     display: flex;
     flex-direction: column;
+    flex-basis: 100%;
 
     &__Categories {
       display: flex;
       flex-direction: row;
-      flex-basis: 100%;
       margin: 2px;
 
       * {
@@ -138,7 +139,7 @@
     &__Box {
       display: flex;
       width: inherit;
-      height: 260px;
+      flex-basis: 100%;
       margin-top: 2px;
       padding: 2px;
 
