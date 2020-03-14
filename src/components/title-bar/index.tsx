@@ -17,11 +17,6 @@ const TitleBar: React.FC<Props> = (props) => {
     ipcRenderer.send('minimize-app');
   }
 
-  const handleMaximize = () => {
-    // do not support maximize
-    // TODO: unable maximize-button
-  }
-
   const handleClose = () => {
     const electron = window.require('electron');
     const ipcRenderer  = electron.ipcRenderer;
@@ -47,7 +42,6 @@ const TitleBar: React.FC<Props> = (props) => {
             id={'Title-bar__maximize-button'}
             icon={maxIcon}
             disabled
-            onClick={handleMaximize}
           />
           <Button
             location={'Title-bar'}
