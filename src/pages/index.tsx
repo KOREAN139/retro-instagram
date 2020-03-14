@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { configureStore, history } from '../store';
 import TitleBar from '../components/title-bar';
 import MenuBar from '../components/menu-bar';
-import PageContainer from '../components/page-container';
 import Routes from './routes';
 import Footer from '../components/footer';
 
@@ -16,9 +15,7 @@ const RootPage = () => (
       <TitleBar />
       <MenuBar />
       <ConnectedRouter history={history}>
-        <PageContainer>
-          <Routes />
-        </PageContainer>
+        <Routes />
         <Footer />
       </ConnectedRouter>
     </Provider>
