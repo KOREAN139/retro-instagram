@@ -46,6 +46,7 @@ const TitleBar: React.FC<Props> = (props) => {
             location={'Title-bar'}
             id={'Title-bar__maximize-button'}
             icon={maxIcon}
+            disabled
             onClick={handleMaximize}
           />
           <Button
