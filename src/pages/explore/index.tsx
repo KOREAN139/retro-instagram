@@ -6,6 +6,10 @@ const Explore = () => {
   return (
     <Page title={'Explore'}>
       <div className={'Explore-page-container'}>
+        <div className={'Explore-page-container__Contents'}>
+          <div className={'Explore-page-container__Contents__Scrollable'}>
+          </div>
+        </div>
       </div>
     </Page>
   );

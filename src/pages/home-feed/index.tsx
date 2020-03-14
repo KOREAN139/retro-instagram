@@ -6,6 +6,10 @@ const HomeFeed = () => {
   return (
     <Page title={'Feed'}>
       <div className={'Home-feed-container'}>
+        <div className={'Home-feed-container__Contents'}>
+          <div className={'Home-feed-container__Contents__Scrollable'}>
+          </div>
+        </div>
       </div>
     </Page>
   );
