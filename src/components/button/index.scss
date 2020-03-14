@@ -22,7 +22,7 @@ $static-folder-url: '../../static';
     inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
     inset 1.6px 1.6px 0px 1.6px rgba(224,224,224,1);
 
-  &:active,
+  &.Able:active,
   &.Selected {
     background-color: white;
     background-image:
@@ -63,8 +63,12 @@ $static-folder-url: '../../static';
       background-position: 40% 40%;
       background-size: 11px 11px;
 
-      &:active {
+      &.Able:active {
         background-position: 50% 50%;
+      }
+
+      &.Disabled {
+        opacity: 0.3;
       }
     }
   }
@@ -80,7 +84,7 @@ $static-folder-url: '../../static';
       background-position: 48% 50%;
       background-size: 7px 7px;
 
-      &:active {
+      &.Able:active {
         background-position: 55% 60%;
       }
     }
