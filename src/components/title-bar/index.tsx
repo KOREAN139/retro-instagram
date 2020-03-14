@@ -6,11 +6,17 @@ import maxIcon from '../../static/maximize-button.png';
 import closeIcon from '../../static/close-button.png';
 
 interface TitleBarProps {
+  location: string
+  title?: string
+  onClickClose?: () => void
 }
 
 export type Props = TitleBarProps & React.HTMLAttributes<HTMLDivElement>;
 
 const TitleBar: React.FC<Props> = (props) => {
+  const { onClickClose, location, title } = props;
+  const onRootPage = location === 'Root';
+
   const handleMinimize = () => {
     const electron = window.require('electron');
     const ipcRenderer  = electron.ipcRenderer;
@@ -28,26 +34,28 @@ const TitleBar: React.FC<Props> = (props) => {
       <div className={'Title-bar__Icon'}/>
       <div className={'Title-bar__Title'}>
         <div className={'Title-bar__Title__Text'}>
-          Instagram.exe
+          {onRootPage ? 'Instagram.exe' : title}
         </div>
         <div className={'Title-bar__Title__Buttons'}>
-          <Button
-            location={'Title-bar'}
-            id={'Title-bar__minimize-button'}
-            icon={minIcon}
-            onClick={handleMinimize}
-          />
-          <Button
-            location={'Title-bar'}
-            id={'Title-bar__maximize-button'}
-            icon={maxIcon}
-            disabled
-          />
+          {onRootPage &&
+            <Button
+              location={'Title-bar'}
+              id={'Title-bar__minimize-button'}
+              icon={minIcon}
+              onClick={handleMinimize}
+            />}
+          {onRootPage &&
+            <Button
+              location={'Title-bar'}
+              id={'Title-bar__maximize-button'}
+              icon={maxIcon}
+              disabled
+            />}
           <Button
             location={'Title-bar'}
             id={'Title-bar__close-button'}
             icon={closeIcon}
-            onClick={handleClose}
+            onClick={onRootPage ? handleClose : onClickClose}
           />
         </div>
       </div>

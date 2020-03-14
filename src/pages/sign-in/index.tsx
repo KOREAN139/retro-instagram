@@ -5,11 +5,12 @@ import TitleBar from '../../components/title-bar';
 import Button from '../../components/button';
 
 interface Props {
+  onClickClose: () => void
   onSubmit?: () => void
 }
 
 const SignIn: React.FC<Props> = (props) => {
-  const { onSubmit } = props;
+  const { onClickClose } = props;
 
   const { register } = useForm();
 
@@ -17,7 +18,11 @@ const SignIn: React.FC<Props> = (props) => {
     <>
       <div className={'Sign-in-page-overlay'} />
       <div className={'Sign-in-page-container'}>
-        <TitleBar />
+        <TitleBar
+          location={'Sign-in'}
+          title={'Log On to Instagram'}
+          onClickClose={onClickClose}
+        />
         <div className={'Sign-in-page-container__Logo'} />
         <div className={'Sign-in-page-container__Input'}>
           <span>
@@ -46,12 +51,12 @@ const SignIn: React.FC<Props> = (props) => {
           <Button
             location={'Sign-in'}
             text={'OK'}
-            onClick={onSubmit}
+            onClick={onClickClose}
           />
           <Button
             location={'Sign-in'}
             text={'Cancel'}
-            onClick={onSubmit}
+            onClick={onClickClose}
           />
         </div>
       </div>

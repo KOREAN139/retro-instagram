@@ -18,7 +18,7 @@ import {
 const Routes: React.FC = () => {
   const [signedIn, setSignedIn] = useState(false);
 
-  const onClickSubmit = () => {
+  const handleClose = () => {
     setSignedIn(true);
   }
 
@@ -26,7 +26,7 @@ const Routes: React.FC = () => {
     <>
       {!signedIn &&
         <SignIn
-          onSubmit={onClickSubmit}
+          onClickClose={handleClose}
         />}
       <PageContainer>
         <Switch>

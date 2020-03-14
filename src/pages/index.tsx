@@ -12,7 +12,9 @@ const store = configureStore();
 const RootPage = () => (
   <>
     <Provider store={store}>
-      <TitleBar />
+      <TitleBar
+        location={'Root'}
+      />
       <MenuBar />
       <ConnectedRouter history={history}>
         <Routes />
