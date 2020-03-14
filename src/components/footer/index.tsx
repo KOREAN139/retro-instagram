@@ -24,14 +24,17 @@ const Footer: React.FC<Props> = (props) => {
 
   const onClickExplore = () => {
     setCurrentPage('explore');
+    history.push('/explore');
   }
 
   const onClickCamera = () => {
     setCurrentPage('camera');
+    history.push('/camera');
   }
 
   const onClickLikes = () => {
     setCurrentPage('likes');
+    history.push('/likes');
   }
 
   const onClickUser = () => {
