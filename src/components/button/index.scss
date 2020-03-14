@@ -73,6 +73,12 @@ $static-folder-url: '../../static';
     }
   }
 
+  &.Sign-in {
+    font-size: 12px;
+    width: 65px;
+    height: 20px;
+  }
+
   &.Follow {
     width: 100%;
     height: 24px;
