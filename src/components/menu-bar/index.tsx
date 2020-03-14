@@ -53,9 +53,8 @@ const MenuBar: React.FC<Props> = (props) => {
       <div
         className={classNames(
           'Menu-bar__Menu',
-          { 'Activated': activated },
+          'Disabled',
         )}
-        onClick={handleOnClick}
       >
         <u>O</u>ptions
       </div>

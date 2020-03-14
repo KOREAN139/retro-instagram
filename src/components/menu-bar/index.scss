@@ -18,5 +18,9 @@ $gap: 6px;
       color: white;
       background-color: rgb(2,0,125);
     }
+
+    &.Disabled {
+      color: grey;
+    }
   }
 }
