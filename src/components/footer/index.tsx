@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.scss';
+import { useHistory } from 'react-router-dom';
 import Button from '../../components/button';
 import homeFeedIcon from '../../static/home-feed-icon.png';
 import exploreIcon from '../../static/explore-icon.png';
@@ -13,10 +14,12 @@ interface FooterProps {
 export type Props = FooterProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Footer: React.FC<Props> = (props) => {
+  const history = useHistory();
   const [currentPage, setCurrentPage] = useState('home-feed');
 
   const onClickHomeFeed = () => {
     setCurrentPage('home-feed');
+    history.push('/');
   }
 
   const onClickExplore = () => {
@@ -33,6 +36,7 @@ const Footer: React.FC<Props> = (props) => {
 
   const onClickUser = () => {
     setCurrentPage('user');
+    history.push('/user');
   }
 
   return (
