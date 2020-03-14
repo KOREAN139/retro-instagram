@@ -7,6 +7,13 @@ import exploreIcon from '../../static/explore-icon.png';
 import cameraIcon from '../../static/camera-icon.png';
 import likesIcon from '../../static/likes-icon.png';
 import userIcon from '../../static/user-icon.png';
+import {
+  ROUTE_HOME_FEED,
+  ROUTE_EXPLORE,
+  ROUTE_CAMERA,
+  ROUTE_LIKES,
+  ROUTE_USER
+} from '../../pages/routes/constants';
 
 interface FooterProps {
 }
@@ -19,27 +26,27 @@ const Footer: React.FC<Props> = (props) => {
 
   const onClickHomeFeed = () => {
     setCurrentPage('home-feed');
-    history.push('/');
+    history.push(ROUTE_HOME_FEED);
   }
 
   const onClickExplore = () => {
     setCurrentPage('explore');
-    history.push('/explore');
+    history.push(ROUTE_EXPLORE);
   }
 
   const onClickCamera = () => {
     setCurrentPage('camera');
-    history.push('/camera');
+    history.push(ROUTE_CAMERA);
   }
 
   const onClickLikes = () => {
     setCurrentPage('likes');
-    history.push('/likes');
+    history.push(ROUTE_LIKES);
   }
 
   const onClickUser = () => {
     setCurrentPage('user');
-    history.push('/user');
+    history.push(ROUTE_USER);
   }
 
   return (
