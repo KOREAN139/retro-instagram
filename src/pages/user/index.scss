@@ -96,6 +96,8 @@
       margin-bottom: 1px;
 
       overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-all;
       font-size: 13px;
 
       * + * {
