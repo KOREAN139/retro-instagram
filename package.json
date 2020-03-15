@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.7.0",
     "electron-is-dev": "^1.1.0",
+    "mousetrap": "^1.6.5",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/mousetrap": "^1.6.3",
     "@types/node-sass": "^4.11.0",
     "@types/react-redux": "^7.1.7",
     "@types/react-router-dom": "^5.1.3",
