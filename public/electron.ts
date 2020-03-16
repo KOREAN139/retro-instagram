@@ -10,7 +10,6 @@ function createWindow() {
     width: 320,
     height: 568,
     center: true,
-    kiosk: !isDev,
     resizable: false,
     title: 'Instagram.exe',
     frame: false,
