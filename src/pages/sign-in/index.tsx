@@ -9,10 +9,19 @@ interface Props {
   onSubmit?: () => void
 }
 
+interface signInFormData {
+  username: string
+  password: string
+}
+
 const SignIn: React.FC<Props> = (props) => {
   const { onClickClose } = props;
 
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm<signInFormData>();
+
+  const onSubmit = ({ username, password }: signInFormData) => {
+    props.onClickClose();
+  };
 
   return (
     <>
@@ -51,7 +60,7 @@ const SignIn: React.FC<Props> = (props) => {
           <Button
             location={'Sign-in'}
             text={'OK'}
-            onClick={onClickClose}
+            onClick={handleSubmit(onSubmit)}
           />
           <Button
             location={'Sign-in'}
