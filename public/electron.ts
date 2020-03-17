@@ -1,5 +1,6 @@
 // public/electron.ts
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow } from 'electron';
+import { ipcMain } from 'electron-better-ipc';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
 
@@ -14,7 +15,8 @@ function createWindow() {
     title: 'Instagram.exe',
     frame: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      preload: path.join(__dirname, './preload.js')
     }
   });
 
@@ -44,10 +46,10 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('minimize-app', () => {
+ipcMain.answerRenderer('minimize-app', () => {
   BrowserWindow.getFocusedWindow().minimize();
 });
 
-ipcMain.on('close-app', () => {
+ipcMain.answerRenderer('close-app', () => {
   app.quit();
 });

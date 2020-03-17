@@ -13,20 +13,18 @@ interface TitleBarProps {
 
 export type Props = TitleBarProps & React.HTMLAttributes<HTMLDivElement>;
 
+const { ipcRenderer } = window;
+
 const TitleBar: React.FC<Props> = (props) => {
   const { onClickClose, location, title } = props;
   const onRootPage = location === 'Root';
 
   const handleMinimize = () => {
-    const electron = window.require('electron');
-    const ipcRenderer  = electron.ipcRenderer;
-    ipcRenderer.send('minimize-app');
+    ipcRenderer.callMain('minimize-app');
   }
 
   const handleClose = () => {
-    const electron = window.require('electron');
-    const ipcRenderer  = electron.ipcRenderer;
-    ipcRenderer.send('close-app');
+    ipcRenderer.callMain('close-app');
   }
 
   return (
