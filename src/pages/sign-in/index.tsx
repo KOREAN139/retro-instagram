@@ -1,8 +1,10 @@
 import React from 'react';
 import './index.scss';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import TitleBar from '../../components/title-bar';
 import Button from '../../components/button';
+import { signInInstagram } from '../../ducks/instagram';
 
 interface Props {
   onClickClose: () => void
@@ -17,9 +19,11 @@ interface signInFormData {
 const SignIn: React.FC<Props> = (props) => {
   const { onClickClose } = props;
 
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<signInFormData>();
 
-  const onSubmit = ({ username, password }: signInFormData) => {
+  const onSubmit = async ({ username, password }: signInFormData) => {
+    await dispatch(signInInstagram(username, password));
     props.onClickClose();
   };
 
