@@ -35,7 +35,7 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
-    "tsc-electron": "tsc public/electron.ts public/preload.ts",
+    "tsc-electron": "tsc public/*.ts",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "yarn react-build && electron-builder",
     "release": "yarn react-build && electron-builder --publish=always"

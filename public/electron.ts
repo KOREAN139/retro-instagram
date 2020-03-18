@@ -3,10 +3,9 @@ import { app, BrowserWindow } from 'electron';
 import { ipcMain } from 'electron-better-ipc';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
-import { IgApiClient } from 'instagram-private-api';
+import './instagram-ipc';
 
 let mainWindow: BrowserWindow;
-const ig = new IgApiClient();
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -49,23 +48,9 @@ app.on('activate', () => {
 });
 
 ipcMain.answerRenderer('minimize-app', () => {
-  BrowserWindow.getFocusedWindow().minimize();
+  mainWindow.minimize();
 });
 
 ipcMain.answerRenderer('close-app', () => {
   app.quit();
-});
-
-interface userInfo {
-  username: string
-  password: string
-}
-
-ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
-  const { username, password } = data;
-  ig.state.generateDevice(username);
-  await ig.simulate.preLoginFlow();
-  const user = await ig.account.login(username, password);
-  await ig.simulate.postLoginFlow();
-  return user;
 });
