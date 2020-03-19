@@ -6,15 +6,19 @@ import instagramReducer from '../ducks/instagram';
 
 export const history = createHashHistory();
 
+const rootReducer = combineReducers({
+  router: connectRouter(history),
+  instagram: instagramReducer,
+});
+
 export const configureStore = () => {
   return createStore(
-    combineReducers({
-      router: connectRouter(history),
-      instagram: instagramReducer,
-    }),
+    rootReducer,
     applyMiddleware(
       thunk,
       routerMiddleware(history)
     ),
   );
 };
+
+export type RootState = ReturnType<typeof rootReducer>;
