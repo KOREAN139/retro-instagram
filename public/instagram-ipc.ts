@@ -7,6 +7,7 @@ interface userInfo {
 }
 
 const ig = new IgApiClient();
+let userFeed = null;
 
 ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
   const { username, password } = data;
@@ -15,4 +16,8 @@ ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
   const user = await ig.account.login(username, password);
   await ig.simulate.postLoginFlow();
   return user;
+});
+
+ipcMain.answerRenderer('get-user-info', async (userPk: string) => {
+  return await ig.user.info(userPk);
 });
