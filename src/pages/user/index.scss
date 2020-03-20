@@ -143,6 +143,7 @@
       flex-direction: column;
       margin-top: 2px;
       padding: 2px;
+      font-size: 0;
 
       -webkit-box-shadow:
         inset -1px -1px 0px 0px rgba(255,255,255,1),
@@ -163,6 +164,27 @@
       &__Scrollable {
         flex: 1;
         overflow-y: scroll;
+
+        img {
+          width: 94.5px;
+          height: 94.5px;
+          object-fit: contain;
+
+          @for $i from 1 through 3 {
+            &:nth-child(#{$i}) {
+              margin-top: 0px;
+            }
+          }
+
+          &:nth-child(3n+1) {
+            margin-left: 0px;
+          }
+        }
+
+        img + img {
+          margin-left: 1px;
+          margin-top: 1px;
+        }
       }
     }
   }
