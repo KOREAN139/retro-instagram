@@ -128,3 +128,11 @@ code {
     inset -2px -2px 0px 0px rgba(127,127,127,1),
     inset 2px 2px 0px 0px rgba(255,255,255,1);
 }
+
+::-webkit-scrollbar-button:start:disabled {
+  background-image: url('#{$static-folder-url}/up-arrow-icon-inactive.png');
+}
+
+::-webkit-scrollbar-button:end:disabled {
+  background-image: url('#{$static-folder-url}/down-arrow-icon-inactive.png');
+}
