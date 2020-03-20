@@ -9,7 +9,7 @@ import locationIcon from '../../static/location-icon.png';
 import tagIcon from '../../static/tag-icon.png';
 import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSignedInUserInfo } from '../../ducks/instagram';
+import { getSignedInUserInfo, getUserPosts } from '../../ducks/instagram';
 import { useHistory } from 'react-router-dom';
 
 const User = () => {
@@ -25,8 +25,13 @@ const User = () => {
     (state: RootState) => state.instagram.userInfo
   );
 
+  const userPosts = useSelector(
+    (state: RootState) => state.instagram.userPosts
+  );
+
   const loadUserInfo = useCallback(async () => {
     await dispatch(getSignedInUserInfo(userPk));
+    await dispatch(getUserPosts(userPk));
   }, [dispatch, userPk]);
 
   useEffect(() => {
@@ -143,6 +148,13 @@ const User = () => {
           </div>
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
+              {userPosts && userPosts.map((post, i) => (
+                <img
+                  alt={''}
+                  src={post.image_versions2.candidates[1].url}
+                  key={i}
+                />
+              ))}
             </div>
           </div>
         </div>
