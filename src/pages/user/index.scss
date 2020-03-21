@@ -168,7 +168,7 @@
         img {
           width: 94.5px;
           height: 94.5px;
-          object-fit: contain;
+          object-fit: cover;
 
           @for $i from 1 through 3 {
             &:nth-child(#{$i}) {
