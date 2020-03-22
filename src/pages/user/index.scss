@@ -163,10 +163,11 @@
         inset 2px 2px 0px 0px rgba(0,0,0,1);
 
       &__Scrollable {
+        align-content: flex-start;
         flex: 1;
         overflow-y: scroll;
 
-        img {
+        * {
           width: 94.5px;
           height: 94.5px;
           object-fit: cover;
@@ -182,7 +183,7 @@
           }
         }
 
-        img + img {
+        * + * {
           margin-left: 1px;
           margin-top: 1px;
         }

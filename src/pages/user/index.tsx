@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import Page from '../../components/page';
+import PixelImage from '../../components/pixel-image';
 import moreIcon from '../../static/more-button.png';
 import gridIcon from '../../static/grid-icon.png';
 import scrollIcon from '../../static/scroll-icon.png';
@@ -175,13 +176,17 @@ const User = () => {
           </div>
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
-              {userPosts && userPosts.map((post, i) => (
-                <img
-                  alt={''}
-                  src={post.image_versions2.candidates[1].url}
-                  key={i}
-                />
-              ))}
+              {userPosts && userPosts.map((post, i) => {
+                const source = post.carousel_media ?
+                  post.carousel_media[0].image_versions2.candidates[0].url :
+                  post.image_versions2.candidates[0].url;
+                return (
+                  <PixelImage
+                    source={source}
+                    key={i}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
