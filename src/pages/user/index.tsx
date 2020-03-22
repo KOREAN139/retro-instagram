@@ -16,7 +16,7 @@ const User = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [currentCategory, setCurrentCategory] = useState('grid');
-  const [infoExists, setInfoExists] = useState(false);
+  let infoExists = false;
 
   const userPk: number = useSelector(
     (state: RootState) => state.instagram.userPk
@@ -37,14 +37,15 @@ const User = () => {
 
   useEffect(() => {
     loadUserInfo();
-    if (userInfo) {
-      const exists = userInfo['full_name']
-                     || userInfo['biography']
-                     || userInfo['external_url']
-                     || false;
-      setInfoExists(!!exists);
-    }
-  }, [loadUserInfo, userInfo, history]);
+  }, [loadUserInfo, history]);
+
+  if (userInfo) {
+    const exist = userInfo['full_name']
+      || userInfo['biography']
+      || userInfo['external_url']
+      || false;
+    infoExists = !!exist;
+  }
 
   const onClickProfileLink = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
