@@ -46,6 +46,13 @@ const User = () => {
     }
   }, [loadUserInfo, userInfo, history]);
 
+  const onClickProfileLink = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const { shell } = window.require('electron');
+    let link = userInfo['external_url'];
+    shell.openExternal(link);
+  };
+
   const onClickGrid = () => {
     setCurrentCategory('grid');
   };
@@ -127,7 +134,14 @@ const User = () => {
                 </div>}
               {userInfo['external_url'] &&
                 <div className={'Userpage-container__Userinfo__Description__Website'}>
-                  {userInfo['external_url']}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={userInfo['external_url']}
+                    onClick={onClickProfileLink}
+                  >
+                    {userInfo['external_url']}
+                  </a>
                 </div>}
             </div>}
         </div>
