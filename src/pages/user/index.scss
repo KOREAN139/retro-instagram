@@ -48,13 +48,14 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        margin-left: 4px;
+        margin-left: 14px;
 
         font-size: 13px;
 
         &__Numbers {
-          flex-basis: 100%;
           display: flex;
+          flex-basis: 100%;
+          padding-right: 27px;
 
           &.Number {
             display: flex;
@@ -62,6 +63,7 @@
             flex-direction: column;
             justify-items: center;
             align-items: center;
+            padding: 0;
 
             * + * {
               margin-top: 2px;
@@ -71,7 +73,6 @@
 
         &__Buttons {
           display: flex;
-          margin-left: 10px;
           padding-top: 4px;
           padding-bottom: 2px;
           flex-basis: 100%;
