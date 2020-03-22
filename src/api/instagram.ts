@@ -1,6 +1,6 @@
 import {
   UserRepositoryInfoResponseUser,
-  UsertagsFeedResponseItemsItem
+  UserFeedResponseItemsItem
 } from 'instagram-private-api';
 
 const { ipcRenderer } = window;
@@ -22,7 +22,7 @@ export const getUserInfo = async (
 
 export const getUserPosts = async (
   userPk: number
-): Promise<UsertagsFeedResponseItemsItem[]> => {
+): Promise<UserFeedResponseItemsItem[]> => {
   const res = await ipcRenderer.callMain('get-user-posts', userPk);
   return res;
 };

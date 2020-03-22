@@ -3,14 +3,14 @@ import { Dispatch } from 'redux';
 import * as InstagramAPI from '../api/instagram';
 import {
   UserRepositoryInfoResponseUser,
-  UsertagsFeedResponseItemsItem
+  UserFeedResponseItemsItem
 } from 'instagram-private-api';
 
 interface InstagramState {
   signedIn: boolean
   userPk: number
   userInfo: UserRepositoryInfoResponseUser | null
-  userPosts: UsertagsFeedResponseItemsItem[]
+  userPosts: UserFeedResponseItemsItem[]
 };
 
 const initialState: InstagramState = {
@@ -35,7 +35,7 @@ const instagramDetails = createSlice({
     },
     getSignedInUserInfoFailed(state, action: PayloadAction<string>) {
     },
-    getUserPostsSuccess(state, action: PayloadAction<UsertagsFeedResponseItemsItem[]>) {
+    getUserPostsSuccess(state, action: PayloadAction<UserFeedResponseItemsItem[]>) {
       action.payload.forEach(post => state.userPosts.push(post));
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
