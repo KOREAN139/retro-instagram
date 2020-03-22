@@ -42,7 +42,7 @@ const User = () => {
                      || userInfo['biography']
                      || userInfo['external_url']
                      || false;
-      setInfoExists(exists);
+      setInfoExists(!!exists);
     }
   }, [loadUserInfo, userInfo, history]);
 
