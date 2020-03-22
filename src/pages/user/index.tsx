@@ -16,6 +16,7 @@ const User = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [currentCategory, setCurrentCategory] = useState('grid');
+  const [infoExists, setInfoExists] = useState(false);
 
   const userPk: number = useSelector(
     (state: RootState) => state.instagram.userPk
@@ -36,23 +37,30 @@ const User = () => {
 
   useEffect(() => {
     loadUserInfo();
-  }, [loadUserInfo, history]);
+    if (userInfo) {
+      const exists = userInfo['full_name']
+                     || userInfo['biography']
+                     || userInfo['external_url']
+                     || false;
+      setInfoExists(exists);
+    }
+  }, [loadUserInfo, userInfo, history]);
 
   const onClickGrid = () => {
     setCurrentCategory('grid');
-  }
+  };
 
   const onClickScroll = () => {
     setCurrentCategory('scroll');
-  }
+  };
 
   const onClickLocation = () => {
     setCurrentCategory('location');
-  }
+  };
 
   const onClickTagged = () => {
     setCurrentCategory('tagged');
-  }
+  };
 
   return (
     <Page title={userInfo ? userInfo['username'] : 'Username'}>
@@ -107,17 +115,21 @@ const User = () => {
               </div>
             </div>
           </div>
-          <div className={'Userpage-container__Userinfo__Description'}>
-            <div className={'Userpage-container__Userinfo__Description__Name'}>
-              {userInfo ? userInfo['full_name'] : 'name'}
-            </div>
-            <div className={'Userpage-container__Userinfo__Description__Bio'}>
-              {userInfo ? userInfo['biography'] : 'bio in here'}
-            </div>
-            <div className={'Userpage-container__Userinfo__Description__Website'}>
-              {userInfo ? userInfo['external_url'] : 'https://www.website-will-be-here.io'}
-            </div>
-          </div>
+          {infoExists &&
+            <div className={'Userpage-container__Userinfo__Description'}>
+              {userInfo['full_name'] &&
+                <div className={'Userpage-container__Userinfo__Description__Name'}>
+                  {userInfo['full_name']}
+                </div>}
+              {userInfo['biography'] &&
+                <div className={'Userpage-container__Userinfo__Description__Bio'}>
+                  {userInfo['biography']}
+                </div>}
+              {userInfo['external_url'] &&
+                <div className={'Userpage-container__Userinfo__Description__Website'}>
+                  {userInfo['external_url']}
+                </div>}
+            </div>}
         </div>
         <div className={'Userpage-container__Contents'}>
           <div className={'Userpage-container__Contents__Categories'}>
