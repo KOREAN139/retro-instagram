@@ -36,14 +36,16 @@ const PixelImage: React.FC<Props> = (props) => {
     );
 
     if (!pixelized) {
-      for (let x = 0; x < width; x += 5) {
-        for (let y = 0; y < height; y += 5) {
+      let pixelSize = Math.round(height / 100);
+
+      for (let x = 0; x < width; x += pixelSize) {
+        for (let y = 0; y < height; y += pixelSize) {
           const rgba = context.getImageData(x, y, 1, 1).data;
           const red = Math.round(rgba[0] * 8 / 255) * 32 - 1;
           const green = Math.round(rgba[1] * 8 / 255) * 32 - 1;
           const blue = Math.round(rgba[2] * 4 / 255) * 64 - 1;
           context.fillStyle = `rgb(${red},${green},${blue})`;
-          context.fillRect(x, y, 5, 5);
+          context.fillRect(x, y, pixelSize, pixelSize);
         }
       }
 
