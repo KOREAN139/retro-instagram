@@ -81,7 +81,9 @@ const User = () => {
             >
               {userInfo &&
                 <PixelImage
-                  source={ userInfo['profile_pic_url']}
+                  type={'profile'}
+                  source={userInfo['profile_pic_url']}
+                  pixelized={false}
                 />}
             </div>
               <div className={'Userpage-container__Userinfo__Profile__Follow'}>
@@ -176,10 +178,14 @@ const User = () => {
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
               {userPosts && userPosts.map((post, i) => {
-                const source = post.mediaUrl;
+                const { mediaUrl, pixelizedMediaUrl } = post;
+                const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
                 return (
                   <PixelImage
+                    type={'post'}
                     source={source}
+                    pixelized={!!pixelizedMediaUrl}
+                    index={i}
                     key={i}
                   />
                 );

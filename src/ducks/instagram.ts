@@ -16,6 +16,11 @@ interface InstagramState {
   userPosts: MediaItem[]
 };
 
+interface SetPixelizedUrlPayload {
+  index: number
+  pixelizedMediaUrl: string
+};
+
 const initialState: InstagramState = {
   signedIn: false,
   userPk: 0,
@@ -66,6 +71,10 @@ const instagramDetails = createSlice({
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
     },
+    setPixelizedUserPost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+      const { index, pixelizedMediaUrl } = action.payload;
+      state.userPosts[index].pixelizedMediaUrl = pixelizedMediaUrl;
+    },
   },
 });
 
@@ -76,6 +85,7 @@ export const {
   getSignedInUserInfoFailed,
   getUserPostsSuccess,
   getUserPostsFailed,
+  setPixelizedUserPost,
 } = instagramDetails.actions;
 
 export default instagramDetails.reducer;
@@ -109,4 +119,9 @@ export const getUserPosts = (userPk: number) =>
     } catch (err) {
       dispatch(getUserPostsFailed(err.toString()));
     }
+  };
+
+export const setPixelizedUrl = (index: number, pixelizedMediaUrl: string) =>
+  (dispatch: Dispatch) => {
+    dispatch(setPixelizedUserPost({index, pixelizedMediaUrl}));
   };
