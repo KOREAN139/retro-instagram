@@ -176,9 +176,7 @@ const User = () => {
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
               {userPosts && userPosts.map((post, i) => {
-                const source = post.carousel_media ?
-                  post.carousel_media[0].image_versions2.candidates[0].url :
-                  post.image_versions2.candidates[0].url;
+                const source = post.mediaUrl;
                 return (
                   <PixelImage
                     source={source}

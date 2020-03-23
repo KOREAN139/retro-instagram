@@ -5,12 +5,15 @@ import {
   UserRepositoryInfoResponseUser,
   UserFeedResponseItemsItem
 } from 'instagram-private-api';
+import {
+  MediaItem
+} from 'retro-instagram';
 
 interface InstagramState {
   signedIn: boolean
   userPk: number
   userInfo: UserRepositoryInfoResponseUser | null
-  userPosts: UserFeedResponseItemsItem[]
+  userPosts: MediaItem[]
 };
 
 const initialState: InstagramState = {
@@ -36,7 +39,30 @@ const instagramDetails = createSlice({
     getSignedInUserInfoFailed(state, action: PayloadAction<string>) {
     },
     getUserPostsSuccess(state, action: PayloadAction<UserFeedResponseItemsItem[]>) {
-      action.payload.forEach(post => state.userPosts.push(post));
+      action.payload.forEach(post => {
+        const mediaType = post.carousel_media ? 'Carousel' :
+          post.video_versions ? 'Video' : 'Photo';
+
+        const mediaUrl = post.carousel_media ?
+          post.carousel_media[0].image_versions2.candidates[0].url :
+          post.image_versions2.candidates[0].url;
+
+        const {
+          like_count: likeCount,
+          comment_count: commentCount,
+          has_more_comments: hasMoreComments,
+          preview_comments: previewComments,
+        } = post;
+
+        state.userPosts.push({
+          mediaType,
+          mediaUrl,
+          commentCount,
+          hasMoreComments,
+          previewComments,
+          likeCount,
+        });
+      });
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
     },
