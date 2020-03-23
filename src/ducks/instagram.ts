@@ -6,14 +6,15 @@ import {
   UserFeedResponseItemsItem
 } from 'instagram-private-api';
 import {
-  MediaItem
+  UserInfo,
+  PostItem
 } from 'retro-instagram';
 
 interface InstagramState {
   signedIn: boolean
   userPk: number
-  userInfo: UserRepositoryInfoResponseUser | null
-  userPosts: MediaItem[]
+  userInfo: UserInfo | null
+  userPosts: PostItem[]
 };
 
 interface SetPixelizedUrlPayload {
@@ -39,7 +40,27 @@ const instagramDetails = createSlice({
     signInInstagramFailed(state, action: PayloadAction<string>) {
     },
     getSignedInUserInfoSuccess(state, action: PayloadAction<UserRepositoryInfoResponseUser>) {
-      state.userInfo = action.payload;
+      const {
+        username,
+        full_name: fullName,
+        profile_pic_url: mediaUrl,
+        media_count: mediaCount,
+        follower_count: followerCount,
+        following_count: followingCount,
+        biography,
+        external_url: externalUrl,
+      } = action.payload;
+
+      state.userInfo = {
+        username,
+        fullName,
+        profilePicture: { mediaUrl },
+        mediaCount,
+        followerCount,
+        followingCount,
+        biography,
+        externalUrl,
+      };
     },
     getSignedInUserInfoFailed(state, action: PayloadAction<string>) {
     },

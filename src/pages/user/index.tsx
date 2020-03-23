@@ -41,9 +41,9 @@ const User = () => {
   }, [loadUserInfo, history]);
 
   if (userInfo) {
-    const exist = userInfo['full_name']
-      || userInfo['biography']
-      || userInfo['external_url']
+    const exist = userInfo.fullName
+      || userInfo.biography
+      || userInfo.externalUrl
       || false;
     infoExists = !!exist;
   }
@@ -51,7 +51,7 @@ const User = () => {
   const onClickProfileLink = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     const { shell } = window.require('electron');
-    let link = userInfo['external_url'];
+    let link = userInfo.externalUrl;
     shell.openExternal(link);
   };
 
@@ -72,7 +72,7 @@ const User = () => {
   };
 
   return (
-    <Page title={userInfo ? userInfo['username'] : 'Username'}>
+    <Page title={userInfo ? userInfo.username : 'Username'}>
       <div className={'Userpage-container'}>
         <div className={'Userpage-container__Userinfo'}>
           <div className={'Userpage-container__Userinfo__Profile'}>
@@ -82,7 +82,7 @@ const User = () => {
               {userInfo &&
                 <PixelImage
                   type={'profile'}
-                  source={userInfo['profile_pic_url']}
+                  source={userInfo.profilePicture.mediaUrl}
                   pixelized={false}
                 />}
             </div>
@@ -90,7 +90,7 @@ const User = () => {
                 <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers'}>
                   <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
                     <div>
-                      <b>{userInfo ? userInfo['media_count'] : 1}</b>
+                      <b>{userInfo ? userInfo.mediaCount : 1}</b>
                     </div>
                     <div>
                       posts
@@ -98,7 +98,7 @@ const User = () => {
                   </div>
                   <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
                     <div>
-                      <b>{userInfo ? userInfo['follower_count'] : 3}</b>
+                      <b>{userInfo ? userInfo.followerCount : 3}</b>
                     </div>
                     <div>
                       followers
@@ -106,7 +106,7 @@ const User = () => {
                   </div>
                   <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
                     <div>
-                      <b>{userInfo ? userInfo['following_count'] : 9}</b>
+                      <b>{userInfo ? userInfo.followingCount : 9}</b>
                     </div>
                     <div>
                       following
@@ -127,23 +127,23 @@ const User = () => {
           </div>
           {infoExists &&
             <div className={'Userpage-container__Userinfo__Description'}>
-              {userInfo['full_name'] &&
+              {userInfo.fullName &&
                 <div className={'Userpage-container__Userinfo__Description__Name'}>
-                  {userInfo['full_name']}
+                  {userInfo.fullName}
                 </div>}
-              {userInfo['biography'] &&
+              {userInfo.biography &&
                 <div className={'Userpage-container__Userinfo__Description__Bio'}>
-                  {userInfo['biography']}
+                  {userInfo.biography}
                 </div>}
-              {userInfo['external_url'] &&
+              {userInfo.externalUrl &&
                 <div className={'Userpage-container__Userinfo__Description__Website'}>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={userInfo['external_url']}
+                    href={userInfo.externalUrl}
                     onClick={onClickProfileLink}
                   >
-                    {userInfo['external_url']}
+                    {userInfo.externalUrl}
                   </a>
                 </div>}
             </div>}
