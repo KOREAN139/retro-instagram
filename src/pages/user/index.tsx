@@ -18,6 +18,7 @@ const User = () => {
   const history = useHistory();
   const [currentCategory, setCurrentCategory] = useState('grid');
   let infoExists = false;
+  let pixelizedProfile = false;
 
   const userPk: number = useSelector(
     (state: RootState) => state.instagram.userPk
@@ -42,10 +43,11 @@ const User = () => {
 
   if (userInfo) {
     const exist = userInfo.fullName
-      || userInfo.biography
-      || userInfo.externalUrl
-      || false;
+                  || userInfo.biography
+                  || userInfo.externalUrl
+                  || false;
     infoExists = !!exist;
+    pixelizedProfile = !!userInfo.profilePicture.pixelizedMediaUrl;
   }
 
   const onClickProfileLink = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -82,8 +84,10 @@ const User = () => {
               {userInfo &&
                 <PixelImage
                   type={'profile'}
-                  source={userInfo.profilePicture.mediaUrl}
-                  pixelized={false}
+                  source={pixelizedProfile ?
+                    userInfo.profilePicture.pixelizedMediaUrl :
+                    userInfo.profilePicture.mediaUrl}
+                  pixelized={pixelizedProfile}
                 />}
             </div>
               <div className={'Userpage-container__Userinfo__Profile__Follow'}>

@@ -92,6 +92,9 @@ const instagramDetails = createSlice({
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
     },
+    setPixelizedUserProfile(state, action: PayloadAction<string>) {
+      state.userInfo!.profilePicture.pixelizedMediaUrl = action.payload;
+    },
     setPixelizedUserPost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
       const { index, pixelizedMediaUrl } = action.payload;
       state.userPosts[index].pixelizedMediaUrl = pixelizedMediaUrl;
@@ -106,6 +109,7 @@ export const {
   getSignedInUserInfoFailed,
   getUserPostsSuccess,
   getUserPostsFailed,
+  setPixelizedUserProfile,
   setPixelizedUserPost,
 } = instagramDetails.actions;
 
@@ -142,7 +146,19 @@ export const getUserPosts = (userPk: number) =>
     }
   };
 
-export const setPixelizedUrl = (index: number, pixelizedMediaUrl: string) =>
+export const setPixelizedUrl = (
+  type: string,
+  pixelizedMediaUrl: string,
+  idx?: number
+) =>
   (dispatch: Dispatch) => {
-    dispatch(setPixelizedUserPost({index, pixelizedMediaUrl}));
+    switch (type) {
+      case 'post':
+        const index = idx!;
+        dispatch(setPixelizedUserPost({index, pixelizedMediaUrl}));
+        break;
+      case 'profile':
+        dispatch(setPixelizedUserProfile(pixelizedMediaUrl));
+        break;
+    }
   };

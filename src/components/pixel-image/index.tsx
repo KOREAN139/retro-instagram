@@ -48,10 +48,7 @@ const PixelImage: React.FC<Props> = (props) => {
       }
 
       const pixelizedMediaUrl = canvas.toDataURL();
-
-      if (type === 'post') {
-        dispatch(setPixelizedUrl(index!, pixelizedMediaUrl));
-      }
+      dispatch(setPixelizedUrl(type, pixelizedMediaUrl, index));
     }
   };
 
