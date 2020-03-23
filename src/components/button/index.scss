@@ -101,4 +101,9 @@ $static-folder-url: '../../static';
       }
     }
   }
+
+  &.Post {
+    padding: 7px 12px 7px 12px;
+    font-size: 13px;
+  }
 }
