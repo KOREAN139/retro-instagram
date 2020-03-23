@@ -19,6 +19,18 @@ const Post: React.FC<Props> = (props) => {
       className={'Post-container'}
       {...otherProps}
     >
+      <div className={'Post-container__Header'}>
+        <div className={'Post-container__Header__Profile-picture'}>
+          <PixelImage
+            type={'profile'}
+            source={source}
+            pixelized={pixelized}
+          />
+        </div>
+        <div className={'Post-container__Header__Username'}>
+          {`username`}
+        </div>
+      </div>
       <div className={'Post-container__Media'}>
         <PixelImage
           type={'post'}
