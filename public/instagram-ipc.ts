@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron-better-ipc';
-import { IgApiClient, UserFeed } from 'instagram-private-api';
+import { IgApiClient, UserFeed, TimelineFeed } from 'instagram-private-api';
 
 interface userInfo {
   username: string
@@ -8,6 +8,7 @@ interface userInfo {
 
 const ig = new IgApiClient();
 let userFeed: UserFeed | null = null;
+let timelineFeed: TimelineFeed | null = null;
 
 ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
   const { username, password } = data;
@@ -32,4 +33,15 @@ ipcMain.answerRenderer('get-user-posts', async (userPk: string) => {
   }
 
   return await userFeed.items();
+});
+
+ipcMain.answerRenderer('get-timeline', async () => {
+  if (timelineFeed && !timelineFeed.isMoreAvailable()) {
+    return [];
+  }
+
+  if (!timelineFeed) {
+    timelineFeed = ig.feed.timeline();
+  }
+  return await timelineFeed.items();
 });

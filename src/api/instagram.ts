@@ -26,3 +26,10 @@ export const getUserPosts = async (
   const res = await ipcRenderer.callMain('get-user-posts', userPk);
   return res;
 };
+
+export const getTimeline = async (
+  userPk: number
+): Promise<UserFeedResponseItemsItem[]> => {
+  const res = await ipcRenderer.callMain('get-timeline');
+  return res;
+};
