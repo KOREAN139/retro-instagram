@@ -80,9 +80,8 @@ const User = () => {
               className={'Userpage-container__Userinfo__Profile__Picture'}
             >
               {userInfo &&
-                <img
-                  alt={''}
-                  src={userInfo['profile_pic_url']}
+                <PixelImage
+                  source={ userInfo['profile_pic_url']}
                 />}
             </div>
               <div className={'Userpage-container__Userinfo__Profile__Follow'}>
