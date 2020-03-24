@@ -38,6 +38,7 @@ const Post: React.FC<Props> = (props) => {
           source={source}
           pixelized={pixelized}
           index={index}
+          pixelPerLine={200}
         />
       </div>
       <div className={'Post-container__Buttons'}>

@@ -7,6 +7,7 @@ interface PixelImageProps {
   type: string
   source: string
   pixelized: boolean
+  pixelPerLine?: number
   index?: number
 }
 
@@ -36,7 +37,11 @@ const PixelImage: React.FC<Props> = (props) => {
     );
 
     if (!pixelized) {
-      let pixelSize = Math.round(height / 100);
+      let pixelPerLine = 100;
+      if (props.pixelPerLine) {
+        pixelPerLine = props.pixelPerLine;
+      }
+      let pixelSize = Math.round(height / pixelPerLine);
 
       for (let x = 0; x < width; x += pixelSize) {
         for (let y = 0; y < height; y += pixelSize) {
