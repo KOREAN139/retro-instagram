@@ -85,6 +85,7 @@ const Post: React.FC<Props> = (props) => {
               source={profilePictureUrl}
               pixelized={pixelizedProfilePicture}
               index={index}
+              pixelPerLine={30}
             />
           </div>
           <div className={'Post-container__Header__Username'}>
