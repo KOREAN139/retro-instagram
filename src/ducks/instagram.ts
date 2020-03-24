@@ -6,14 +6,14 @@ import {
   GetUserFeedResponse
 } from 'instagram-private-api';
 import {
-  UserInfo,
+  DetailUserInfo,
   UserPostInfo
 } from 'retro-instagram';
 
 interface InstagramState {
   signedIn: boolean
   userPk: number
-  userInfo: UserInfo | null
+  userInfo: DetailUserInfo | null
   userPostInfo: UserPostInfo
 };
 

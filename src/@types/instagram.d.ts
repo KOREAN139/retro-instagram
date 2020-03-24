@@ -19,8 +19,11 @@ declare module 'retro-instagram' {
 
   export interface UserInfo {
     username: string
-    fullName?: string
     profilePicture: MediaItem
+  }
+
+  export interface DetailUserInfo extends UserInfo {
+    fullName?: string
     mediaCount: number
     followerCount: number
     followingCount: number
