@@ -184,7 +184,7 @@ const User = () => {
           </div>
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
-              {posts && posts.map((post, i) => {
+              {posts.length > 0 && posts.map((post, i) => {
                 const { mediaUrl, pixelizedMediaUrl } = post;
                 const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
                 return (
