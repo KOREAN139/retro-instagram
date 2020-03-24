@@ -166,6 +166,14 @@ const instagramDetails = createSlice({
       const { index, pixelizedMediaUrl } = action.payload;
       state.userPostInfo.posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
     },
+    setPixelizedTimelineProfile(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+      const { index, pixelizedMediaUrl } = action.payload;
+      state.timelineInfo.posts[index].user.profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+    },
+    setPixelizedTimelinePost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+      const { index, pixelizedMediaUrl } = action.payload;
+      state.timelineInfo.posts[index].post.pixelizedMediaUrl = pixelizedMediaUrl;
+    },
   },
 });
 
@@ -180,6 +188,8 @@ export const {
   getTimelineFailed,
   setPixelizedUserProfile,
   setPixelizedUserPost,
+  setPixelizedTimelineProfile,
+  setPixelizedTimelinePost,
 } = instagramDetails.actions;
 
 export default instagramDetails.reducer;
@@ -233,11 +243,13 @@ export const setPixelizedUrl = (
   (dispatch: Dispatch) => {
     switch (type) {
       case 'feed-post':
+        dispatch(setPixelizedTimelinePost({index: idx!, pixelizedMediaUrl}));
+        break;
       case 'feed-profile':
+        dispatch(setPixelizedTimelineProfile({index: idx!, pixelizedMediaUrl}));
         break;
       case 'user-thumbnail':
-        const index = idx!;
-        dispatch(setPixelizedUserPost({index, pixelizedMediaUrl}));
+        dispatch(setPixelizedUserPost({index: idx!, pixelizedMediaUrl}));
         break;
       case 'user-profile':
         dispatch(setPixelizedUserProfile(pixelizedMediaUrl));
