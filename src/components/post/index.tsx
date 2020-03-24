@@ -66,7 +66,6 @@ const Post: React.FC<Props> = (props) => {
 
   const {
     likeCount,
-    hasMoreComments,
     commentCount,
     previewComments,
     createdAt,
@@ -128,13 +127,13 @@ const Post: React.FC<Props> = (props) => {
           </span>
           {caption.text}
         </div>}
-      {commentCount && 
+      {commentCount > 0 &&
         <div className={'Post-container__Comments'}>
-          {hasMoreComments &&
+          {commentCount > previewComments.length &&
             <div className={'Post-container__Comments__More'}>
               {`View all ${commentCount} Comments`}
             </div>}
-          {previewComments.length && previewComments.map((comment, i) => (
+          {previewComments.length > 0 && previewComments.map((comment, i) => (
             <div
               className={'Post-container__Comments__Preview'}
               key={i}

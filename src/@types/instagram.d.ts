@@ -12,7 +12,6 @@ declare module 'retro-instagram' {
   export interface PostItem extends MediaItem {
     mediaType: string // 'Photo' | 'Video' | 'Carousel'
     commentCount: number
-    hasMoreComments: boolean
     previewComments: CommentItem[]
     likeCount: number
   }

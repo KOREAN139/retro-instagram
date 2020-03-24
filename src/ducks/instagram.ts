@@ -89,7 +89,6 @@ const instagramDetails = createSlice({
         const {
           like_count: likeCount,
           comment_count: commentCount,
-          has_more_comments: hasMoreComments,
           preview_comments: previewCommentInfo,
         } = post;
 
@@ -103,7 +102,6 @@ const instagramDetails = createSlice({
           mediaType,
           mediaUrl,
           commentCount,
-          hasMoreComments,
           previewComments,
           likeCount,
         });
@@ -135,7 +133,6 @@ const instagramDetails = createSlice({
           has_liked: hasLiked,
           like_count: likeCount,
           comment_count: commentCount,
-          has_more_comments: hasMoreComments,
           preview_comments: previewCommentInfo,
         } = post;
 
@@ -148,8 +145,9 @@ const instagramDetails = createSlice({
 
         const previewComments: CommentItem[] = [];
         previewCommentInfo.forEach(comment => {
-          const { user_id: username, text } = comment;
-          return { username, text };
+          const { user, text } = comment;
+          const { username } = user;
+          return previewComments.push({ username, text });
         })
 
         const caption = {
@@ -162,7 +160,6 @@ const instagramDetails = createSlice({
           mediaType,
           mediaUrl,
           commentCount,
-          hasMoreComments,
           previewComments,
           hasLiked,
           likeCount,
