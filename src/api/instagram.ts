@@ -1,6 +1,6 @@
 import {
   UserRepositoryInfoResponseUser,
-  UserFeedResponseItemsItem
+  GetUserFeedResponse
 } from 'instagram-private-api';
 
 const { ipcRenderer } = window;
@@ -22,14 +22,14 @@ export const getUserInfo = async (
 
 export const getUserPosts = async (
   userPk: number
-): Promise<UserFeedResponseItemsItem[]> => {
+): Promise<GetUserFeedResponse> => {
   const res = await ipcRenderer.callMain('get-user-posts', userPk);
   return res;
 };
 
 export const getTimeline = async (
   userPk: number
-): Promise<UserFeedResponseItemsItem[]> => {
+): Promise<any[]> => {
   const res = await ipcRenderer.callMain('get-timeline');
   return res;
 };

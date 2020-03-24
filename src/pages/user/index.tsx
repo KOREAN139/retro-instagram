@@ -28,14 +28,17 @@ const User = () => {
     (state: RootState) => state.instagram.userInfo
   );
 
-  const userPosts = useSelector(
-    (state: RootState) => state.instagram.userPosts
+  const userPostInfo = useSelector(
+    (state: RootState) => state.instagram.userPostInfo
   );
+  const { moreAvailable, posts } = userPostInfo;
 
   const loadUserInfo = useCallback(async () => {
     await dispatch(getSignedInUserInfo(userPk));
-    await dispatch(getUserPosts(userPk));
-  }, [dispatch, userPk]);
+    if (moreAvailable) {
+      await dispatch(getUserPosts(userPk));
+    }
+  }, [dispatch, userPk, moreAvailable]);
 
   useEffect(() => {
     loadUserInfo();
@@ -181,7 +184,7 @@ const User = () => {
           </div>
           <div className={'Userpage-container__Contents__Box'}>
             <div className={'Userpage-container__Contents__Box__Scrollable'}>
-              {userPosts && userPosts.map((post, i) => {
+              {posts && posts.map((post, i) => {
                 const { mediaUrl, pixelizedMediaUrl } = post;
                 const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
                 return (

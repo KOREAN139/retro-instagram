@@ -24,15 +24,13 @@ ipcMain.answerRenderer('get-user-info', async (userPk: string) => {
 });
 
 ipcMain.answerRenderer('get-user-posts', async (userPk: string) => {
-  if (userFeed && !userFeed.isMoreAvailable()) {
-    return [];
-  }
-
   if (!userFeed) {
     userFeed = ig.feed.user(userPk);
   }
 
-  return await userFeed.items();
+  const posts = await userFeed.items();
+  const moreAvailable = userFeed.isMoreAvailable();
+  return { moreAvailable, posts };
 });
 
 ipcMain.answerRenderer('get-timeline', async () => {

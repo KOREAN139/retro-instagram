@@ -12,6 +12,11 @@ declare module 'retro-instagram' {
     likeCount: number
   }
 
+  export interface UserPostInfo {
+    moreAvailable: boolean
+    posts: PostItem[]
+  }
+
   export interface UserInfo {
     username: string
     fullName?: string

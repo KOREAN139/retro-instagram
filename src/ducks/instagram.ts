@@ -3,18 +3,18 @@ import { Dispatch } from 'redux';
 import * as InstagramAPI from '../api/instagram';
 import {
   UserRepositoryInfoResponseUser,
-  UserFeedResponseItemsItem
+  GetUserFeedResponse
 } from 'instagram-private-api';
 import {
   UserInfo,
-  PostItem
+  UserPostInfo
 } from 'retro-instagram';
 
 interface InstagramState {
   signedIn: boolean
   userPk: number
   userInfo: UserInfo | null
-  userPosts: PostItem[]
+  userPostInfo: UserPostInfo
 };
 
 interface SetPixelizedUrlPayload {
@@ -26,7 +26,10 @@ const initialState: InstagramState = {
   signedIn: false,
   userPk: 0,
   userInfo: null,
-  userPosts: [],
+  userPostInfo: {
+    moreAvailable: true,
+    posts: [],
+  },
 };
 
 const instagramDetails = createSlice({
@@ -64,8 +67,10 @@ const instagramDetails = createSlice({
     },
     getSignedInUserInfoFailed(state, action: PayloadAction<string>) {
     },
-    getUserPostsSuccess(state, action: PayloadAction<UserFeedResponseItemsItem[]>) {
-      action.payload.forEach(post => {
+    getUserPostsSuccess(state, action: PayloadAction<GetUserFeedResponse>) {
+      const { moreAvailable, posts } = action.payload;
+      state.userPostInfo.moreAvailable = moreAvailable;
+      posts.forEach(post => {
         const mediaType = post.carousel_media ? 'Carousel' :
           post.video_versions ? 'Video' : 'Photo';
 
@@ -80,7 +85,7 @@ const instagramDetails = createSlice({
           preview_comments: previewComments,
         } = post;
 
-        state.userPosts.push({
+        state.userPostInfo.posts.push({
           mediaType,
           mediaUrl,
           commentCount,
@@ -97,7 +102,7 @@ const instagramDetails = createSlice({
     },
     setPixelizedUserPost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.userPosts[index].pixelizedMediaUrl = pixelizedMediaUrl;
+      state.userPostInfo.posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
     },
   },
 });
