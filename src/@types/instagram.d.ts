@@ -4,18 +4,24 @@ declare module 'retro-instagram' {
     pixelizedMediaUrl?: string
   }
 
+  export interface CommentItem {
+    username: string
+    text: string
+  }
+
   export interface PostItem extends MediaItem {
     mediaType: string // 'Photo' | 'Video' | 'Carousel'
     commentCount: number
     hasMoreComments: boolean
-    previewComments: any[]
+    previewComments: CommentItem[]
     likeCount: number
   }
 
   export interface PostWithCaptionItem extends PostItem {
     id: string
-    caption: string
+    caption: CommentItem
     hasLiked: boolean
+    createdAt: number
   }
 
   export interface TimelineItem {

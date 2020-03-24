@@ -9,6 +9,7 @@ import {
 import {
   DetailUserInfo,
   UserPostInfo,
+  CommentItem,
   TimelineInfo
 } from 'retro-instagram';
 
@@ -89,8 +90,14 @@ const instagramDetails = createSlice({
           like_count: likeCount,
           comment_count: commentCount,
           has_more_comments: hasMoreComments,
-          preview_comments: previewComments,
+          preview_comments: previewCommentInfo,
         } = post;
+
+        const previewComments: CommentItem[] = [];
+        previewCommentInfo.forEach(comment => {
+          const { user_id: username, text } = comment;
+          return { username, text };
+        })
 
         state.userPostInfo.posts.push({
           mediaType,
@@ -124,12 +131,12 @@ const instagramDetails = createSlice({
         const {
           id,
           user,
-          caption,
+          caption: captionInfo,
           has_liked: hasLiked,
           like_count: likeCount,
           comment_count: commentCount,
           has_more_comments: hasMoreComments,
-          preview_comments: previewComments,
+          preview_comments: previewCommentInfo,
         } = post;
 
         const userInfo = {
@@ -137,6 +144,17 @@ const instagramDetails = createSlice({
           profilePicture: {
             mediaUrl: user.profile_pic_url,
           },
+        };
+
+        const previewComments: CommentItem[] = [];
+        previewCommentInfo.forEach(comment => {
+          const { user_id: username, text } = comment;
+          return { username, text };
+        })
+
+        const caption = {
+          username: captionInfo.user.username,
+          text: captionInfo.text,
         };
 
         const postWithCaption = {
@@ -148,7 +166,8 @@ const instagramDetails = createSlice({
           previewComments,
           hasLiked,
           likeCount,
-          caption: caption.text,
+          caption,
+          createdAt: captionInfo.created_at_utc * 1000,
         };
 
         state.timelineInfo.posts.push({

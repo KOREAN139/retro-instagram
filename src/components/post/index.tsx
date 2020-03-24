@@ -17,6 +17,29 @@ interface PostProps {
 
 export type Props = PostProps & React.HTMLAttributes<HTMLDivElement>;
 
+const formatDate = (utc: number): string => {
+  const monthString = [
+    'JANUARY',
+    'FEBRUARY',
+    'MARCH',
+    'APRIL',
+    'MAY',
+    'JUNE',
+    'JULY',
+    'AUGUST',
+    'SEPTEMBER',
+    'OCTOBER',
+    'NOVEMBER',
+    'DECEMBER',
+  ];
+  const date = new Date(utc);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  return `${day} ${monthString[month]} ${year} . `;
+}
+
 const Post: React.FC<Props> = (props) => {
   const {
     source,
@@ -44,7 +67,10 @@ const Post: React.FC<Props> = (props) => {
   const {
     likeCount,
     hasMoreComments,
-    commentCount
+    commentCount,
+    previewComments,
+    createdAt,
+    caption,
   } = postInfo;
 
   return (
@@ -95,33 +121,33 @@ const Post: React.FC<Props> = (props) => {
           {`${likeCount} likes`}
         </div>
       </div>
-      <div className={'Post-container__Info'}>
-        <span className={'Post-container__Info__Username'}>
-          {`username`}
-        </span>
-        {`sample comment`}
-      </div>
-      <div className={'Post-container__Comments'}>
-        {hasMoreComments &&
-          <div className={'Post-container__Comments__More'}>
-            {`View all ${commentCount} Comments`}
-          </div>}
-        <div className={'Post-container__Comments__Preview'}>
-          <span className={'Post-container__Comments__Preview__Username'}>
-            {`username`}
+      {caption.text &&
+        <div className={'Post-container__Info'}>
+          <span className={'Post-container__Info__Username'}>
+            {caption.username}
           </span>
-          {`sample comment`}
-        </div>
-        <div className={'Post-container__Comments__Preview'}>
-          <span className={'Post-container__Comments__Preview__Username'}>
-            {`username`}
-          </span>
-          {`sample comment`}
-        </div>
-      </div>
+          {caption.text}
+        </div>}
+      {commentCount && 
+        <div className={'Post-container__Comments'}>
+          {hasMoreComments &&
+            <div className={'Post-container__Comments__More'}>
+              {`View all ${commentCount} Comments`}
+            </div>}
+          {previewComments.length && previewComments.map((comment, i) => (
+            <div
+              className={'Post-container__Comments__Preview'}
+              key={i}
+            >
+              <span className={'Post-container__Comments__Preview__Username'}>
+                {comment.username}
+              </span>
+              {comment.text}
+            </div>))}
+        </div>}
       <div className={'Post-container__Additional'}>
         <span className={'Post-container__Additional__Date'}>
-          {`19 SEPTEMBER 2019 . `}
+          {formatDate(createdAt)}
         </span >
         <span className={'Post-container__Additional__Translate'}>
           SEE TRANSLATION
