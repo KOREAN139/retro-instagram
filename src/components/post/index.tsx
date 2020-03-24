@@ -22,9 +22,10 @@ const Post: React.FC<Props> = (props) => {
       <div className={'Post-container__Header'}>
         <div className={'Post-container__Header__Profile-picture'}>
           <PixelImage
-            type={'profile'}
+            type={'feed-profile'}
             source={source}
             pixelized={pixelized}
+            index={index}
           />
         </div>
         <div className={'Post-container__Header__Username'}>
@@ -33,7 +34,7 @@ const Post: React.FC<Props> = (props) => {
       </div>
       <div className={'Post-container__Media'}>
         <PixelImage
-          type={'post'}
+          type={'feed-post'}
           source={source}
           pixelized={pixelized}
           index={index}

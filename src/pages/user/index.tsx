@@ -83,7 +83,7 @@ const User = () => {
             >
               {userInfo &&
                 <PixelImage
-                  type={'profile'}
+                  type={'user-profile'}
                   source={pixelizedProfile ?
                     userInfo.profilePicture.pixelizedMediaUrl :
                     userInfo.profilePicture.mediaUrl}
@@ -186,7 +186,7 @@ const User = () => {
                 const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
                 return (
                   <PixelImage
-                    type={'post'}
+                    type={'user-thumbnail'}
                     source={source}
                     pixelized={!!pixelizedMediaUrl}
                     index={i}

@@ -153,11 +153,14 @@ export const setPixelizedUrl = (
 ) =>
   (dispatch: Dispatch) => {
     switch (type) {
-      case 'post':
+      case 'feed-post':
+      case 'feed-profile':
+        break;
+      case 'user-thumbnail':
         const index = idx!;
         dispatch(setPixelizedUserPost({index, pixelizedMediaUrl}));
         break;
-      case 'profile':
+      case 'user-profile':
         dispatch(setPixelizedUserProfile(pixelizedMediaUrl));
         break;
     }
