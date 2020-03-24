@@ -2,9 +2,15 @@ import React from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import PixelImage from '../../components/pixel-image';
+import {
+  PostWithCaptionItem,
+  UserInfo
+} from 'retro-instagram';
 
 interface PostProps {
   source: string
+  postInfo: PostWithCaptionItem
+  userInfo?: UserInfo
   pixelized: boolean
   index: number
 }
@@ -12,31 +18,59 @@ interface PostProps {
 export type Props = PostProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Post: React.FC<Props> = (props) => {
-  const { source, pixelized, index, ...otherProps } = props;
+  const {
+    source,
+    postInfo,
+    userInfo,
+    pixelized,
+    index,
+    ...otherProps
+  } = props;
+
+  let profilePictureUrl = '';
+  let pixelizedProfilePicture = false;
+  if (userInfo) {
+    const { mediaUrl, pixelizedMediaUrl } = userInfo.profilePicture;
+
+    pixelizedProfilePicture = !!pixelizedMediaUrl;
+    profilePictureUrl = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
+  }
+
+  const { mediaUrl, pixelizedMediaUrl } = postInfo;
+
+  const pixelizedPostMedia = !!pixelizedMediaUrl;
+  const postMediaUrl = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
+
+  const {
+    likeCount,
+    hasMoreComments,
+    commentCount
+  } = postInfo;
 
   return (
     <div
       className={'Post-container'}
       {...otherProps}
     >
-      <div className={'Post-container__Header'}>
-        <div className={'Post-container__Header__Profile-picture'}>
-          <PixelImage
-            type={'feed-profile'}
-            source={source}
-            pixelized={pixelized}
-            index={index}
-          />
-        </div>
-        <div className={'Post-container__Header__Username'}>
-          {`username`}
-        </div>
-      </div>
+      {userInfo &&
+        <div className={'Post-container__Header'}>
+          <div className={'Post-container__Header__Profile-picture'}>
+            <PixelImage
+              type={'feed-profile'}
+              source={profilePictureUrl}
+              pixelized={pixelizedProfilePicture}
+              index={index}
+            />
+          </div>
+          <div className={'Post-container__Header__Username'}>
+            {userInfo.username}
+          </div>
+        </div>}
       <div className={'Post-container__Media'}>
         <PixelImage
           type={'feed-post'}
-          source={source}
-          pixelized={pixelized}
+          source={postMediaUrl}
+          pixelized={pixelizedPostMedia}
           index={index}
           pixelPerLine={200}
         />
@@ -58,7 +92,7 @@ const Post: React.FC<Props> = (props) => {
       <div className={'Post-container__Likes'}>
         <div className={'Post-container__Likes__Icon'} />
         <div className={'Post-container__Likes__Number'}>
-          {`139 likes`}
+          {`${likeCount} likes`}
         </div>
       </div>
       <div className={'Post-container__Info'}>
@@ -68,9 +102,10 @@ const Post: React.FC<Props> = (props) => {
         {`sample comment`}
       </div>
       <div className={'Post-container__Comments'}>
-        <div className={'Post-container__Comments__More'}>
-          View all {'139'} Comments
-        </div>
+        {hasMoreComments &&
+          <div className={'Post-container__Comments__More'}>
+            {`View all ${commentCount} Comments`}
+          </div>}
         <div className={'Post-container__Comments__Preview'}>
           <span className={'Post-container__Comments__Preview__Username'}>
             {`username`}
