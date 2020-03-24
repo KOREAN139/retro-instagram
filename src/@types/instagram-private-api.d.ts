@@ -5,4 +5,9 @@ declare module 'instagram-private-api' {
     moreAvailable: boolean
     posts: Instagram.UserFeedResponseItemsItem[]
   }
+
+  interface GetTimelineResponse {
+    moreAvailable: boolean
+    posts: Instagram.TimelineFeedResponseMedia_or_ad[]
+  }
 }

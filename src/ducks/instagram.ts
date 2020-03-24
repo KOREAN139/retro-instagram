@@ -3,11 +3,13 @@ import { Dispatch } from 'redux';
 import * as InstagramAPI from '../api/instagram';
 import {
   UserRepositoryInfoResponseUser,
-  GetUserFeedResponse
+  GetUserFeedResponse,
+  GetTimelineResponse
 } from 'instagram-private-api';
 import {
   DetailUserInfo,
-  UserPostInfo
+  UserPostInfo,
+  TimelineInfo
 } from 'retro-instagram';
 
 interface InstagramState {
@@ -15,6 +17,7 @@ interface InstagramState {
   userPk: number
   userInfo: DetailUserInfo | null
   userPostInfo: UserPostInfo
+  timelineInfo: TimelineInfo
 };
 
 interface SetPixelizedUrlPayload {
@@ -30,6 +33,10 @@ const initialState: InstagramState = {
     moreAvailable: true,
     posts: [],
   },
+  timelineInfo: {
+    moreAvailable: true,
+    posts: [],
+  }
 };
 
 const instagramDetails = createSlice({
@@ -97,6 +104,61 @@ const instagramDetails = createSlice({
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
     },
+    getTimelineSuccesss(state, action:PayloadAction<GetTimelineResponse>) {
+      const { moreAvailable, posts } = action.payload;
+      const postsWithoutAd = posts.filter(p => !p.injected);
+
+      state.timelineInfo.moreAvailable = moreAvailable;
+      if (!postsWithoutAd.length) {
+        return;
+      }
+
+      postsWithoutAd.forEach(post => {
+        const mediaType = post.carousel_media ? 'Carousel' :
+          post.video_versions ? 'Video' : 'Photo';
+
+        const mediaUrl = post.carousel_media ?
+          post.carousel_media[0].image_versions2.candidates[0].url :
+          post.image_versions2!.candidates[0].url;
+
+        const {
+          id,
+          user,
+          caption,
+          has_liked: hasLiked,
+          like_count: likeCount,
+          comment_count: commentCount,
+          has_more_comments: hasMoreComments,
+          preview_comments: previewComments,
+        } = post;
+
+        const userInfo = {
+          username: user.username,
+          profilePicture: {
+            mediaUrl: user.profile_pic_url,
+          },
+        };
+
+        const postWithCaption = {
+          id,
+          mediaType,
+          mediaUrl,
+          commentCount,
+          hasMoreComments,
+          previewComments,
+          hasLiked,
+          likeCount,
+          caption: caption.text,
+        };
+
+        state.timelineInfo.posts.push({
+          user: userInfo,
+          post: postWithCaption,
+        });
+      });
+    },
+    getTimelineFailed(state, action:PayloadAction<string>) {
+    },
     setPixelizedUserProfile(state, action: PayloadAction<string>) {
       state.userInfo!.profilePicture.pixelizedMediaUrl = action.payload;
     },
@@ -114,6 +176,8 @@ export const {
   getSignedInUserInfoFailed,
   getUserPostsSuccess,
   getUserPostsFailed,
+  getTimelineSuccesss,
+  getTimelineFailed,
   setPixelizedUserProfile,
   setPixelizedUserPost,
 } = instagramDetails.actions;
@@ -148,6 +212,16 @@ export const getUserPosts = (userPk: number) =>
       dispatch(getUserPostsSuccess(posts));
     } catch (err) {
       dispatch(getUserPostsFailed(err.toString()));
+    }
+  };
+
+export const getTimeline = (userPk: number) =>
+  async (dispatch: Dispatch) => {
+    try {
+      const timeline = await InstagramAPI.getTimeline(userPk);
+      dispatch(getTimelineSuccesss(timeline));
+    } catch (err) {
+      dispatch(getTimelineFailed(err.toString()));
     }
   };
 

@@ -5,11 +5,27 @@ declare module 'retro-instagram' {
   }
 
   export interface PostItem extends MediaItem {
-    mediaType: 'Photo' | 'Video' | 'Carousel'
+    mediaType: string // 'Photo' | 'Video' | 'Carousel'
     commentCount: number
     hasMoreComments: boolean
     previewComments: any[]
     likeCount: number
+  }
+
+  export interface PostWithCaptionItem extends PostItem {
+    id: string
+    caption: string
+    hasLiked: boolean
+  }
+
+  export interface TimelineItem {
+    user: UserInfo
+    post: PostWithCaptionItem
+  }
+
+  export interface TimelineInfo {
+    moreAvailable: boolean
+    posts: TimelineItem[]
   }
 
   export interface UserPostInfo {

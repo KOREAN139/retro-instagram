@@ -34,12 +34,11 @@ ipcMain.answerRenderer('get-user-posts', async (userPk: string) => {
 });
 
 ipcMain.answerRenderer('get-timeline', async () => {
-  if (timelineFeed && !timelineFeed.isMoreAvailable()) {
-    return [];
-  }
-
   if (!timelineFeed) {
     timelineFeed = ig.feed.timeline();
   }
-  return await timelineFeed.items();
+
+  const posts = await timelineFeed.items();
+  const moreAvailable = timelineFeed.isMoreAvailable();
+  return { moreAvailable, posts };
 });
