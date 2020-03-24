@@ -15,7 +15,14 @@ export type Props = PixelImageProps & React.HTMLAttributes<HTMLCanvasElement>;
 
 const PixelImage: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  const { source, pixelized, type, index, ...otherProps } = props;
+  const {
+    source,
+    pixelized,
+    type,
+    index,
+    pixelPerLine: ppl,
+    ...otherProps
+  } = props;
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   let image = new Image();
@@ -37,10 +44,7 @@ const PixelImage: React.FC<Props> = (props) => {
     );
 
     if (!pixelized) {
-      let pixelPerLine = 100;
-      if (props.pixelPerLine) {
-        pixelPerLine = props.pixelPerLine;
-      }
+      let pixelPerLine = ppl ? ppl : 100;
       let pixelSize = Math.round(height / pixelPerLine);
 
       for (let x = 0; x < width; x += pixelSize) {
