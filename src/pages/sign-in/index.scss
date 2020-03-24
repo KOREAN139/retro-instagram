@@ -20,16 +20,6 @@ $static-folder-url: '../../static';
   flex-direction: column;
   width: 80%;
 
-  -webkit-box-shadow:
-    inset -0.8px -0.8px 0px 0.8px rgba(0,0,0,1),
-    inset 0.8px 0.8px 0px 0.8px rgba(224,224,224,1),
-    inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
-    inset 1.6px 1.6px 0px 1.6px rgba(255,255,255,1);
-  -moz-box-shadow:
-    inset -0.8px -0.8px 0px 0.8px rgba(0,0,0,1),
-    inset 0.8px 0.8px 0px 0.8px rgba(224,224,224,1),
-    inset -1.6px -1.6px 0px 1.6px rgba(127,127,127,1),
-    inset 1.6px 1.6px 0px 1.6px rgba(255,255,255,1);
   box-shadow:
     inset -0.8px -0.8px 0px 0.8px rgba(0,0,0,1),
     inset 0.8px 0.8px 0px 0.8px rgba(224,224,224,1),
@@ -64,18 +54,6 @@ $static-folder-url: '../../static';
       font-family: W95FA;
       border: none;
       padding: 2.5px;
-      -moz-box-shadow:
-        inset -0.8px -0.8px 0px 0px rgba(255,255,255,1),
-        inset 0.8px 0.8px 0px 0px rgba(0,0,0,1),
-        inset -1.6px -1.6px 0px 0px rgba(224,224,224,1),
-        inset 1.6px 1.6px 0px 0px rgba(127,127,127,1),
-        inset 0px 2.4px 0px 0px rgba(255,255,255,1);
-      -webkit-box-shadow:
-        inset -0.8px -0.8px 0px 0px rgba(255,255,255,1),
-        inset 0.8px 0.8px 0px 0px rgba(0,0,0,1),
-        inset -1.6px -1.6px 0px 0px rgba(224,224,224,1),
-        inset 1.6px 1.6px 0px 0px rgba(127,127,127,1),
-        inset 0px 2.4px 0px 0px rgba(255,255,255,1);
       box-shadow:
         inset -0.8px -0.8px 0px 0px rgba(255,255,255,1),
         inset 0.8px 0.8px 0px 0px rgba(0,0,0,1),
