@@ -93,10 +93,13 @@ const instagramDetails = createSlice({
         } = post;
 
         const previewComments: CommentItem[] = [];
-        previewCommentInfo.forEach(comment => {
-          const { user_id: username, text } = comment;
-          return { username, text };
-        })
+        if (previewCommentInfo) {
+          previewCommentInfo.forEach(comment => {
+            const { user, text } = comment;
+            const { username } = user;
+            return previewComments.push({ username, text });
+          })
+        }
 
         state.userPostInfo.posts.push({
           mediaType,
@@ -144,11 +147,13 @@ const instagramDetails = createSlice({
         };
 
         const previewComments: CommentItem[] = [];
-        previewCommentInfo.forEach(comment => {
-          const { user, text } = comment;
-          const { username } = user;
-          return previewComments.push({ username, text });
-        })
+        if (previewCommentInfo) {
+          previewCommentInfo.forEach(comment => {
+            const { user, text } = comment;
+            const { username } = user;
+            return previewComments.push({ username, text });
+          })
+        }
 
         const caption = {
           username: captionInfo.user.username,

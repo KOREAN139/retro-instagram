@@ -127,7 +127,7 @@ const Post: React.FC<Props> = (props) => {
           </span>
           {caption.text}
         </div>}
-      {commentCount > 0 &&
+      {!!commentCount &&
         <div className={'Post-container__Comments'}>
           {commentCount > previewComments.length &&
             <div className={'Post-container__Comments__More'}>
