@@ -93,7 +93,7 @@ const instagramDetails = createSlice({
         } = post;
 
         const previewComments: CommentItem[] = [];
-        if (previewCommentInfo.length) {
+        if (previewCommentInfo && previewCommentInfo.length) {
           previewCommentInfo.forEach(comment => {
             const { user, text } = comment;
             const { username } = user;
@@ -148,7 +148,7 @@ const instagramDetails = createSlice({
         };
 
         const previewComments: CommentItem[] = [];
-        if (previewCommentInfo.length) {
+        if (previewCommentInfo && previewCommentInfo.length) {
           previewCommentInfo.forEach(comment => {
             const { user, text } = comment;
             const { username } = user;
