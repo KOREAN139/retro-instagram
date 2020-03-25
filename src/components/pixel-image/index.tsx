@@ -7,6 +7,7 @@ interface PixelImageProps {
   type: string
   source: string
   pixelized: boolean
+  centered?: boolean
   pixelPerLine?: number
   index?: number
 }
@@ -20,6 +21,7 @@ const PixelImage: React.FC<Props> = (props) => {
     pixelized,
     type,
     index,
+    centered,
     pixelPerLine: ppl,
     ...otherProps
   } = props;
@@ -33,22 +35,27 @@ const PixelImage: React.FC<Props> = (props) => {
     let canvas = canvasRef.current!;
     const context = canvas.getContext('2d')!;
     const { width, height } = image;
-    context.canvas.width = height;
-    context.canvas.height = height;
-    const sx = (width - height) / 2;
+
+    let lineLength = centered ? Math.min(width, height)
+                                : Math.max(width, height);
+    const diff = Math.abs(width - height) / 2;
+
+    context.canvas.width = lineLength;
+    context.canvas.height = lineLength;
     context.drawImage(image,
-      sx, 0,
-      height, height,
+      centered ? width > height ? diff : 0 : width > height ? 0 : -diff,
+      centered ? width > height ? 0 : diff : width > height ? -diff : 0,
+      lineLength, lineLength,
       0, 0,
-      height, height,
+      lineLength, lineLength,
     );
 
     if (!pixelized) {
       let pixelPerLine = ppl ? ppl : 100;
-      let pixelSize = Math.round(height / pixelPerLine);
+      let pixelSize = Math.round(lineLength / pixelPerLine);
 
-      for (let x = 0; x < width; x += pixelSize) {
-        for (let y = 0; y < height; y += pixelSize) {
+      for (let x = 0; x < lineLength; x += pixelSize) {
+        for (let y = 0; y < lineLength; y += pixelSize) {
           const rgba = context.getImageData(x, y, 1, 1).data;
           const red = Math.round(rgba[0] * 8 / 255) * 32 - 1;
           const green = Math.round(rgba[1] * 8 / 255) * 32 - 1;

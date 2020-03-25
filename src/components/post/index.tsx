@@ -81,6 +81,7 @@ const Post: React.FC<Props> = (props) => {
             <PixelImage
               type={'feed-profile'}
               source={profilePictureUrl}
+              centered={true}
               pixelized={pixelizedProfilePicture}
               index={index}
               pixelPerLine={30}
