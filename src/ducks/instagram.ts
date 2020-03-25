@@ -93,7 +93,7 @@ const instagramDetails = createSlice({
         } = post;
 
         const previewComments: CommentItem[] = [];
-        if (previewCommentInfo) {
+        if (previewCommentInfo.length) {
           previewCommentInfo.forEach(comment => {
             const { user, text } = comment;
             const { username } = user;
@@ -133,6 +133,7 @@ const instagramDetails = createSlice({
           id,
           user,
           caption: captionInfo,
+          taken_at: takenAt,
           has_liked: hasLiked,
           like_count: likeCount,
           comment_count: commentCount,
@@ -147,7 +148,7 @@ const instagramDetails = createSlice({
         };
 
         const previewComments: CommentItem[] = [];
-        if (previewCommentInfo) {
+        if (previewCommentInfo.length) {
           previewCommentInfo.forEach(comment => {
             const { user, text } = comment;
             const { username } = user;
@@ -156,8 +157,8 @@ const instagramDetails = createSlice({
         }
 
         const caption = {
-          username: captionInfo.user.username,
-          text: captionInfo.text,
+          username: captionInfo ? captionInfo.user.username : '',
+          text: captionInfo ? captionInfo.text : '',
         };
 
         const postWithCaption = {
@@ -169,7 +170,7 @@ const instagramDetails = createSlice({
           hasLiked,
           likeCount,
           caption,
-          createdAt: captionInfo.created_at_utc * 1000,
+          createdAt: takenAt * 1000,
         };
 
         state.timelineInfo.posts.push({
