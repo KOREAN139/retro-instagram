@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './index.scss';
 import Page from '../../components/page';
 import Post from '../../components/post';
@@ -20,15 +20,15 @@ const HomeFeed = () => {
   );
   const { moreAvailable, posts } = timelineInfo;
 
-  const loadTimelineInfo = useCallback(async () => {
-    if (moreAvailable) {
-      await dispatch(getTimeline(userPk));
-    }
-  }, [dispatch, userPk, moreAvailable]);
-
   useEffect(() => {
+    const loadTimelineInfo = async () => {
+      if (moreAvailable) {
+        await dispatch(getTimeline(userPk));
+      }
+    };
+
     loadTimelineInfo();
-  }, [loadTimelineInfo, history]);
+  }, [dispatch, userPk, moreAvailable, history]);
 
   return (
     <Page title={'Feed'}>

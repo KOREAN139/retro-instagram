@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import Page from '../../components/page';
@@ -33,16 +33,16 @@ const User = () => {
   );
   const { moreAvailable, posts } = userPostInfo;
 
-  const loadUserInfo = useCallback(async () => {
-    await dispatch(getSignedInUserInfo(userPk));
-    if (moreAvailable) {
-      await dispatch(getUserPosts(userPk));
-    }
-  }, [dispatch, userPk, moreAvailable]);
-
   useEffect(() => {
+    const loadUserInfo = async () => {
+      await dispatch(getSignedInUserInfo(userPk));
+      if (moreAvailable) {
+        await dispatch(getUserPosts(userPk));
+      }
+    };
+
     loadUserInfo();
-  }, [loadUserInfo, history]);
+  }, [dispatch, userPk, moreAvailable, history]);
 
   if (userInfo) {
     const exist = userInfo.fullName
