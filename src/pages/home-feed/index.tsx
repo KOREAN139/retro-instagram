@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import './index.scss';
 import Page from '../../components/page';
 import Post from '../../components/post';
-import sample from '../../static/ratedrko.jpg';
 import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTimeline } from '../../ducks/instagram';
@@ -39,7 +38,6 @@ const HomeFeed = () => {
             {posts && posts.map((post, i) => {
               return (
                 <Post
-                  source={sample}
                   postInfo={post.post}
                   userInfo={post.user}
                   pixelized={false}

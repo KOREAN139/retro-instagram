@@ -8,7 +8,6 @@ import {
 } from 'retro-instagram';
 
 interface PostProps {
-  source: string
   postInfo: PostWithCaptionItem
   userInfo?: UserInfo
   pixelized: boolean
@@ -42,7 +41,6 @@ const formatDate = (utc: number): string => {
 
 const Post: React.FC<Props> = (props) => {
   const {
-    source,
     postInfo,
     userInfo,
     pixelized,
