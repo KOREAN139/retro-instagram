@@ -5,13 +5,13 @@ import Button from '../../components/button';
 import homeFeedIcon from '../../static/home-feed-icon.png';
 import exploreIcon from '../../static/explore-icon.png';
 import cameraIcon from '../../static/camera-icon.png';
-import likesIcon from '../../static/likes-icon.png';
+import newsIcon from '../../static/news-icon.png';
 import userIcon from '../../static/user-icon.png';
 import {
   ROUTE_HOME_FEED,
   ROUTE_EXPLORE,
   ROUTE_CAMERA,
-  ROUTE_LIKES,
+  ROUTE_NEWS,
   ROUTE_USER
 } from '../../pages/routes/constants';
 
@@ -39,9 +39,9 @@ const Footer: React.FC<Props> = (props) => {
     history.push(ROUTE_CAMERA);
   }
 
-  const onClickLikes = () => {
-    setCurrentPage('likes');
-    history.push(ROUTE_LIKES);
+  const onClickNews = () => {
+    setCurrentPage('news');
+    history.push(ROUTE_NEWS);
   }
 
   const onClickUser = () => {
@@ -71,10 +71,10 @@ const Footer: React.FC<Props> = (props) => {
           onClick={onClickCamera}
         />
         <Button
-          location={'Footer Likes'}
-          icon={likesIcon}
-          selected={currentPage === 'likes'}
-          onClick={onClickLikes}
+          location={'Footer News'}
+          icon={newsIcon}
+          selected={currentPage === 'news'}
+          onClick={onClickNews}
         />
         <Button
           location={'Footer User'}

@@ -4,14 +4,14 @@ import PageContainer from '../../components/page-container';
 import HomeFeed from '../home-feed';
 import Explore from '../explore';
 import Camera from '../camera';
-import Likes from '../likes';
+import News from '../news';
 import User from '../user';
 import SignIn from '../sign-in';
 import {
   ROUTE_HOME_FEED,
   ROUTE_EXPLORE,
   ROUTE_CAMERA,
-  ROUTE_LIKES,
+  ROUTE_NEWS,
   ROUTE_USER
 } from './constants';
 
@@ -33,7 +33,7 @@ const Routes: React.FC = () => {
           <Route exact path={ROUTE_HOME_FEED} component={HomeFeed} />
           <Route exact path={ROUTE_EXPLORE} component={Explore} />
           <Route exact path={ROUTE_CAMERA} component={Camera} />
-          <Route exact path={ROUTE_LIKES} component={Likes} />
+          <Route exact path={ROUTE_NEWS} component={News} />
           <Route exact path={ROUTE_USER} component={User} />
         </Switch>
       </PageContainer>
