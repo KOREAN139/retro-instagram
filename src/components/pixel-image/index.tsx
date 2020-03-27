@@ -12,10 +12,10 @@ interface PixelImageProps {
   index?: number
 }
 
-export type Props = PixelImageProps & React.HTMLAttributes<HTMLCanvasElement>;
+export type Props = PixelImageProps
+                    & React.HTMLAttributes<HTMLCanvasElement | HTMLImageElement>;
 
 const PixelImage: React.FC<Props> = (props) => {
-  const dispatch = useDispatch();
   const {
     source,
     pixelized,
@@ -25,7 +25,20 @@ const PixelImage: React.FC<Props> = (props) => {
     pixelPerLine: ppl,
     ...otherProps
   } = props;
+
+  const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  if (pixelized) {
+    return (
+      <img
+        src={source}
+        alt={''}
+        className={'Pixel-image'}
+        {...otherProps}
+      />
+    );
+  }
 
   let image = new Image();
   image.src = source;
@@ -50,24 +63,22 @@ const PixelImage: React.FC<Props> = (props) => {
       lineLength, lineLength,
     );
 
-    if (!pixelized) {
-      let pixelPerLine = ppl ? ppl : 100;
-      let pixelSize = Math.round(lineLength / pixelPerLine);
+    let pixelPerLine = ppl ? ppl : 100;
+    let pixelSize = Math.round(lineLength / pixelPerLine);
 
-      for (let x = 0; x < lineLength; x += pixelSize) {
-        for (let y = 0; y < lineLength; y += pixelSize) {
-          const rgba = context.getImageData(x, y, 1, 1).data;
-          const red = Math.round(rgba[0] * 8 / 255) * 32 - 1;
-          const green = Math.round(rgba[1] * 8 / 255) * 32 - 1;
-          const blue = Math.round(rgba[2] * 4 / 255) * 64 - 1;
-          context.fillStyle = `rgb(${red},${green},${blue})`;
-          context.fillRect(x, y, pixelSize, pixelSize);
-        }
+    for (let x = 0; x < lineLength; x += pixelSize) {
+      for (let y = 0; y < lineLength; y += pixelSize) {
+        const rgba = context.getImageData(x, y, 1, 1).data;
+        const red = Math.round(rgba[0] * 8 / 255) * 32 - 1;
+        const green = Math.round(rgba[1] * 8 / 255) * 32 - 1;
+        const blue = Math.round(rgba[2] * 4 / 255) * 64 - 1;
+        context.fillStyle = `rgb(${red},${green},${blue})`;
+        context.fillRect(x, y, pixelSize, pixelSize);
       }
-
-      const pixelizedMediaUrl = canvas.toDataURL();
-      dispatch(setPixelizedUrl(type, pixelizedMediaUrl, index));
     }
+
+    const pixelizedMediaUrl = canvas.toDataURL();
+    dispatch(setPixelizedUrl(type, pixelizedMediaUrl, index));
   };
 
   return (
