@@ -310,7 +310,6 @@ export const getTimeline = (userPk: number) =>
   showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const timeline = await InstagramAPI.getTimeline(userPk);
-      await InstagramAPI.getNews();
       dispatch(getTimelineSuccesss(timeline));
     } catch (err) {
       dispatch(getTimelineFailed(err.toString()));
