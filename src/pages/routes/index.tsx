@@ -7,6 +7,7 @@ import Camera from '../camera';
 import News from '../news';
 import User from '../user';
 import SignIn from '../sign-in';
+import Loading from '../loading';
 import {
   ROUTE_HOME_FEED,
   ROUTE_EXPLORE,
@@ -28,6 +29,7 @@ const Routes: React.FC = () => {
         <SignIn
           onClickClose={handleClose}
         />}
+      <Loading />
       <PageContainer>
         <Switch>
           <Route exact path={ROUTE_HOME_FEED} component={HomeFeed} />
