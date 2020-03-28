@@ -42,3 +42,7 @@ ipcMain.answerRenderer('get-timeline', async () => {
   const moreAvailable = timelineFeed.isMoreAvailable();
   return { moreAvailable, posts };
 });
+
+ipcMain.answerRenderer('get-news', async () => {
+  return await ig.news.inbox();
+});

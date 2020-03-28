@@ -10,4 +10,6 @@ declare module 'instagram-private-api' {
     moreAvailable: boolean
     posts: Instagram.TimelineFeedResponseMedia_or_ad[]
   }
+
+  type GetNewsResponse = Instagram.NewsRepositoryInboxResponseRootObject;
 }
