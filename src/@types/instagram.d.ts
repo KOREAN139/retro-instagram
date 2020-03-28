@@ -51,4 +51,28 @@ declare module 'retro-instagram' {
     biography?: string
     externalUrl?: string
   }
+
+  export interface UserLink {
+    start: number
+    end: number
+    type: string
+    id: string | number
+  }
+
+  export interface NewsItem {
+    text?: string
+    profilePicture: MediaItem
+    thumbnail?: MediaItem
+    links?: UserLink[]
+  }
+
+  export interface TimePartition {
+    headers: string[]
+    indices: number[]
+  }
+
+  export interface NewsInfo {
+    news: NewsItem[]
+    timePartition: TimePartition
+  }
 }

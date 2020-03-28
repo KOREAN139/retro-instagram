@@ -4,13 +4,15 @@ import * as InstagramAPI from '../api/instagram';
 import {
   UserRepositoryInfoResponseUser,
   GetUserFeedResponse,
-  GetTimelineResponse
+  GetTimelineResponse,
+  GetNewsResponse
 } from 'instagram-private-api';
 import {
   DetailUserInfo,
   UserPostInfo,
   CommentItem,
-  TimelineInfo
+  TimelineInfo,
+  NewsInfo
 } from 'retro-instagram';
 
 interface InstagramState {
@@ -19,6 +21,7 @@ interface InstagramState {
   userInfo: DetailUserInfo | null
   userPostInfo: UserPostInfo
   timelineInfo: TimelineInfo
+  newsInfo: NewsInfo
 };
 
 interface SetPixelizedUrlPayload {
@@ -37,7 +40,14 @@ const initialState: InstagramState = {
   timelineInfo: {
     moreAvailable: true,
     posts: [],
-  }
+  },
+  newsInfo: {
+    news: [],
+    timePartition: {
+      headers: [],
+      indices: [],
+    },
+  },
 };
 
 const instagramDetails = createSlice({
@@ -181,12 +191,56 @@ const instagramDetails = createSlice({
     },
     getTimelineFailed(state, action:PayloadAction<string>) {
     },
+    getNewsSuccess(state, action:PayloadAction<GetNewsResponse>) {
+      const {
+        partition,
+        new_stories: newStories,
+        old_stories: oldStories,
+      } = action.payload;
+
+      const { time_bucket: timePartition } = partition;
+      state.newsInfo.timePartition = timePartition;
+
+      const stories = [...newStories, ...oldStories];
+      const storiesWithProfile = stories.filter(s => s.args.profile_image);
+      storiesWithProfile.forEach(story => {
+        const { args } = story;
+        const {
+          text,
+          links,
+          media,
+          profile_image: profilePictureUrl,
+        } = args;
+
+        let thumbnail = undefined;
+        if (media && media.length) {
+          thumbnail = { mediaUrl: media[0].image };
+        }
+
+        state.newsInfo.news.push({
+          text,
+          links,
+          thumbnail,
+          profilePicture: { mediaUrl: profilePictureUrl! },
+        });
+      });
+    },
+    getNewsFailed(state, action:PayloadAction<string>) {
+    },
     setPixelizedUserProfile(state, action: PayloadAction<string>) {
       state.userInfo!.profilePicture.pixelizedMediaUrl = action.payload;
     },
     setPixelizedUserPost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
       const { index, pixelizedMediaUrl } = action.payload;
       state.userPostInfo.posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
+    },
+    setPixelizedNewsProfile(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+      const { index, pixelizedMediaUrl } = action.payload;
+      state.newsInfo.news[index].profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+    },
+    setPixelizedNewsThumbnail(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+      const { index, pixelizedMediaUrl } = action.payload;
+      state.newsInfo.news[index].thumbnail!.pixelizedMediaUrl = pixelizedMediaUrl;
     },
     setPixelizedTimelineProfile(state, action: PayloadAction<SetPixelizedUrlPayload>) {
       const { index, pixelizedMediaUrl } = action.payload;
@@ -208,8 +262,12 @@ export const {
   getUserPostsFailed,
   getTimelineSuccesss,
   getTimelineFailed,
+  getNewsSuccess,
+  getNewsFailed,
   setPixelizedUserProfile,
   setPixelizedUserPost,
+  setPixelizedNewsProfile,
+  setPixelizedNewsThumbnail,
   setPixelizedTimelineProfile,
   setPixelizedTimelinePost,
 } = instagramDetails.actions;
@@ -251,9 +309,20 @@ export const getTimeline = (userPk: number) =>
   async (dispatch: Dispatch) => {
     try {
       const timeline = await InstagramAPI.getTimeline(userPk);
+      await InstagramAPI.getNews();
       dispatch(getTimelineSuccesss(timeline));
     } catch (err) {
       dispatch(getTimelineFailed(err.toString()));
+    }
+  };
+
+export const getNews = () =>
+  async (dispatch: Dispatch) => {
+    try {
+      const news = await InstagramAPI.getNews();
+      dispatch(getNewsSuccess(news));
+    } catch (err) {
+      dispatch(getNewsFailed(err.toString()));
     }
   };
 
@@ -269,6 +338,12 @@ export const setPixelizedUrl = (
         break;
       case 'feed-profile':
         dispatch(setPixelizedTimelineProfile({index: idx!, pixelizedMediaUrl}));
+        break;
+      case 'news-thumbnail':
+        dispatch(setPixelizedNewsThumbnail({index: idx!, pixelizedMediaUrl}));
+        break;
+      case 'news-profile':
+        dispatch(setPixelizedNewsProfile({index: idx!, pixelizedMediaUrl}));
         break;
       case 'user-thumbnail':
         dispatch(setPixelizedUserPost({index: idx!, pixelizedMediaUrl}));
