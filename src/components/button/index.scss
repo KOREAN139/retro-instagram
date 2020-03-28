@@ -2,7 +2,7 @@ $static-folder-url: '../../static';
 
 .Button {
   display: flex;
-  cursor: pointer;
+  cursor: url('#{$static-folder-url}/pointer.cur'), pointer;
   align-items: center;
   justify-content: center;
   background-image: url('#{$static-folder-url}/background-pattern.png');
