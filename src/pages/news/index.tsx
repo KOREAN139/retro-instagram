@@ -15,6 +15,14 @@ const News = () => {
     (state: RootState) => state.instagram.newsInfo
   );
   const { news } = newsInfo;
+  const loaded = news.every(news => {
+    const { profilePicture, thumbnail } = news;
+    if (!thumbnail) {
+      return !!profilePicture.pixelizedMediaUrl;
+    }
+
+    return !!profilePicture.pixelizedMediaUrl && !!thumbnail.pixelizedMediaUrl;
+  });
 
   useEffect(() => {
     const loadNewsInfo = async () => {
@@ -27,7 +35,10 @@ const News = () => {
   }, [dispatch, news, history]);
 
   return (
-    <Page title={'News'}>
+    <Page
+      title={'News'}
+      loaded={loaded}
+    >
       <div className={'News-page-container'}>
         <div className={'News-page-container__Contents'}>
           <div className={'News-page-container__Contents__Scrollable'}>

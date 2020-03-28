@@ -4,7 +4,10 @@ import Page from '../../components/page';
 
 const Camera = () => {
   return (
-    <Page title={'Camera'}>
+    <Page
+      title={'Camera'}
+      loaded={true}
+    >
       <div className={'Camera-page-container'}>
       </div>
     </Page>

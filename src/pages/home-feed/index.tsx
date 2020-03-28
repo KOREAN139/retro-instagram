@@ -19,6 +19,10 @@ const HomeFeed = () => {
     (state: RootState) => state.instagram.timelineInfo
   );
   const { moreAvailable, posts } = timelineInfo;
+  const loaded = posts.every(item => {
+    const { user, post } = item;
+    return !!user.profilePicture.pixelizedMediaUrl && !!post.pixelizedMediaUrl;
+  });
 
   useEffect(() => {
     const loadTimelineInfo = async () => {
@@ -31,7 +35,10 @@ const HomeFeed = () => {
   }, [dispatch, userPk, moreAvailable, history]);
 
   return (
-    <Page title={'Feed'}>
+    <Page
+      title={'Feed'}
+      loaded={loaded}
+    >
       <div className={'Home-feed-container'}>
         <div className={'Home-feed-container__Contents'}>
           <div className={'Home-feed-container__Contents__Scrollable'}>

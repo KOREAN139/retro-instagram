@@ -1,6 +1,12 @@
+$static-folder-url: '../../static';
+
 .Page {
   display: flex;
   flex-direction: column;
   flex: 1;
   width: 308px;
+
+  &.On-loading {
+    cursor: url('#{$static-folder-url}/progress.cur'), progress;
+  }
 }

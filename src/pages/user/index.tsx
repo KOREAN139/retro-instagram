@@ -27,11 +27,18 @@ const User = () => {
   const userInfo: any = useSelector(
     (state: RootState) => state.instagram.userInfo
   );
+  let infoLoaded = true;
+  if (userInfo) {
+    infoLoaded = !!userInfo.profilePicture.pixelizedMediaUrl;
+  }
 
   const userPostInfo = useSelector(
     (state: RootState) => state.instagram.userPostInfo
   );
   const { moreAvailable, posts } = userPostInfo;
+  const postLoaded = posts.every(post => {
+    return !!post.pixelizedMediaUrl;
+  });
 
   useEffect(() => {
     const loadUserInfo = async () => {
@@ -77,7 +84,10 @@ const User = () => {
   };
 
   return (
-    <Page title={userInfo ? userInfo.username : 'Username'}>
+    <Page
+      title={userInfo ? userInfo.username : 'Username'}
+      loaded={infoLoaded && postLoaded}
+    >
       <div className={'Userpage-container'}>
         <div className={'Userpage-container__Userinfo'}>
           <div className={'Userpage-container__Userinfo__Profile'}>

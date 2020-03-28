@@ -4,7 +4,10 @@ import Page from '../../components/page';
 
 const Explore = () => {
   return (
-    <Page title={'Explore'}>
+    <Page
+      title={'Explore'}
+      loaded={true}
+    >
       <div className={'Explore-page-container'}>
         <div className={'Explore-page-container__Contents'}>
           <div className={'Explore-page-container__Contents__Scrollable'}>
