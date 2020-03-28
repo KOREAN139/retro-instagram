@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import * as InstagramAPI from '../api/instagram';
 import { showLoadingPage } from './loading';
 import {
-  UserRepositoryInfoResponseUser,
+  GetUserInfoResponse,
   GetUserFeedResponse,
   GetTimelineResponse,
   GetNewsResponse
@@ -61,7 +61,7 @@ const instagramDetails = createSlice({
     },
     signInInstagramFailed(state, action: PayloadAction<string>) {
     },
-    getSignedInUserInfoSuccess(state, action: PayloadAction<UserRepositoryInfoResponseUser>) {
+    getSignedInUserInfoSuccess(state, action: PayloadAction<GetUserInfoResponse>) {
       const {
         username,
         full_name: fullName,

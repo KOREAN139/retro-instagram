@@ -1,6 +1,8 @@
 import * as Instagram from 'instagram-private-api';
 
 declare module 'instagram-private-api' {
+  type GetUserInfoResponse = Instagram.UserRepositoryInfoResponseUser;
+
   interface GetUserFeedResponse {
     moreAvailable: boolean
     posts: Instagram.UserFeedResponseItemsItem[]

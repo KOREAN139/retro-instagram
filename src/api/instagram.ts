@@ -1,5 +1,5 @@
 import {
-  UserRepositoryInfoResponseUser,
+  GetUserInfoResponse,
   GetUserFeedResponse,
   GetTimelineResponse,
   GetNewsResponse
@@ -17,7 +17,7 @@ export const signIn = async (
 
 export const getUserInfo = async (
   userPk: number
-): Promise<UserRepositoryInfoResponseUser> => {
+): Promise<GetUserInfoResponse> => {
   const res = await ipcRenderer.callMain('get-user-info', userPk);
   return res;
 };
