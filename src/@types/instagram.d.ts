@@ -64,6 +64,7 @@ declare module 'retro-instagram' {
     profilePicture: MediaItem
     thumbnail?: MediaItem
     links?: UserLink[]
+    createdAt: number
   }
 
   export interface TimePartition {

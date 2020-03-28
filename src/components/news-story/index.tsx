@@ -12,9 +12,36 @@ interface NewsStoryProps {
 
 export type Props = NewsStoryProps & React.HTMLAttributes<HTMLDivElement>;
 
+const formatElapsedTime = (utc: number): string => {
+  const now = Date.now() / 1000;
+
+  let diff = now - utc;
+  if (diff < 60) {
+    return `${diff}s`;
+  }
+
+  diff = ~~(diff / 60);
+  if (diff < 60) {
+    return `${diff}m`;
+  }
+
+  diff = ~~(diff / 60);
+  if (diff < 24) {
+    return `${diff}h`;
+  }
+
+  diff = ~~(diff / 24);
+  if (diff < 7) {
+    return `${diff}d`;
+  }
+
+  diff = ~~(diff / 7);
+  return `${diff}w`;
+};
+
 const NewsStory: React.FC<Props> = (props) => {
   const { newsInfo, index } = props;
-  const { text, links, profilePicture, thumbnail } = newsInfo;
+  const { text, links, profilePicture, thumbnail, createdAt } = newsInfo;
 
   let thumbnailPictureUrl = '';
   let pixelizedThumbnail = false;
@@ -43,21 +70,26 @@ const NewsStory: React.FC<Props> = (props) => {
           />
         </div>
         <div className={'News-story__Wrapper__Text'}>
-          {links ? links.map((link, i) => {
-            const { start, end } = link;
-            let trailText = text!.slice(end);
-            if (links[i + 1]) {
-              trailText = text!.slice(end, links[i + 1].start);
-            }
-            return (
-              <>
-                <b>
-                  {text!.slice(start, end)}
-                </b>
-                {trailText}
-              </>
-            );
-          }) : text}
+          <span>
+            {links ? links.map((link, i) => {
+              const { start, end } = link;
+              let trailText = text!.slice(end);
+              if (links[i + 1]) {
+                trailText = text!.slice(end, links[i + 1].start);
+              }
+              return (
+                <>
+                  <b>
+                    {text!.slice(start, end)}
+                  </b>
+                  {trailText}
+                </>
+              );
+            }) : text}
+          </span>
+          <span className={'News-story__Wrapper__Text__Elapsed'}>
+            {formatElapsedTime(createdAt)}
+          </span>
         </div>
         {thumbnail &&
           <div className={'News-story__Wrapper__Thumbnail'}>

@@ -210,6 +210,7 @@ const instagramDetails = createSlice({
           text,
           links,
           media,
+          timestamp,
           profile_image: profilePictureUrl,
         } = args;
 
@@ -218,10 +219,13 @@ const instagramDetails = createSlice({
           thumbnail = { mediaUrl: media[0].image };
         }
 
+        const createdAt = parseInt(timestamp, 10);
+
         state.newsInfo.news.push({
           text,
           links,
           thumbnail,
+          createdAt,
           profilePicture: { mediaUrl: profilePictureUrl! },
         });
       });
