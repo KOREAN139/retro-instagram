@@ -14,7 +14,7 @@ export type Props = NewsStoryProps & React.HTMLAttributes<HTMLDivElement>;
 
 const NewsStory: React.FC<Props> = (props) => {
   const { newsInfo, index } = props;
-  const { text, profilePicture, thumbnail } = newsInfo;
+  const { text, links, profilePicture, thumbnail } = newsInfo;
 
   let thumbnailPictureUrl = '';
   let pixelizedThumbnail = false;
@@ -43,7 +43,21 @@ const NewsStory: React.FC<Props> = (props) => {
           />
         </div>
         <div className={'News-story__Wrapper__Text'}>
-          {text}
+          {links ? links.map((link, i) => {
+            const { start, end } = link;
+            let trailText = text!.slice(end);
+            if (links[i + 1]) {
+              trailText = text!.slice(end, links[i + 1].start);
+            }
+            return (
+              <>
+                <b>
+                  {text!.slice(start, end)}
+                </b>
+                {trailText}
+              </>
+            );
+          }) : text}
         </div>
         {thumbnail &&
           <div className={'News-story__Wrapper__Thumbnail'}>
