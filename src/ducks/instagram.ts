@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
 import * as InstagramAPI from '../api/instagram';
+import { showLoadingPage } from './loading';
 import {
   UserRepositoryInfoResponseUser,
   GetUserFeedResponse,
@@ -275,7 +276,7 @@ export const {
 export default instagramDetails.reducer;
 
 export const signInInstagram = (username: string, password: string) =>
-  async (dispatch: Dispatch) => {
+  showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const pk = await InstagramAPI.signIn(username, password);
       dispatch(signInInstagramSuccess(pk));
@@ -283,30 +284,30 @@ export const signInInstagram = (username: string, password: string) =>
       console.error(err);
       dispatch(signInInstagramFailed(err.toString()));
     }
-  };
+  });
 
 export const getSignedInUserInfo = (userPk: number) =>
-  async (dispatch: Dispatch) => {
+  showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const info = await InstagramAPI.getUserInfo(userPk);
       dispatch(getSignedInUserInfoSuccess(info));
     } catch (err) {
       dispatch(getSignedInUserInfoFailed(err.toString()));
     }
-  };
+  });
 
 export const getUserPosts = (userPk: number) =>
-  async (dispatch: Dispatch) => {
+  showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const posts = await InstagramAPI.getUserPosts(userPk);
       dispatch(getUserPostsSuccess(posts));
     } catch (err) {
       dispatch(getUserPostsFailed(err.toString()));
     }
-  };
+  });
 
 export const getTimeline = (userPk: number) =>
-  async (dispatch: Dispatch) => {
+  showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const timeline = await InstagramAPI.getTimeline(userPk);
       await InstagramAPI.getNews();
@@ -314,17 +315,17 @@ export const getTimeline = (userPk: number) =>
     } catch (err) {
       dispatch(getTimelineFailed(err.toString()));
     }
-  };
+  });
 
 export const getNews = () =>
-  async (dispatch: Dispatch) => {
+  showLoadingPage(async (dispatch: Dispatch) => {
     try {
       const news = await InstagramAPI.getNews();
       dispatch(getNewsSuccess(news));
     } catch (err) {
       dispatch(getNewsFailed(err.toString()));
     }
-  };
+  });
 
 export const setPixelizedUrl = (
   type: string,
