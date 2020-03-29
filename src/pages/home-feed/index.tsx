@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './index.scss';
 import Page from '../../components/page';
 import Post from '../../components/post';
 import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTimeline } from '../../ducks/instagram';
-import { useHistory } from 'react-router-dom';
 
 const HomeFeed = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const userPk: number = useSelector(
     (state: RootState) => state.instagram.userPk
@@ -24,15 +22,26 @@ const HomeFeed = () => {
     return !!user.profilePicture.pixelizedMediaUrl && !!post.pixelizedMediaUrl;
   });
 
+  const containerRef = useRef(null);
+  const bottomRef = useRef(null);
   useEffect(() => {
-    const loadTimelineInfo = async () => {
-      if (moreAvailable) {
-        await dispatch(getTimeline(userPk));
+    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+      if (isIntersecting && moreAvailable) {
+        dispatch(getTimeline(userPk));
       }
     };
 
-    loadTimelineInfo();
-  }, [dispatch, userPk, moreAvailable, history]);
+    const observer = new IntersectionObserver(onIntersect, {
+      root: containerRef.current,
+      threshold: 1.0,
+    });
+
+    observer.observe(bottomRef.current!);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [userPk, moreAvailable, containerRef, bottomRef, dispatch]);
 
   return (
     <Page
@@ -41,7 +50,10 @@ const HomeFeed = () => {
     >
       <div className={'Home-feed-container'}>
         <div className={'Home-feed-container__Contents'}>
-          <div className={'Home-feed-container__Contents__Scrollable'}>
+          <div
+            className={'Home-feed-container__Contents__Scrollable'}
+            ref={containerRef}
+          >
             {posts && posts.map((post, i) => {
               return (
                 <Post
@@ -53,6 +65,10 @@ const HomeFeed = () => {
                 />
               );
             })}
+            <div
+              className={'Home-feed-container__Contents__Scrollable__Bottom'}
+              ref={bottomRef}
+            />
           </div>
         </div>
       </div>

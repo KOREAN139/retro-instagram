@@ -147,7 +147,17 @@
         flex: 1;
         overflow-y: scroll;
 
-        * {
+        &__Bottom {
+          width: 0;
+          height: 0;
+        }
+
+        & .Pixel-image + .Pixel-image {
+          margin-left: 1px;
+          margin-top: 1px;
+        }
+
+        & .Pixel-image {
           width: 94.5px;
           height: 94.5px;
           object-fit: cover;
@@ -161,11 +171,6 @@
           &:nth-child(3n+1) {
             margin-left: 0px;
           }
-        }
-
-        * + * {
-          margin-left: 1px;
-          margin-top: 1px;
         }
       }
     }

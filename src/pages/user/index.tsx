@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import Page from '../../components/page';
@@ -11,11 +11,9 @@ import tagIcon from '../../static/tag-icon.png';
 import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSignedInUserInfo, getUserPosts } from '../../ducks/instagram';
-import { useHistory } from 'react-router-dom';
 
 const User = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [currentCategory, setCurrentCategory] = useState('grid');
   let infoExists = false;
   let pixelizedProfile = false;
@@ -40,16 +38,31 @@ const User = () => {
     return !!post.pixelizedMediaUrl;
   });
 
+  const containerRef = useRef(null);
+  const bottomRef = useRef(null);
+
   useEffect(() => {
-    const loadUserInfo = async () => {
-      await dispatch(getSignedInUserInfo(userPk));
-      if (moreAvailable) {
-        await dispatch(getUserPosts(userPk));
+    dispatch(getSignedInUserInfo(userPk));
+  }, [dispatch, userPk]);
+
+  useEffect(() => {
+    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+      if (isIntersecting && moreAvailable) {
+        dispatch(getUserPosts(userPk));
       }
     };
 
-    loadUserInfo();
-  }, [dispatch, userPk, moreAvailable, history]);
+    const observer = new IntersectionObserver(onIntersect, {
+      root: containerRef.current,
+      threshold: 1.0,
+    });
+
+    observer.observe(bottomRef.current!);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
 
   if (userInfo) {
     const exist = userInfo.fullName
@@ -194,7 +207,10 @@ const User = () => {
             />
           </div>
           <div className={'Userpage-container__Contents__Box'}>
-            <div className={'Userpage-container__Contents__Box__Scrollable'}>
+            <div
+              className={'Userpage-container__Contents__Box__Scrollable'}
+              ref={containerRef}
+            >
               {posts.length > 0 && posts.map((post, i) => {
                 const { mediaUrl, pixelizedMediaUrl } = post;
                 const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
@@ -209,6 +225,10 @@ const User = () => {
                   />
                 );
               })}
+              <div
+                className={'Userpage-container__Contents__Box__Scrollable__Bottom'}
+                ref={bottomRef}
+              />
             </div>
           </div>
         </div>

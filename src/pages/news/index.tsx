@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './index.scss';
 import Page from '../../components/page';
 import NewsStory from '../../components/news-story';
 import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNews } from '../../ducks/instagram';
-import { useHistory } from 'react-router-dom';
 
 const News = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const newsInfo = useSelector(
     (state: RootState) => state.instagram.newsInfo
@@ -24,15 +22,27 @@ const News = () => {
     return !!profilePicture.pixelizedMediaUrl && !!thumbnail.pixelizedMediaUrl;
   });
 
+  const containerRef = useRef(null);
+  const bottomRef = useRef(null);
+
   useEffect(() => {
-    const loadNewsInfo = async () => {
-      if (news.length === 0) {
-        await dispatch(getNews());
+    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+      if (isIntersecting && !news.length) {
+        dispatch(getNews());
       }
     };
 
-    loadNewsInfo();
-  }, [dispatch, news, history]);
+    const observer = new IntersectionObserver(onIntersect, {
+      root: containerRef.current,
+      threshold: 1.0,
+    });
+
+    observer.observe(bottomRef.current!);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [news, containerRef, bottomRef, dispatch]);
 
   return (
     <Page
@@ -41,7 +51,10 @@ const News = () => {
     >
       <div className={'News-page-container'}>
         <div className={'News-page-container__Contents'}>
-          <div className={'News-page-container__Contents__Scrollable'}>
+          <div
+            className={'News-page-container__Contents__Scrollable'}
+            ref={containerRef}
+          >
             {news && news.map((newsInfo, i) => {
               return (
                 <NewsStory
@@ -51,6 +64,10 @@ const News = () => {
                 />
               );
             })}
+            <div
+              className={'News-page-container__Contents__Scrollable__Bottom'}
+              ref={bottomRef}
+            />
           </div>
         </div>
       </div>
