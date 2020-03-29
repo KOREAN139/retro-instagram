@@ -12,6 +12,11 @@ $static-folder-url: '../../static';
     inset -2px -2px 0px 0px rgba(127,127,127,1),
     inset 2px 2px 0px 0px rgba(224,224,224,1);
 
+  &:focus {
+    outline: 1px dotted black;
+    outline-offset: -4px;
+  }
+
   &.Able:active,
   &.Selected {
     background-color: white;
