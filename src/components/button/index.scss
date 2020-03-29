@@ -33,7 +33,7 @@ $static-folder-url: '../../static';
   &.Title-bar {
     width: 18px;
     height: 18px;
-    cursor: default;
+    cursor: url('#{$static-folder-url}/cursor.cur'), auto;
 
     div {
       width: 100%;
