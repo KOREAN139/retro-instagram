@@ -9,12 +9,12 @@
     flex-direction: row;
     flex-basis: 100%;
 
-    * {
+    .Button {
       flex-basis: 100%;
       height: 26px;
     }
 
-    * + * {
+    .Button + .Button {
       margin-left: 1px;
     }
   }

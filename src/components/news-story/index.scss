@@ -14,7 +14,7 @@
       inset 0px -2px 0px 0px rgba(0,0,0,1);
 
     &__Profile-picture {
-      * {
+      .Pixel-image {
         width: 35px;
         height: 35px;
         border-radius: 50%;
@@ -35,7 +35,7 @@
     }
 
     &__Thumbnail {
-      * {
+      .Pixel-image {
         width: 35px;
         height: 35px;
       }

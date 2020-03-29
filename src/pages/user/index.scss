@@ -27,7 +27,7 @@
         background-color: black;
         display: flex;
 
-        * {
+        .Pixel-image {
           width: 60px;
           height: 60px;
           border-radius: 50%;
@@ -68,7 +68,7 @@
           flex-basis: 100%;
           flex-direction: row;
 
-          * + * {
+          .Button + .Button {
             margin-left: 3px;
           }
         }
@@ -116,12 +116,12 @@
       flex-direction: row;
       margin: 2px;
 
-      * {
+      .Button {
         flex-basis: 100%;
         height: 24px;
       }
 
-      * + * {
+      .Button + .Button {
         margin-left: 1px;
       }
     }
@@ -152,12 +152,12 @@
           height: 0;
         }
 
-        & .Pixel-image + .Pixel-image {
+        .Pixel-image + .Pixel-image {
           margin-left: 1px;
           margin-top: 1px;
         }
 
-        & .Pixel-image {
+        .Pixel-image {
           width: 94.5px;
           height: 94.5px;
           object-fit: cover;

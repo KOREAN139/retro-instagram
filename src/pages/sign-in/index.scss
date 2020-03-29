@@ -75,7 +75,7 @@ $static-folder-url: '../../static';
     margin-bottom: 4px;
     justify-content: flex-end;
 
-    * + * {
+    .Button + .Button {
       margin-left: 4px;
     }
   }

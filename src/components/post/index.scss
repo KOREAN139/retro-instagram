@@ -13,7 +13,7 @@ $static-folder-url: '../../static';
     &__Profile-picture {
       margin-right: 8px;
 
-      * {
+      .Pixel-image {
         width: 25px;
         height: 25px;
         border-radius: 50%;
@@ -40,7 +40,7 @@ $static-folder-url: '../../static';
     inset 0px -2px 0px 0px rgba(224,224,224,1),
     inset 0px 2px 0px 0px rgba(0,0,0,1);
 
-    * {
+    .Pixel-image {
       width: 286px;
       height: 290px;
     }
@@ -51,7 +51,7 @@ $static-folder-url: '../../static';
     flex-direction: row;
     margin: 6px 8px 8px 8px;
 
-    * + * {
+    .Button + .Button {
       margin-left: 1px;
     }
   }
