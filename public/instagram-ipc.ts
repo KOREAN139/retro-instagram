@@ -15,7 +15,7 @@ ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
   ig.state.generateDevice(username);
   await ig.simulate.preLoginFlow();
   const user = await ig.account.login(username, password);
-  await ig.simulate.postLoginFlow();
+  process.nextTick(async () => await ig.simulate.postLoginFlow());
   return user;
 });
 
