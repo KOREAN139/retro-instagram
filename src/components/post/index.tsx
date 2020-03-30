@@ -114,12 +114,13 @@ const Post: React.FC<Props> = (props) => {
           text={'Share'}
         />
       </div>
-      <div className={'Post-container__Likes'}>
-        <div className={'Post-container__Likes__Icon'} />
-        <div className={'Post-container__Likes__Number'}>
+      {likeCount > 0 &&
+        <div className={'Post-container__Likes'}>
+          <div className={'Post-container__Likes__Icon'} />
+          <div className={'Post-container__Likes__Number'}>
           {`${likeCount} likes`}
-        </div>
-      </div>
+          </div>
+        </div>}
       {caption.text &&
         <div className={'Post-container__Info'}>
           <span className={'Post-container__Info__Username'}>
