@@ -91,13 +91,19 @@ $static-folder-url: '../../static';
     word-wrap: break-word;
     word-break: break-all;
 
-    p {
-      margin: 0;
-    }
-
     &__Username {
       font-weight: bolder;
       margin-right: 4px;
+    }
+
+    &__Caption {
+      &__More {
+        cursor: url('#{$static-folder-url}/pointer.cur'), pointer;
+        margin-left: 2px;
+        word-wrap: normal;
+        word-break: keep-all;
+        color: #606060;
+      }
     }
   }
 

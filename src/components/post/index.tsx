@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './index.scss';
 import Button from '../../components/button';
 import PixelImage from '../../components/pixel-image';
@@ -37,7 +37,34 @@ const formatDate = (utc: number): string => {
   const day = date.getDate();
 
   return `${day} ${monthString[month]} ${year} . `;
-}
+};
+
+const formatCaption = (username: string, caption: string): string => {
+  const splited = caption.split('\n');
+  const firstTwoLines = splited.slice(0, 2);
+  const [ firstLine, secondLine ] = firstTwoLines;
+  if (firstLine.length > 20) {
+    return `${firstLine.substring(0, 20)}...`;
+  }
+
+  if (secondLine !== undefined) {
+    const remainingLength = 20 - (username.length + 1 + firstLine.length);
+    if (secondLine.length > remainingLength) {
+      return firstLine + '\n'
+        + secondLine.substring(0, remainingLength) + '...';
+    }
+
+    if (splited.length > 2) {
+      const skipAll = firstTwoLines.every(line => line.trim().length < 2);
+      if (skipAll) {
+        return '...';
+      }
+      return firstTwoLines.join('\n') + '...\n';
+    }
+  }
+
+  return caption;
+};
 
 const Post: React.FC<Props> = (props) => {
   const {
@@ -47,6 +74,8 @@ const Post: React.FC<Props> = (props) => {
     index,
     ...otherProps
   } = props;
+
+  const captionRef = useRef<HTMLDivElement>(null);
 
   let profilePictureUrl = '';
   let pixelizedProfilePicture = false;
@@ -69,6 +98,16 @@ const Post: React.FC<Props> = (props) => {
     createdAt,
     caption,
   } = postInfo;
+
+  let formattedCaption = '';
+  if (caption.text) {
+    formattedCaption = formatCaption(caption.username, caption.text);
+  }
+
+  const handleClickMore = () => {
+    const textDiv = captionRef.current!;
+    textDiv.innerText = caption.text;
+  };
 
   return (
     <div
@@ -126,7 +165,19 @@ const Post: React.FC<Props> = (props) => {
           <span className={'Post-container__Info__Username'}>
             {caption.username}
           </span>
-          {caption.text}
+          <span
+            className={'Post-container__Info__Caption'}
+            ref={captionRef}
+          >
+            {formattedCaption}
+            {formattedCaption !== caption.text &&
+              <span
+                className={'Post-container__Info__Caption__More'}
+                onClick={handleClickMore}
+              >
+                more
+              </span>}
+          </span>
         </div>}
       {!!commentCount &&
         <div className={'Post-container__Comments'}>
