@@ -127,6 +127,15 @@ $static-folder-url: '../../static';
         font-weight: bolder;
         margin-right: 4px;
       }
+
+      &__Comment {
+        &__More {
+          margin-left: 2px;
+          word-wrap: normal;
+          word-break: keep-all;
+          color: #606060;
+        }
+      }
     }
   }
 

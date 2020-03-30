@@ -193,7 +193,15 @@ const Post: React.FC<Props> = (props) => {
               <span className={'Post-container__Comments__Preview__Username'}>
                 {comment.username}
               </span>
-              {comment.text}
+              <span className={'Post-container__Comments__Preview__Comment'}>
+                {comment.text.length > 50 ?
+                  comment.text.substr(0, 50)
+                  : comment.text}
+                {comment.text.length > 50 &&
+                  <span className={'Post-container__Comments__Preview__Comment__More'}>
+                    [...]
+                  </span>}
+              </span>
             </div>))}
         </div>}
       <div className={'Post-container__Additional'}>
