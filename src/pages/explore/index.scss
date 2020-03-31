@@ -1,3 +1,4 @@
+@import 'styles/_mixins';
 @import 'styles/_placeholders';
 
 .Explore-page-container {
@@ -7,6 +8,7 @@
 
   &__Contents {
     @extend %scrollable_box_container;
+    @include scrollableBoxShadow;
 
     width: inherit;
     flex: 1;

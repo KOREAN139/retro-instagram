@@ -42,6 +42,14 @@
     inset ($width * 2px) ($width * 2px) 0px 0px rgba(255,255,255,1);
 }
 
+@mixin scrollableBoxShadow($width: 1) {
+  box-shadow:
+    inset ($width * -1px) ($width * -1px) 0px 0px rgba(255,255,255,1),
+    inset ($width * 1px) ($width * 1px) 0px 0px rgba(127,127,127,1),
+    inset ($width * -2px) ($width * -2px) 0px 0px rgba(224,224,224,1),
+    inset ($width * 2px) ($width * 2px) 0px 0px rgba(0,0,0,1);
+}
+
 @mixin defaultButtonShadow($width: 1) {
   box-shadow:
     inset ($width * -1px) ($width * -1px) 0px 0px rgba(0,0,0,1),

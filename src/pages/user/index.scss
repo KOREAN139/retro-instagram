@@ -128,6 +128,7 @@
 
     &__Box {
       @extend %scrollable_box_container;
+      @include scrollableBoxShadow;
 
       width: inherit;
       flex: 1;
