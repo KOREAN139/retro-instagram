@@ -5,12 +5,12 @@ $static-folder-url: 'static';
 @include font('W95FA', 'W95FARegular');
 
 body {
-  @include defaultBoxShadow;
+  @include defaultBoxShadow(1.6);
 
   width: 308px;
   height: 556px;
   margin: 0;
-  padding: 4px;
+  padding: 6px;
 	font-family: W95FA;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
