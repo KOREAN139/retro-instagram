@@ -36,7 +36,7 @@
     "react-test": "craco test",
     "react-eject": "react-scripts eject",
     "tsc-electron": "tsc public/*.ts",
-    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "concurrently \"cross-env BROWSER=none SASS_PATH=src yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "yarn react-build && electron-builder",
     "release": "yarn react-build && electron-builder --publish=always"
   },

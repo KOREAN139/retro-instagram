@@ -1,26 +1,20 @@
+@import 'styles/_placeholders';
+
 .Home-feed-container {
   flex: 1;
   display: flex;
   flex-direction: column;
 
   &__Contents {
-    display: flex;
-    flex-direction: column;
+    @extend %scrollable_box_container;
+
     width: inherit;
-    height: 0;
     flex: 1;
     margin-top: 2px;
     padding: 2px;
 
-    box-shadow:
-      inset -1px -1px 0px 0px rgba(255,255,255,1),
-      inset 1px 1px 0px 0px rgba(127,127,127,1),
-      inset -2px -2px 0px 0px rgba(224,224,224,1),
-      inset 2px 2px 0px 0px rgba(0,0,0,1);
-
     &__Scrollable {
-      flex-basis: 100%;
-      overflow-y: scroll;
+      @extend %scrollable_box_vertical;
 
       &__Bottom {
         width: 0;

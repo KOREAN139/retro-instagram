@@ -1,3 +1,5 @@
+@import 'styles/_placeholders';
+
 .Userpage-container {
   display: flex;
   flex: 1;
@@ -127,25 +129,17 @@
     }
 
     &__Box {
-      display: flex;
+      @extend %scrollable_box_container;
+
       width: inherit;
-      height: 0;
       flex: 1;
-      flex-direction: column;
       margin-top: 2px;
       padding: 2px;
-      font-size: 0;
-
-      box-shadow:
-        inset -1px -1px 0px 0px rgba(255,255,255,1),
-        inset 1px 1px 0px 0px rgba(127,127,127,1),
-        inset -2px -2px 0px 0px rgba(224,224,224,1),
-        inset 2px 2px 0px 0px rgba(0,0,0,1);
 
       &__Scrollable {
+        @extend %scrollable_box_vertical;
+
         align-content: flex-start;
-        flex: 1;
-        overflow-y: scroll;
 
         &__Bottom {
           width: 0;
