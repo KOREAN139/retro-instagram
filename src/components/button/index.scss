@@ -1,16 +1,14 @@
+@import 'styles/_mixins';
 $static-folder-url: '../../static';
 
 .Button {
+  @include defaultButtonShadow;
+
   display: flex;
   cursor: url('#{$static-folder-url}/pointer.cur'), pointer;
   align-items: center;
   justify-content: center;
   background-image: url('#{$static-folder-url}/background-pattern.png');
-  box-shadow:
-    inset -1px -1px 0px 0px rgba(0,0,0,1),
-    inset 1px 1px 0px 0px rgba(255,255,255,1),
-    inset -2px -2px 0px 0px rgba(127,127,127,1),
-    inset 2px 2px 0px 0px rgba(224,224,224,1);
 
   &:focus {
     outline: 1px dotted black;
@@ -19,6 +17,8 @@ $static-folder-url: '../../static';
 
   &.Able:active,
   &.Selected {
+    @include activeButtonShadow;
+
     background-color: white;
     background-image:
       linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
@@ -26,13 +26,6 @@ $static-folder-url: '../../static';
       linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
       linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
     background-size: 2px 2px;
-
-    box-shadow:
-      inset -1px -1px 0px 0px rgba(255,255,255,1),
-      inset 1px 1px 0px 0px rgba(0,0,0,1),
-      inset -2px -2px 0px 0px rgba(224,224,224,1),
-      inset 2px 2px 0px 0px rgba(127,127,127,1),
-      inset 0px 3px 0px 0px rgba(255,255,255,1);
   }
 
   &.Title-bar {
