@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './index.scss';
-import Button from '../../components/button';
-import PixelImage from '../../components/pixel-image';
+import Button from '@components/button';
+import PixelImage from '@components/pixel-image';
 import {
   PostWithCaptionItem,
   UserInfo

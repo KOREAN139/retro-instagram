@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './index.scss';
 import { useDispatch } from 'react-redux';
-import { setPixelizedUrl } from '../../ducks/instagram';
+import { setPixelizedUrl } from '@ducks/instagram';
 
 interface PixelImageProps {
   type: string

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import './index.scss';
-import Page from '../../components/page';
-import Post from '../../components/post';
-import { RootState } from '../../store';
+import Page from '@components/page';
+import Post from '@components/post';
+import { RootState } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTimeline } from '../../ducks/instagram';
+import { getTimeline } from '@ducks/instagram';
 
 const HomeFeed = () => {
   const dispatch = useDispatch();

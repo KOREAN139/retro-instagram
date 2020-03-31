@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
-import * as InstagramAPI from '../api/instagram';
-import { showLoadingPage } from './loading';
+import * as InstagramAPI from '@api/instagram';
+import { showLoadingPage } from '@ducks/loading';
 import {
   GetUserInfoResponse,
   GetUserFeedResponse,

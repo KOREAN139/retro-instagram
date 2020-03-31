@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import './index.scss';
-import { RootState } from '../../store';
+import { RootState } from '@store';
 import { useSelector } from 'react-redux';
 
 const Loading = () => {

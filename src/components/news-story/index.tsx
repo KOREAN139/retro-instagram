@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import PixelImage from '../pixel-image';
+import PixelImage from '@components/pixel-image';
 import {
   NewsItem
 } from 'retro-instagram';

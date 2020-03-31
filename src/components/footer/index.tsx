@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import './index.scss';
 import { useHistory } from 'react-router-dom';
-import Button from '../../components/button';
-import homeFeedIcon from '../../static/home-feed-icon.png';
-import exploreIcon from '../../static/explore-icon.png';
-import cameraIcon from '../../static/camera-icon.png';
-import newsIcon from '../../static/news-icon.png';
-import userIcon from '../../static/user-icon.png';
+import Button from '@components/button';
+import homeFeedIcon from '@static/home-feed-icon.png';
+import exploreIcon from '@static/explore-icon.png';
+import cameraIcon from '@static/camera-icon.png';
+import newsIcon from '@static/news-icon.png';
+import userIcon from '@static/user-icon.png';
 import {
   ROUTE_HOME_FEED,
   ROUTE_EXPLORE,
   ROUTE_CAMERA,
   ROUTE_NEWS,
   ROUTE_USER
-} from '../../pages/routes/constants';
+} from '@pages/routes/constants';
 
 interface FooterProps {
 }

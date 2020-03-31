@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PageContainer from '../../components/page-container';
-import HomeFeed from '../home-feed';
-import Explore from '../explore';
-import Camera from '../camera';
-import News from '../news';
-import User from '../user';
-import SignIn from '../sign-in';
-import Loading from '../loading';
+import PageContainer from '@components/page-container';
+import HomeFeed from '@pages/home-feed';
+import Explore from '@pages/explore';
+import Camera from '@pages/camera';
+import News from '@pages/news';
+import User from '@pages/user';
+import SignIn from '@pages/sign-in';
+import Loading from '@pages/loading';
 import {
   ROUTE_HOME_FEED,
   ROUTE_EXPLORE,

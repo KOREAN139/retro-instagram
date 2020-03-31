@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import Page from '../../components/page';
+import Page from '@components/page';
 
 const Explore = () => {
   return (

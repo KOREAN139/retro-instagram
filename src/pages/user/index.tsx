@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
-import Button from '../../components/button';
-import Page from '../../components/page';
-import PixelImage from '../../components/pixel-image';
-import moreIcon from '../../static/more-button.png';
-import gridIcon from '../../static/grid-icon.png';
-import scrollIcon from '../../static/scroll-icon.png';
-import locationIcon from '../../static/location-icon.png';
-import tagIcon from '../../static/tag-icon.png';
-import { RootState } from '../../store';
+import Button from '@components/button';
+import Page from '@components/page';
+import PixelImage from '@components/pixel-image';
+import moreIcon from '@static/more-button.png';
+import gridIcon from '@static/grid-icon.png';
+import scrollIcon from '@static/scroll-icon.png';
+import locationIcon from '@static/location-icon.png';
+import tagIcon from '@static/tag-icon.png';
+import { RootState } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSignedInUserInfo, getUserPosts } from '../../ducks/instagram';
+import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
 
 const User = () => {
   const dispatch = useDispatch();

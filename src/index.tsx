@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import RootPage from './pages';
-import * as serviceWorker from './serviceWorker';
+import RootPage from '@pages';
+import * as serviceWorker from '~/serviceWorker';
 import * as Mousetrap from 'mousetrap';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 

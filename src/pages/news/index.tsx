@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import './index.scss';
-import Page from '../../components/page';
-import NewsStory from '../../components/news-story';
-import { RootState } from '../../store';
+import Page from '@components/page';
+import NewsStory from '@components/news-story';
+import { RootState } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNews } from '../../ducks/instagram';
+import { getNews } from '@ducks/instagram';
 
 const News = () => {
   const dispatch = useDispatch();

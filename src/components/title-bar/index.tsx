@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.scss';
-import Button from '../button';
-import minIcon from '../../static/minimize-button.png';
-import maxIcon from '../../static/maximize-button.png';
-import closeIcon from '../../static/close-button.png';
+import Button from '@components/button';
+import minIcon from '@static/minimize-button.png';
+import maxIcon from '@static/maximize-button.png';
+import closeIcon from '@static/close-button.png';
 
 interface TitleBarProps {
   location: string

@@ -3,8 +3,8 @@ import { createHashHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk, { ThunkAction } from 'redux-thunk';
 import { Action } from '@reduxjs/toolkit';
-import instagramReducer from '../ducks/instagram';
-import loadingReducer from '../ducks/loading';
+import instagramReducer from '@ducks/instagram';
+import loadingReducer from '@ducks/loading';
 
 export const history = createHashHistory();
 

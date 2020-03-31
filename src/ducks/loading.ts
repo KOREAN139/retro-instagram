@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
-import { Thunk, RootState } from '../store';
+import { Thunk, RootState } from '@store';
 
 interface LoadingState {
   loading: boolean
