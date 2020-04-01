@@ -5,7 +5,7 @@ $static-folder-url: 'static';
 @include font('W95FA', 'W95FARegular');
 
 body {
-  @include defaultBoxShadow(1.6);
+  @include defaultBoxShadow(1.6px);
 
   width: 308px;
   height: 556px;
