@@ -10,7 +10,6 @@ import {
 interface PostProps {
   postInfo: PostWithCaptionItem
   userInfo?: UserInfo
-  pixelized: boolean
   index: number
 }
 
@@ -70,7 +69,6 @@ const Post: React.FC<Props> = (props) => {
   const {
     postInfo,
     userInfo,
-    pixelized,
     index,
     ...otherProps
   } = props;

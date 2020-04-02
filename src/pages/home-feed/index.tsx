@@ -59,7 +59,6 @@ const HomeFeed = () => {
                 <Post
                   postInfo={post.post}
                   userInfo={post.user}
-                  pixelized={false}
                   index={i}
                   key={i}
                 />
