@@ -90,6 +90,7 @@ const Post: React.FC<Props> = (props) => {
   const postMediaUrl = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
 
   const {
+    hasLiked,
     likeCount,
     commentCount,
     previewComments,
@@ -141,6 +142,7 @@ const Post: React.FC<Props> = (props) => {
         <Button
           location={'Post'}
           text={'Like'}
+          selected={hasLiked}
         />
         <Button
           location={'Post'}
