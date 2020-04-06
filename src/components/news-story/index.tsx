@@ -78,12 +78,14 @@ const NewsStory: React.FC<Props> = (props) => {
                 trailText = text!.slice(end, links[i + 1].start);
               }
               return (
-                <>
+                <React.Fragment
+                  key={i}
+                >
                   <b>
                     {text!.slice(start, end)}
                   </b>
                   {trailText}
-                </>
+                </React.Fragment>
               );
             }) : text}
           </span>
