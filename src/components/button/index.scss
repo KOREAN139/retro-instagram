@@ -87,6 +87,12 @@ $static-folder-url: '../../static';
     }
   }
 
+  &.Post-info-modal {
+    font-size: 12px;
+    width: 60px;
+    height: 20px;
+  }
+
   &.Footer {
     div {
       flex-basis: 100%;

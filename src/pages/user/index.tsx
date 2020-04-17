@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
 import Button from '@components/button';
 import Page from '@components/page';
+import PostInfoModal from '@pages/user/post-info-modal';
 import PixelImage from '@components/pixel-image';
 import moreIcon from '@static/more-button.png';
 import gridIcon from '@static/grid-icon.png';
@@ -11,10 +12,13 @@ import tagIcon from '@static/tag-icon.png';
 import { RootState } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
+import { PostItem } from 'retro-instagram';
 
 const User = () => {
   const dispatch = useDispatch();
   const [currentCategory, setCurrentCategory] = useState('grid');
+  const [displayModal, setDisplayModal] = useState(false);
+  const [selectedPostItem, setSelectedPostItem] = useState<PostItem>();
   let infoExists = false;
   let pixelizedProfile = false;
 
@@ -78,6 +82,15 @@ const User = () => {
     const { shell } = window.require('electron');
     let link = userInfo.externalUrl;
     shell.openExternal(link);
+  };
+
+  const onClickPost = (index: number) => {
+    setDisplayModal(true);
+    setSelectedPostItem(posts[index]);
+  };
+
+  const onClickModelClose = () => {
+    setDisplayModal(false);
   };
 
   const onClickGrid = () => {
@@ -222,6 +235,7 @@ const User = () => {
                     pixelized={!!pixelizedMediaUrl}
                     index={i}
                     key={i}
+                    onClick={() => onClickPost(i)}
                   />
                 );
               })}
@@ -233,6 +247,12 @@ const User = () => {
           </div>
         </div>
       </div>
+      {displayModal && !!selectedPostItem &&
+        <PostInfoModal
+          likeCount={selectedPostItem.likeCount}
+          commentCount={selectedPostItem.commentCount}
+          onClickClose={onClickModelClose}
+        />}
     </Page>
   );
 };

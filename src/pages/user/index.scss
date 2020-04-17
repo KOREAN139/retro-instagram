@@ -1,5 +1,6 @@
 @import 'styles/_mixins';
 @import 'styles/_placeholders';
+$static-folder-url: '../../static';
 
 .Userpage-container {
   display: flex;
@@ -154,6 +155,7 @@
           width: 94.5px;
           height: 94.5px;
           object-fit: cover;
+          cursor: url('#{$static-folder-url}/pointer.cur'), pointer;
 
           @for $i from 1 through 3 {
             &:nth-child(#{$i}) {
