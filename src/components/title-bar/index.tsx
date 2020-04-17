@@ -7,6 +7,7 @@ import closeIcon from '@static/close-button.png';
 
 interface TitleBarProps {
   location: string
+  displayIcon: boolean
   title?: string
   onClickClose?: () => void
 }
@@ -16,7 +17,7 @@ export type Props = TitleBarProps & React.HTMLAttributes<HTMLDivElement>;
 const { ipcRenderer } = window;
 
 const TitleBar: React.FC<Props> = (props) => {
-  const { onClickClose, location, title } = props;
+  const { onClickClose, location, title, displayIcon } = props;
   const onRootPage = location === 'Root';
 
   const handleMinimize = () => {
@@ -29,7 +30,8 @@ const TitleBar: React.FC<Props> = (props) => {
 
   return (
     <div className={'Title-bar'}>
-      <div className={'Title-bar__Icon'}/>
+      {displayIcon &&
+        <div className={'Title-bar__Icon'}/>}
       <div className={'Title-bar__Title'}>
         <div className={'Title-bar__Title__Text'}>
           {onRootPage ? 'Instagram.exe' : title}

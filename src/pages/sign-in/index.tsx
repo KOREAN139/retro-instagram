@@ -32,6 +32,7 @@ const SignIn: React.FC<Props> = (props) => {
       <div className={'Sign-in-page-overlay'} />
       <div className={'Sign-in-page-container'}>
         <TitleBar
+          displayIcon={true}
           location={'Sign-in'}
           title={'Log On to Instagram'}
           onClickClose={onClickClose}

@@ -13,6 +13,7 @@ const RootPage = () => (
   <>
     <Provider store={store}>
       <TitleBar
+        displayIcon={true}
         location={'Root'}
       />
       <MenuBar />

@@ -13,7 +13,6 @@ $title-bar-height: 22px;
     width: $title-bar-height - 4px;
     height: $title-bar-height;
     margin-left: 4px;
-    margin-right: 3px;
     background: {
       size: contain;
       repeat: no-repeat;
@@ -26,6 +25,7 @@ $title-bar-height: 22px;
     display: flex;
     width: 100%;
     justify-content: space-between;
+    margin-left: 3px;
 
     &__Text {
       display: flex;
