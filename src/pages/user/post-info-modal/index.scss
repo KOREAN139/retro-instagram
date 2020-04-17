@@ -1,0 +1,56 @@
+@import 'styles/_mixins';
+$static-folder-url: '../../../static';
+
+.Post-info-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.Post-info-modal-container {
+  @include defaultBoxShadow(1.6px);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 6px;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+
+  background-image: url('#{$static-folder-url}/background-pattern.png');
+
+  .Title-bar {
+    &__Title {
+      margin-left: 6px;
+    }
+  }
+
+  &__Text {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    font-size: 13px;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  &__Buttons {
+    width: 95%;
+    display: flex;
+    align-self: center;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    justify-content: center;
+
+    .Button + .Button {
+      margin-left: 6px;
+    }
+  }
+}
