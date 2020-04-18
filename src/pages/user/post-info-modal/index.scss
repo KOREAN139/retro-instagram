@@ -9,6 +9,32 @@ $static-folder-url: '../../../static';
   right: 0;
 }
 
+@keyframes retro-zoom-in {
+  from {
+    width: 0;
+    height: 0;
+  }
+}
+
+.Post-info-modal-animation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 2px white;
+
+  width: 60%;
+  height: 96px;
+
+  animation: retro-zoom-in 0.3s steps(12);
+}
+
+@keyframes show-after-seconds {
+  to {
+    visibility: visible;
+  }
+}
+
 .Post-info-modal-container {
   @include defaultBoxShadow(1.6px);
 
@@ -23,6 +49,9 @@ $static-folder-url: '../../../static';
   width: 60%;
 
   background-image: url('#{$static-folder-url}/background-pattern.png');
+
+  visibility: hidden;
+  animation: show-after-seconds 0s 0.3s forwards;
 
   .Title-bar {
     &__Title {

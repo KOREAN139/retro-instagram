@@ -43,6 +43,7 @@ const PostInfoModal: React.FC<Props> = (props) => {
   return (
     <>
       <div className={'Post-info-modal-overlay'} />
+      <div className={'Post-info-modal-animation'} />
       <div className={'Post-info-modal-container'}>
         <TitleBar
           displayIcon={false}
