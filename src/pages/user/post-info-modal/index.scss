@@ -26,7 +26,7 @@ $static-folder-url: '../../../static';
   width: 60%;
   height: 96px;
 
-  animation: retro-zoom-in 0.3s steps(12);
+  animation: retro-zoom-in 0.3s steps(7);
 }
 
 @keyframes show-after-seconds {
