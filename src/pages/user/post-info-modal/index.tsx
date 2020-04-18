@@ -29,7 +29,7 @@ const formatText = (likeCount: number, commentCount: number) => {
 
   if (likePhrase || commentPhrase) {
     if (likePhrase && commentPhrase) {
-      return `You earn ${likePhrase} and ${commentPhrase}`;
+      return `You earn ${likePhrase}\n and ${commentPhrase}`;
     }
     return `You earn ${likePhrase}${commentPhrase}`;
   }
