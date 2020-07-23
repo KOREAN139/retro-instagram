@@ -1,26 +1,6 @@
-$gap: 6px;
-
 .Menu-bar {
   display: flex;
   height: 18px;
   margin-top: 1px;
   margin-bottom: 1px;
-
-  &__Menu {
-    display: flex;
-    font-size: 13px;
-    padding-left: $gap;
-    padding-right: $gap;
-    align-items: center;
-    justify-items: center;
-
-    &.Activated:hover {
-      color: white;
-      background-color: rgb(2,0,125);
-    }
-
-    &.Disabled {
-      color: grey;
-    }
-  }
 }

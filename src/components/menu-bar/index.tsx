@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
 import './index.scss';
+import Menu, { menuOf, disabledMenuOf } from '@components/menu';
 
 interface MenuBarProps {
 }
@@ -18,55 +18,28 @@ const MenuBar: React.FC<Props> = (props) => {
     setActivated(false);
   }
 
+  const menus = [
+    menuOf('file'),
+    menuOf('edit'),
+    menuOf('view'),
+    disabledMenuOf('option'),
+    menuOf('help'),
+  ];
+
   return (
     <div
       className={'Menu-bar'}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className={classNames(
-          'Menu-bar__Menu',
-          { 'Activated': activated },
-        )}
-        onClick={handleOnClick}
-      >
-        <u>F</u>ile
-      </div>
-      <div
-        className={classNames(
-          'Menu-bar__Menu',
-          { 'Activated': activated },
-        )}
-        onClick={handleOnClick}
-      >
-        <u>E</u>dit
-      </div>
-      <div
-        className={classNames(
-          'Menu-bar__Menu',
-          { 'Activated': activated },
-        )}
-        onClick={handleOnClick}
-      >
-        <u>V</u>iew
-      </div>
-      <div
-        className={classNames(
-          'Menu-bar__Menu',
-          'Disabled',
-        )}
-      >
-        <u>O</u>ptions
-      </div>
-      <div
-        className={classNames(
-          'Menu-bar__Menu',
-          { 'Activated': activated },
-        )}
-        onClick={handleOnClick}
-      >
-        <u>H</u>elp
-      </div>
+      {menus.map((mutableMenuProps, i) => {
+        return (
+          <Menu
+            { ...mutableMenuProps }
+            activated={activated}
+            onClick={handleOnClick}
+          />
+        );
+      })}
     </div>
   );
 }
