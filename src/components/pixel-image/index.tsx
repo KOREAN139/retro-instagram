@@ -45,7 +45,12 @@ const PixelImage: React.FC<Props> = (props) => {
   image.crossOrigin = 'Anonymous';
   // pixelize image
   image.onload = () => {
-    let canvas = canvasRef.current!;
+    let canvas = canvasRef.current;
+    if (!canvas) {
+      dispatch(setPixelizedUrl(type, '', index));
+      return;
+    }
+
     const context = canvas.getContext('2d')!;
     const { width, height } = image;
 
