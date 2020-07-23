@@ -35,6 +35,7 @@ const MenuBar: React.FC<Props> = (props) => {
         return (
           <Menu
             { ...mutableMenuProps }
+            key={i}
             activated={activated}
             onClick={handleOnClick}
           />
