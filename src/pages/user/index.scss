@@ -87,6 +87,8 @@ $static-folder-url: '../../static';
       word-wrap: break-word;
       word-break: break-all;
       font-size: 13px;
+      white-space: pre-wrap;
+      line-height: 15px;
 
       * + * {
         margin-top: 4px;
