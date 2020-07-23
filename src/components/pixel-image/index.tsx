@@ -47,7 +47,6 @@ const PixelImage: React.FC<Props> = (props) => {
   image.onload = () => {
     let canvas = canvasRef.current;
     if (!canvas) {
-      dispatch(setPixelizedUrl(type, '', index));
       return;
     }
 
