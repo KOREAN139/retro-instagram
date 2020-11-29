@@ -35,7 +35,7 @@ declare module 'retro-instagram' {
 
   export interface UserPostInfo {
     moreAvailable: boolean
-    posts: PostItem[]
+    posts: PostWithCaptionItem[]
   }
 
   export interface UserInfo {

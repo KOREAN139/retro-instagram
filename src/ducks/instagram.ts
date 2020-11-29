@@ -98,6 +98,10 @@ const instagramDetails = createSlice({
           post.image_versions2.candidates[0].url;
 
         const {
+          id,
+          caption: captionInfo,
+          taken_at: takenAt,
+          has_liked: hasLiked,
           like_count: likeCount,
           comment_count: commentCount,
           preview_comments: previewCommentInfo,
@@ -112,13 +116,24 @@ const instagramDetails = createSlice({
           })
         }
 
-        state.userPostInfo.posts.push({
+        const caption = {
+          username: captionInfo ? captionInfo.user.username : '',
+          text: captionInfo ? captionInfo.text : '',
+        };
+
+        const postWithCaption = {
+          id,
           mediaType,
           mediaUrl,
           commentCount,
           previewComments,
+          hasLiked,
           likeCount,
-        });
+          caption,
+          createdAt: takenAt * 1000,
+        };
+
+        state.userPostInfo.posts.push(postWithCaption);
       });
     },
     getUserPostsFailed(state, action:PayloadAction<string>) {
