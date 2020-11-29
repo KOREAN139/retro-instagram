@@ -9,8 +9,7 @@ $static-folder-url: '../../static';
   background-image: inherit;
 
   &__Userinfo {
-    @include dividerTopShadow;
-    @include dividerBottomShadow;
+    @include dividerTopBottomShadow;
 
     padding-top: 5px;
     padding-bottom: 5px;
