@@ -1,0 +1,76 @@
+@import 'styles/_mixins';
+@import 'styles/_placeholders';
+$static-folder-url: '../../static';
+
+.Userpage-scroll-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-image: inherit;
+
+  &__Userinfo {
+    @include dividerTopShadow;
+
+    padding: 8px 6px 6px 6px;
+
+    display: flex;
+    flex-direction: row;
+    font-size: 0;
+
+    &__Profile-picture {
+      margin-right: 8px;
+
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: black;
+
+      .Pixel-image {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+    }
+
+    &__Username {
+      align-self: center;
+
+      font: {
+        weight: bolder;
+        size: 13px;
+      }
+    }
+
+    &__Option-button {
+        margin-left: auto;
+
+        .Button {
+          width: 24px;
+          height: 24px;
+        }
+    }
+  }
+
+  &__Contents {
+    @extend %scrollable_box_container;
+    @include scrollableBoxShadow;
+
+    width: inherit;
+    flex: 1;
+    margin-top: 2px;
+    padding: 2px;
+
+    &__Scrollable {
+      @extend %scrollable_box_vertical;
+
+      .Post-container + .Post-container {
+          margin-top: 16px;
+      }
+
+      &__Bottom {
+        width: 0;
+        height: 0;
+      }
+    }
+  }
+}
