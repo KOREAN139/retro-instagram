@@ -46,6 +46,8 @@ const UserScroll: React.FC<Props> = (props) => {
     <Page
       title={'Posts'}
       loaded={true}
+      backButton={true}
+      reloadButton={true}
     >
       <div className={'Userpage-scroll-container'}>
         <div className={'Userpage-scroll-container__Userinfo'}>
