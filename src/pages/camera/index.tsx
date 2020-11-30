@@ -6,7 +6,7 @@ const Camera = () => {
   return (
     <Page
       title={'Camera'}
-      loaded={true}
+      loaded
     >
       <div className={'Camera-page-container'}>
       </div>

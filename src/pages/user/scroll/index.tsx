@@ -73,9 +73,9 @@ const UserScroll: React.FC<Props> = (props) => {
   return (
     <Page
       title={'Posts'}
-      loaded={true}
-      backButton={true}
-      reloadButton={true}
+      loaded
+      backButton
+      reloadButton
     >
       <div className={'Userpage-scroll-container'}>
         <div className={'Userpage-scroll-container__Userinfo'}>
@@ -86,7 +86,7 @@ const UserScroll: React.FC<Props> = (props) => {
                   source={pixelizedProfile ?
                     userInfo.profilePicture.pixelizedMediaUrl :
                     userInfo.profilePicture.mediaUrl}
-                  centered={true}
+                  centered
                   pixelized={pixelizedProfile}
                 />}
             </div>

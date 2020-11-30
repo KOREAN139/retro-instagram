@@ -6,7 +6,7 @@ const Explore = () => {
   return (
     <Page
       title={'Explore'}
-      loaded={true}
+      loaded
     >
       <div className={'Explore-page-container'}>
         <div className={'Explore-page-container__Contents'}>

@@ -128,7 +128,7 @@ const User = () => {
                   source={pixelizedProfile ?
                     userInfo.profilePicture.pixelizedMediaUrl :
                     userInfo.profilePicture.mediaUrl}
-                  centered={true}
+                  centered
                   pixelized={pixelizedProfile}
                 />}
             </div>
@@ -238,7 +238,7 @@ const User = () => {
                   <PixelImage
                     type={'user-thumbnail'}
                     source={source}
-                    centered={true}
+                    centered
                     pixelized={!!pixelizedMediaUrl}
                     index={i}
                     key={i}
