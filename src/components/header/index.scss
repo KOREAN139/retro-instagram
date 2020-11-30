@@ -4,10 +4,25 @@
   display: flex;
   text-align: center;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
-  font: {
-    size: 14px;
-    weight: bolder;
+  &__Button-holder {
+    padding: 0 4px;
+
+    .Button {
+      height: 26px;
+      padding: 0 10px;
+
+      font: {
+        size: 15px;
+      }
+    }
+  }
+
+  &__Title-holder {
+    font: {
+      size: 14px;
+      weight: bolder;
+    }
   }
 }

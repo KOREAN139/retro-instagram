@@ -6,6 +6,8 @@ import Header from '@components/header';
 interface PageProps {
   title: string
   loaded: boolean
+  backButton?: boolean
+  reloadButton?: boolean
 }
 
 export type Props = PageProps & React.HTMLAttributes<HTMLDivElement>;
@@ -18,7 +20,7 @@ const Page: React.FC<Props> = (props) => {
       'Page',
       { 'On-loading': !loaded },
     )}>
-      <Header title={title} />
+      <Header {...props} />
       {props.children}
     </div>
   );
