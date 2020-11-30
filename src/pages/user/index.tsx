@@ -13,6 +13,8 @@ import { RootState } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
 import { PostItem } from 'retro-instagram';
+import { NavLink } from 'react-router-dom';
+import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -200,12 +202,17 @@ const User = () => {
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
             />
-            <Button
-              location={'User-contents-category'}
-              icon={scrollIcon}
-              selected={currentCategory === 'scroll'}
-              onClick={onClickScroll}
-            />
+            <NavLink
+              className={'Button'}
+              to={ROUTE_USER_SCROLL}
+            >
+              <Button
+                location={'User-contents-category'}
+                icon={scrollIcon}
+                selected={currentCategory === 'scroll'}
+                onClick={onClickScroll}
+              />
+            </NavLink>
             <Button
               location={'User-contents-category'}
               icon={locationIcon}

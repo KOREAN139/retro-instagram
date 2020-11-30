@@ -6,6 +6,7 @@ import Explore from '@pages/explore';
 import Camera from '@pages/camera';
 import News from '@pages/news';
 import User from '@pages/user';
+import UserScroll from '@pages/user/scroll';
 import SignIn from '@pages/sign-in';
 import Loading from '@pages/loading';
 import {
@@ -13,7 +14,8 @@ import {
   ROUTE_EXPLORE,
   ROUTE_CAMERA,
   ROUTE_NEWS,
-  ROUTE_USER
+  ROUTE_USER,
+  ROUTE_USER_SCROLL
 } from './constants';
 
 const Routes: React.FC = () => {
@@ -37,6 +39,7 @@ const Routes: React.FC = () => {
           <Route exact path={ROUTE_CAMERA} component={Camera} />
           <Route exact path={ROUTE_NEWS} component={News} />
           <Route exact path={ROUTE_USER} component={User} />
+          <Route exact path={ROUTE_USER_SCROLL} component={UserScroll} />
         </Switch>
       </PageContainer>
     </>
