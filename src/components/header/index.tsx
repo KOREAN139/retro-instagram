@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Button from '@components/button';
 import './index.scss';
+import { useHistory } from 'react-router-dom';
 
 interface HeaderProps {
   title: string
@@ -12,12 +13,19 @@ export type Props = HeaderProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Header: React.FC<Props> = (props) => {
   const { title, backButton, reloadButton } = props;
+  const history = useHistory();
+
+  const onClickBackButton = useCallback(() => {
+    history.goBack();
+  }, []);
+
   return (
     <div className={'Header'}>
       <div className={'Header__Button-holder'}>
         {backButton &&
           <Button
             text={'Back'}
+            onClick={onClickBackButton}
           />}
       </div>
       <div className={'Header__Title-holder'}>
