@@ -17,7 +17,7 @@ const Header: React.FC<Props> = (props) => {
 
   const onClickBackButton = useCallback(() => {
     history.goBack();
-  }, []);
+  }, [history]);
 
   return (
     <div className={'Header'}>
