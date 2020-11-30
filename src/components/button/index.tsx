@@ -41,6 +41,7 @@ const Button: React.FC<Props> = (props) => {
       {icon &&
         <div
           className={classNames(
+            'Button__Icon',
             { 'Able': !disabled },
             { 'Disabled': disabled },
           )}
