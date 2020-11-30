@@ -48,6 +48,11 @@ $static-folder-url: '../../static';
     flex-direction: row;
     margin: 6px 8px 8px 8px;
 
+    .Button {
+      padding: 7px 12px 7px 12px;
+      font-size: 13px;
+    }
+
     .Button + .Button {
       margin-left: 1px;
     }

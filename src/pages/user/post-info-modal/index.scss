@@ -79,6 +79,12 @@ $static-folder-url: '../../../static';
     margin-bottom: 4px;
     justify-content: center;
 
+    .Button {
+      font-size: 12px;
+      width: 60px;
+      height: 20px;
+    }
+
     .Button + .Button {
       margin-left: 6px;
     }

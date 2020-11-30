@@ -42,6 +42,27 @@ $title-bar-height: 22px;
       display: flex;
       padding: 3px 2px 1px 2px;
 
+      .Button {
+        width: 18px;
+        height: 18px;
+        cursor: url('#{$static-folder-url}/cursor.cur'), auto;
+
+        &__Icon {
+          width: 100%;
+          height: 100%;
+          background-position: 40% 40%;
+          background-size: 11px 11px;
+
+          &.Able:active {
+            background-position: 50% 50%;
+          }
+
+          &.Disabled {
+            opacity: 0.3;
+          }
+        }
+      }
+
       > .Button:last-child {
         margin-left: 2px;
       }
