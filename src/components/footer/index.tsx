@@ -9,8 +9,6 @@ import newsIcon from '@static/news-icon.png';
 import userIcon from '@static/user-icon.png';
 import {
   ROUTE_HOME_FEED,
-  ROUTE_EXPLORE,
-  ROUTE_CAMERA,
   ROUTE_NEWS,
   ROUTE_USER
 } from '@pages/routes/constants';
@@ -30,13 +28,13 @@ const Footer: React.FC<Props> = (props) => {
   }
 
   const onClickExplore = () => {
-    setCurrentPage('explore');
-    history.push(ROUTE_EXPLORE);
+    // setCurrentPage('explore');
+    // history.push(ROUTE_EXPLORE);
   }
 
   const onClickCamera = () => {
-    setCurrentPage('camera');
-    history.push(ROUTE_CAMERA);
+    // setCurrentPage('camera');
+    // history.push(ROUTE_CAMERA);
   }
 
   const onClickNews = () => {
@@ -61,12 +59,14 @@ const Footer: React.FC<Props> = (props) => {
         <Button
           location={'Footer Explore'}
           icon={exploreIcon}
+          disabled
           selected={currentPage === 'explore'}
           onClick={onClickExplore}
         />
         <Button
           location={'Footer Camera'}
           icon={cameraIcon}
+          disabled
           selected={currentPage === 'camera'}
           onClick={onClickCamera}
         />

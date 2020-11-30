@@ -12,6 +12,12 @@
     .Button {
       flex-basis: 100%;
       height: 26px;
+
+      div {
+        &.Disabled {
+          opacity: 0.3;
+        }
+      }
     }
 
     .Button + .Button {
