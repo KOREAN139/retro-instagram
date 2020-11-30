@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserPostInfo } from 'retro-instagram';
 import Page from '@components/page';
 import Post from '@components/post';
@@ -8,6 +8,7 @@ import './index.scss';
 import PixelImage from '@components/pixel-image';
 import Button from '@components/button';
 import optionIcon from '@static/option-icon.png';
+import { getUserPosts } from '@ducks/instagram';
 
 interface UserScrollProps {
   title: string
@@ -19,8 +20,13 @@ interface UserScrollProps {
 export type Props = UserScrollProps & React.HTMLAttributes<HTMLDivElement>;
 
 const UserScroll: React.FC<Props> = (props) => {
+  const dispatch = useDispatch();
   let infoExists = false;
   let pixelizedProfile = false;
+
+  const userPk: number = useSelector(
+    (state: RootState) => state.instagram.userPk
+  );
 
   const userInfo: any = useSelector(
     (state: RootState) => state.instagram.userInfo
@@ -29,9 +35,31 @@ const UserScroll: React.FC<Props> = (props) => {
   const userPostInfo = useSelector(
     (state: RootState) => state.instagram.userPostInfo
   );
+  const { moreAvailable, posts } = userPostInfo;
+
+  const containerRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  useEffect(() => {
+    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
+      if (isIntersecting && moreAvailable) {
+        dispatch(getUserPosts(userPk));
+      }
+    };
+
+    const observer = new IntersectionObserver(onIntersect, {
+      root: containerRef.current,
+      threshold: 1.0,
+    });
+
+    observer.observe(bottomRef.current!);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
 
 //   const { username } = userInfo;
-  const { posts } = userPostInfo;
 
   if (userInfo) {
     const exist = userInfo.fullName
@@ -73,7 +101,10 @@ const UserScroll: React.FC<Props> = (props) => {
             </div>
         </div>
         <div className={'Userpage-scroll-container__Contents'}>
-          <div className={'Userpage-scroll-container__Contents__Scrollable'}>
+          <div
+            className={'Userpage-scroll-container__Contents__Scrollable'}
+            ref={containerRef}
+          >
             {posts && posts.map((post, i) => {
               return (
                 <Post
@@ -83,6 +114,10 @@ const UserScroll: React.FC<Props> = (props) => {
                 />
               );
             })}
+            <div
+              className={'Userpage-container__Contents__Box__Scrollable__Bottom'}
+              ref={bottomRef}
+            />
           </div>
         </div>
       </div>
