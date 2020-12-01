@@ -1,0 +1,38 @@
+name: Release New Version
+
+on:
+  push:
+    # Release when commit are pushed to master branch
+    branches:
+      - master
+    # Do not release if tags are pushed
+    tags-ignore:
+      - '*.*'
+    # Do not release if github-related files are pushed (template, workflow, ...)
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  release:
+    name: Release New Version
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npx semantic-release

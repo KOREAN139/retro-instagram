@@ -67,6 +67,7 @@
     "cross-env": "^7.0.2",
     "electron": "^8.1.0",
     "electron-builder": "^22.4.0",
+    "semantic-release": "^17.3.0",
     "wait-on": "^4.0.1"
   },
   "homepage": ".",
