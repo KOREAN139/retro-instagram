@@ -47,6 +47,13 @@ $static-folder-url: '../../static';
         .Button {
           width: 24px;
           height: 24px;
+
+          &__Icon {
+            width: 18px;
+            height: 18px;
+            background-position: center;
+            background-size: 12px 12px;
+          }
         }
     }
   }

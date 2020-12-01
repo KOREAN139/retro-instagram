@@ -95,7 +95,7 @@ const UserScroll: React.FC<Props> = (props) => {
             </div>
             <div className={'Userpage-scroll-container__Userinfo__Option-button'}>
               <Button
-                location={'User-contents-category'}
+                location={'Userpage-scroll-userinfo'}
                 icon={optionIcon}
               />
             </div>
