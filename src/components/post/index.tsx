@@ -1,16 +1,17 @@
-import React, { useRef } from 'react';
 import './index.scss';
+
 import Button from '@components/button';
 import PixelImage from '@components/pixel-image';
+import React, { useRef } from 'react';
 import {
   PostWithCaptionItem,
-  UserInfo
-} from 'retro-instagram';
+  UserInfo,
+} from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
 
 interface PostProps {
-  postInfo: PostWithCaptionItem
-  userInfo?: UserInfo
-  index: number
+  postInfo: PostWithCaptionItem;
+  userInfo?: UserInfo;
+  index: number;
 }
 
 export type Props = PostProps & React.HTMLAttributes<HTMLDivElement>;
@@ -41,7 +42,7 @@ const formatDate = (utc: number): string => {
 const formatCaption = (username: string, caption: string): string => {
   const splited = caption.split('\n');
   const firstTwoLines = splited.slice(0, 2);
-  const [ firstLine, secondLine ] = firstTwoLines;
+  const [firstLine, secondLine] = firstTwoLines;
   if (firstLine.length > 20) {
     return `${firstLine.substring(0, 20)}...`;
   }
@@ -49,29 +50,23 @@ const formatCaption = (username: string, caption: string): string => {
   if (secondLine !== undefined) {
     const remainingLength = 20 - (username.length + 1 + firstLine.length);
     if (secondLine.length > remainingLength) {
-      return firstLine + '\n'
-        + secondLine.substring(0, remainingLength) + '...';
+      return `${firstLine}\n${secondLine.substring(0, remainingLength)}...`;
     }
 
     if (splited.length > 2) {
-      const skipAll = firstTwoLines.every(line => line.trim().length < 2);
+      const skipAll = firstTwoLines.every((line) => line.trim().length < 2);
       if (skipAll) {
         return '...';
       }
-      return firstTwoLines.join('\n') + '...\n';
+      return `${firstTwoLines.join('\n')}...\n`;
     }
   }
 
   return caption;
 };
 
-const Post: React.FC<Props> = (props) => {
-  const {
-    postInfo,
-    userInfo,
-    index,
-    ...otherProps
-  } = props;
+const Post: React.FC<Props> = (props: Props) => {
+  const { postInfo, userInfo, index, children } = props;
 
   const captionRef = useRef<HTMLDivElement>(null);
 
@@ -81,13 +76,13 @@ const Post: React.FC<Props> = (props) => {
     const { mediaUrl, pixelizedMediaUrl } = userInfo.profilePicture;
 
     pixelizedProfilePicture = !!pixelizedMediaUrl;
-    profilePictureUrl = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
+    profilePictureUrl = pixelizedMediaUrl || mediaUrl;
   }
 
   const { mediaUrl, pixelizedMediaUrl } = postInfo;
 
   const pixelizedPostMedia = !!pixelizedMediaUrl;
-  const postMediaUrl = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
+  const postMediaUrl = pixelizedMediaUrl || mediaUrl;
 
   const {
     hasLiked,
@@ -109,15 +104,12 @@ const Post: React.FC<Props> = (props) => {
   };
 
   return (
-    <div
-      className={'Post-container'}
-      {...otherProps}
-    >
-      {userInfo &&
-        <div className={'Post-container__Header'}>
-          <div className={'Post-container__Header__Profile-picture'}>
+    <div className='Post-container'>
+      {userInfo && (
+        <div className='Post-container__Header'>
+          <div className='Post-container__Header__Profile-picture'>
             <PixelImage
-              type={'feed-profile'}
+              type='feed-profile'
               source={profilePictureUrl}
               centered
               pixelized={pixelizedProfilePicture}
@@ -125,94 +117,93 @@ const Post: React.FC<Props> = (props) => {
               pixelPerLine={30}
             />
           </div>
-          <div className={'Post-container__Header__Username'}>
+          <div className='Post-container__Header__Username'>
             {userInfo.username}
           </div>
-        </div>}
-      <div className={'Post-container__Media'}>
+        </div>
+      )}
+      <div className='Post-container__Media'>
         <PixelImage
-          type={'feed-post'}
+          type='feed-post'
           source={postMediaUrl}
           pixelized={pixelizedPostMedia}
           index={index}
           pixelPerLine={200}
         />
       </div>
-      <div className={'Post-container__Buttons'}>
-        <Button
-          location={'Post'}
-          text={'Like'}
-          selected={hasLiked}
-        />
-        <Button
-          location={'Post'}
-          text={'Comment'}
-        />
-        <Button
-          location={'Post'}
-          text={'Share'}
-        />
+      <div className='Post-container__Buttons'>
+        <Button location='Post' text='Like' selected={hasLiked} />
+        <Button location='Post' text='Comment' />
+        <Button location='Post' text='Share' />
       </div>
-      {likeCount > 0 &&
-        <div className={'Post-container__Likes'}>
-          <div className={'Post-container__Likes__Icon'} />
-          <div className={'Post-container__Likes__Number'}>
-          {`${likeCount} likes`}
+      {likeCount > 0 && (
+        <div className='Post-container__Likes'>
+          <div className='Post-container__Likes__Icon' />
+          <div className='Post-container__Likes__Number'>
+            {`${likeCount} likes`}
           </div>
-        </div>}
-      {caption.text &&
-        <div className={'Post-container__Info'}>
-          <span className={'Post-container__Info__Username'}>
+        </div>
+      )}
+      {caption.text && (
+        <div className='Post-container__Info'>
+          <span className='Post-container__Info__Username'>
             {caption.username}
           </span>
-          <span
-            className={'Post-container__Info__Caption'}
-            ref={captionRef}
-          >
+          <span className='Post-container__Info__Caption' ref={captionRef}>
             {formattedCaption}
-            {formattedCaption !== caption.text &&
+            {formattedCaption !== caption.text && (
               <span
-                className={'Post-container__Info__Caption__More'}
+                className='Post-container__Info__Caption__More'
                 onClick={handleClickMore}
+                role='button'
+                tabIndex={0}
+                onKeyUp={() => {}}
               >
                 more
-              </span>}
+              </span>
+            )}
           </span>
-        </div>}
-      {!!commentCount &&
-        <div className={'Post-container__Comments'}>
-          {commentCount > previewComments.length &&
-            <div className={'Post-container__Comments__More'}>
+        </div>
+      )}
+      {!!commentCount && (
+        <div className='Post-container__Comments'>
+          {commentCount > previewComments.length && (
+            <div className='Post-container__Comments__More'>
               {`View all ${commentCount} Comments`}
-            </div>}
-          {previewComments.length > 0 && previewComments.map((comment, i) => (
-            <div
-              className={'Post-container__Comments__Preview'}
-              key={i}
-            >
-              <span className={'Post-container__Comments__Preview__Username'}>
-                {comment.username}
-              </span>
-              <span className={'Post-container__Comments__Preview__Comment'}>
-                {comment.text.length > 50 ?
-                  comment.text.substr(0, 50)
-                  : comment.text}
-                {comment.text.length > 50 &&
-                  <span className={'Post-container__Comments__Preview__Comment__More'}>
-                    [...]
-                  </span>}
-              </span>
-            </div>))}
-        </div>}
-      <div className={'Post-container__Additional'}>
-        <span className={'Post-container__Additional__Date'}>
+            </div>
+          )}
+          {previewComments.length > 0 &&
+            previewComments.map((comment) => (
+              <div
+                className='Post-container__Comments__Preview'
+                key={comment.pk}
+              >
+                <span className='Post-container__Comments__Preview__Username'>
+                  {comment.username}
+                </span>
+                <span className='Post-container__Comments__Preview__Comment'>
+                  {comment.text.length > 50
+                    ? comment.text.substr(0, 50)
+                    : comment.text}
+                  {comment.text.length > 50 && (
+                    <span className='Post-container__Comments__Preview__Comment__More'>
+                      [...]
+                    </span>
+                  )}
+                </span>
+              </div>
+            ))}
+        </div>
+      )}
+      <div className='Post-container__Additional'>
+        <span className='Post-container__Additional__Date'>
           {formatDate(createdAt)}
-        </span >
-        <span className={'Post-container__Additional__Translate'}>
+        </span>
+        <span className='Post-container__Additional__Translate'>
           SEE TRANSLATION
-        </span >
+        </span>
       </div>
-      {props.children}
+      {children}
     </div>
   );
 };
