@@ -80,6 +80,8 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4",
     "eslint-plugin-simple-import-sort": "^6.0.1",
+    "husky": ">=4",
+    "lint-staged": ">=10",
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.0",
     "wait-on": "^4.0.1"
@@ -87,5 +89,17 @@
   "homepage": ".",
   "build": {
     "icon": "public/icon.png"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{js,css,md}": "prettier --write"
   }
 }
