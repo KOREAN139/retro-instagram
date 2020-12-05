@@ -40,7 +40,8 @@
     "build": "yarn react-build && electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
     "prettier": "prettier --write \"**/*.{ts,tsx}\"",
-    "lint": "eslint --fix src --ext .ts --ext .tsx"
+    "lint": "eslint --fix src --ext .ts --ext .tsx",
+    "stylelint": "stylelint --fix src/**/*.scss --syntax scss"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -84,6 +85,11 @@
     "lint-staged": ">=10",
     "prettier": "^2.2.1",
     "semantic-release": "^17.3.0",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
     "wait-on": "^4.0.1"
   },
   "homepage": ".",
@@ -98,6 +104,10 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.scss": [
+      "stylelint --cache --fix --syntax scss",
       "prettier --write"
     ],
     "*.{js,css,md}": "prettier --write"
