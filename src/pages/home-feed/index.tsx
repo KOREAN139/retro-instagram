@@ -27,7 +27,7 @@ const HomeFeed = () => {
   useEffect(() => {
     const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
       if (isIntersecting && moreAvailable) {
-        dispatch(getTimeline(userPk));
+        dispatch(getTimeline());
       }
     };
 

@@ -452,10 +452,10 @@ export const getUserPosts = (userPk: number) =>
     }
   });
 
-export const getTimeline = (userPk: number) =>
+export const getTimeline = () =>
   showLoadingPage(async (dispatch: Dispatch) => {
     try {
-      const timeline = await InstagramAPI.getTimeline(userPk);
+      const timeline = await InstagramAPI.getTimeline();
       dispatch(getTimelineSuccesss(timeline));
     } catch (err) {
       dispatch(getTimelineFailed(err.toString()));
