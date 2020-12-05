@@ -5,9 +5,13 @@ declare module 'retro-instagram' {
     pixelizedMediaUrl?: string;
   }
 
-  export interface CommentItem {
+  export interface CaptionItem {
     username: string;
     text: string;
+  }
+
+  export interface CommentItem extends CaptionItem {
+    pk: string;
   }
 
   export interface PostItem extends MediaItem {
@@ -19,7 +23,7 @@ declare module 'retro-instagram' {
 
   export interface PostWithCaptionItem extends PostItem {
     id: string;
-    caption: CommentItem;
+    caption: CaptionItem;
     hasLiked: boolean;
     createdAt: number;
   }

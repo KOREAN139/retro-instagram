@@ -124,9 +124,9 @@ const instagramDetails = createSlice({
         const previewComments: CommentItem[] = [];
         if (previewCommentInfo && previewCommentInfo.length) {
           previewCommentInfo.forEach((comment) => {
-            const { user, text } = comment;
+            const { pk, user, text } = comment;
             const { username } = user;
-            return previewComments.push({ username, text });
+            return previewComments.push({ pk, username, text });
           });
         }
 
@@ -207,9 +207,9 @@ const instagramDetails = createSlice({
         const previewComments: CommentItem[] = [];
         if (previewCommentInfo && previewCommentInfo.length) {
           previewCommentInfo.forEach((comment) => {
-            const { user: commenter, text } = comment;
+            const { pk, user: commenter, text } = comment;
             const { username } = commenter;
-            return previewComments.push({ username, text });
+            return previewComments.push({ pk, username, text });
           });
         }
 
