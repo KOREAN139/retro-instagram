@@ -1,26 +1,28 @@
 import { ipcMain } from 'electron-better-ipc';
-import { IgApiClient, UserFeed, TimelineFeed } from 'instagram-private-api';
+import { IgApiClient, TimelineFeed, UserFeed } from 'instagram-private-api';
 
-interface userInfo {
-  username: string
-  password: string
+interface UserInfo {
+  username: string;
+  password: string;
 }
 
 const ig = new IgApiClient();
 let userFeed: UserFeed | null = null;
 let timelineFeed: TimelineFeed | null = null;
 
-ipcMain.answerRenderer('sign-in', async (data: userInfo) => {
+ipcMain.answerRenderer('sign-in', async (data: UserInfo) => {
   const { username, password } = data;
   ig.state.generateDevice(username);
   await ig.simulate.preLoginFlow();
   const user = await ig.account.login(username, password);
+  /* eslint-disable-next-line no-return-await */
   process.nextTick(async () => await ig.simulate.postLoginFlow());
   return user;
 });
 
 ipcMain.answerRenderer('get-user-info', async (userPk: string) => {
-  return await ig.user.info(userPk);
+  const userInfo = await ig.user.info(userPk);
+  return userInfo;
 });
 
 ipcMain.answerRenderer('get-user-posts', async (userPk: string) => {
@@ -44,5 +46,6 @@ ipcMain.answerRenderer('get-timeline', async () => {
 });
 
 ipcMain.answerRenderer('get-news', async () => {
-  return await ig.news.inbox();
+  const news = await ig.news.inbox();
+  return news;
 });
