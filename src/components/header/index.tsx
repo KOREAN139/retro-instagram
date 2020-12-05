@@ -1,17 +1,18 @@
-import React, { useCallback } from 'react';
-import Button from '@components/button';
 import './index.scss';
+
+import Button from '@components/button';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 interface HeaderProps {
-  title: string
-  backButton?: boolean
-  reloadButton?: boolean
+  title: string;
+  backButton?: boolean;
+  reloadButton?: boolean;
 }
 
 export type Props = HeaderProps & React.HTMLAttributes<HTMLDivElement>;
 
-const Header: React.FC<Props> = (props) => {
+const Header: React.FC<Props> = (props: Props) => {
   const { title, backButton, reloadButton } = props;
   const history = useHistory();
 
@@ -20,22 +21,13 @@ const Header: React.FC<Props> = (props) => {
   }, [history]);
 
   return (
-    <div className={'Header'}>
-      <div className={'Header__Button-holder'}>
-        {backButton &&
-          <Button
-            text={'Back'}
-            onClick={onClickBackButton}
-          />}
+    <div className='Header'>
+      <div className='Header__Button-holder'>
+        {backButton && <Button text='Back' onClick={onClickBackButton} />}
       </div>
-      <div className={'Header__Title-holder'}>
-        {title}
-      </div>
-      <div className={'Header__Button-holder'}>
-        {reloadButton &&
-          <Button
-            text={'Reload'}
-          />}
+      <div className='Header__Title-holder'>{title}</div>
+      <div className='Header__Button-holder'>
+        {reloadButton && <Button text='Reload' />}
       </div>
     </div>
   );
