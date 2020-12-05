@@ -5,7 +5,7 @@
   padding: 4px 6px 0px 6px;
 
   &__Wrapper {
-    @include dividerBottomShadow;
+    @include divider-bottom-shadow;
 
     flex: 1;
     display: flex;

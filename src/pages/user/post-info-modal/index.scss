@@ -36,7 +36,7 @@ $static-folder-url: '../../../static';
 }
 
 .Post-info-modal-container {
-  @include defaultBoxShadow(1.6px);
+  @include default-box-shadow(1.6px);
 
   position: fixed;
   top: 50%;

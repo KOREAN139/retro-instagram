@@ -9,7 +9,7 @@ $static-folder-url: '../../static';
   background-image: inherit;
 
   &__Userinfo {
-    @include dividerTopBottomShadow;
+    @include divider-top-bottom-shadow;
 
     padding-top: 5px;
     padding-bottom: 5px;
@@ -159,8 +159,8 @@ $static-folder-url: '../../static';
     }
 
     &__Box {
-      @extend %scrollable_box_container;
-      @include scrollableBoxShadow;
+      @extend %scrollable-box-container;
+      @include scrollable-box-shadow;
 
       width: inherit;
       flex: 1;
@@ -168,7 +168,7 @@ $static-folder-url: '../../static';
       padding: 2px;
 
       &__Scrollable {
-        @extend %scrollable_box_vertical;
+        @extend %scrollable-box-vertical;
 
         align-content: flex-start;
 
