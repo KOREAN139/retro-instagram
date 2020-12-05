@@ -1,6 +1,5 @@
 {
     "singleQuote": true,
-    "parser": "typescript",
     "semi": true,
     "printWidth": 80,
     "jsxSingleQuote": true

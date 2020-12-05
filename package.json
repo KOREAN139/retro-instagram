@@ -39,7 +39,7 @@
     "start": "concurrently \"cross-env BROWSER=none SASS_PATH=src yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "yarn react-build && electron-builder",
     "release": "yarn react-build && electron-builder --publish=always",
-    "prettier": "prettier --write \"**/*.{ts,tsx}\"",
+    "prettier": "prettier --write \"**/*.{ts,tsx,scss}\"",
     "lint": "eslint --fix src --ext .ts --ext .tsx",
     "stylelint": "stylelint --fix src/**/*.scss --syntax scss"
   },
