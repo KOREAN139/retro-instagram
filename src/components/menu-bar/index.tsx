@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import './index.scss';
-import Menu, { menuOf, disabledMenuOf } from '@components/menu';
 
-interface MenuBarProps {
-}
+import Menu, { disabledMenuOf, menuOf } from '@components/menu';
+import React, { useState } from 'react';
+
+interface MenuBarProps {}
 
 export type Props = MenuBarProps & React.HTMLAttributes<HTMLDivElement>;
 
-const MenuBar: React.FC<Props> = (props) => {
+const MenuBar: React.FC<Props> = () => {
   const [activated, setActivated] = useState(false);
 
   const handleOnClick = () => {
@@ -16,7 +16,7 @@ const MenuBar: React.FC<Props> = (props) => {
 
   const handleMouseLeave = () => {
     setActivated(false);
-  }
+  };
 
   const menus = [
     menuOf('file'),
@@ -27,15 +27,14 @@ const MenuBar: React.FC<Props> = (props) => {
   ];
 
   return (
-    <div
-      className={'Menu-bar'}
-      onMouseLeave={handleMouseLeave}
-    >
-      {menus.map((mutableMenuProps, i) => {
+    <div className='Menu-bar' onMouseLeave={handleMouseLeave}>
+      {menus.map((mutableMenuProps) => {
+        const { name, disabled } = mutableMenuProps;
         return (
           <Menu
-            { ...mutableMenuProps }
-            key={i}
+            name={name}
+            disabled={disabled}
+            key={name}
             activated={activated}
             onClick={handleOnClick}
           />
@@ -43,6 +42,6 @@ const MenuBar: React.FC<Props> = (props) => {
       })}
     </div>
   );
-}
+};
 
 export default MenuBar;
