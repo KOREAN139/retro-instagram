@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState, Thunk } from '@store';
 import { Dispatch } from 'redux';
-import { Thunk, RootState } from '@store';
 
 interface LoadingState {
-  loading: boolean
-};
+  loading: boolean;
+}
 
 const initialState: LoadingState = {
   loading: false,
@@ -15,14 +15,15 @@ const loadingDetails = createSlice({
   initialState,
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
-      state.loading = action.payload;
+      return {
+        ...state,
+        loading: action.payload,
+      };
     },
   },
 });
 
-export const {
-  setLoading,
-} = loadingDetails.actions;
+export const { setLoading } = loadingDetails.actions;
 
 export default loadingDetails.reducer;
 

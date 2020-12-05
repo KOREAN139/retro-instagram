@@ -1,34 +1,34 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Dispatch } from 'redux';
 import * as InstagramAPI from '@api/instagram';
 import { showLoadingPage } from '@ducks/loading';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  GetUserInfoResponse,
-  GetUserFeedResponse,
+  GetNewsResponse,
   GetTimelineResponse,
-  GetNewsResponse
+  GetUserFeedResponse,
+  GetUserInfoResponse,
 } from 'instagram-private-api';
+import { Dispatch } from 'redux';
 import {
-  DetailUserInfo,
-  UserPostInfo,
   CommentItem,
+  DetailUserInfo,
+  NewsInfo,
   TimelineInfo,
-  NewsInfo
-} from 'retro-instagram';
+  UserPostInfo,
+} from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
 
 interface InstagramState {
-  signedIn: boolean
-  userPk: number
-  userInfo: DetailUserInfo | null
-  userPostInfo: UserPostInfo
-  timelineInfo: TimelineInfo
-  newsInfo: NewsInfo
-};
+  signedIn: boolean;
+  userPk: number;
+  userInfo: DetailUserInfo | null;
+  userPostInfo: UserPostInfo;
+  timelineInfo: TimelineInfo;
+  newsInfo: NewsInfo;
+}
 
 interface SetPixelizedUrlPayload {
-  index: number
-  pixelizedMediaUrl: string
-};
+  index: number;
+  pixelizedMediaUrl: string;
+}
 
 const initialState: InstagramState = {
   signedIn: false,
@@ -56,12 +56,18 @@ const instagramDetails = createSlice({
   initialState,
   reducers: {
     signInInstagramSuccess(state, action: PayloadAction<number>) {
-      state.signedIn = true;
-      state.userPk = action.payload;
+      return {
+        ...state,
+        signedIn: true,
+        userPk: action.payload,
+      };
     },
-    signInInstagramFailed(state, action: PayloadAction<string>) {
-    },
-    getSignedInUserInfoSuccess(state, action: PayloadAction<GetUserInfoResponse>) {
+    /* eslint-disable-next-line no-unused-vars */
+    signInInstagramFailed(state, action: PayloadAction<string>) {},
+    getSignedInUserInfoSuccess(
+      state,
+      action: PayloadAction<GetUserInfoResponse>
+    ) {
       const {
         username,
         full_name: fullName,
@@ -73,7 +79,7 @@ const instagramDetails = createSlice({
         external_url: externalUrl,
       } = action.payload;
 
-      state.userInfo = {
+      const userInfo = {
         username,
         fullName,
         profilePicture: { mediaUrl },
@@ -83,19 +89,27 @@ const instagramDetails = createSlice({
         biography,
         externalUrl,
       };
-    },
-    getSignedInUserInfoFailed(state, action: PayloadAction<string>) {
-    },
-    getUserPostsSuccess(state, action: PayloadAction<GetUserFeedResponse>) {
-      const { moreAvailable, posts } = action.payload;
-      state.userPostInfo.moreAvailable = moreAvailable;
-      posts.forEach(post => {
-        const mediaType = post.carousel_media ? 'Carousel' :
-          post.video_versions ? 'Video' : 'Photo';
 
-        const mediaUrl = post.carousel_media ?
-          post.carousel_media[0].image_versions2.candidates[0].url :
-          post.image_versions2.candidates[0].url;
+      return {
+        ...state,
+        userInfo,
+      };
+    },
+    /* eslint-disable-next-line no-unused-vars */
+    getSignedInUserInfoFailed(state, action: PayloadAction<string>) {},
+    getUserPostsSuccess(state, action: PayloadAction<GetUserFeedResponse>) {
+      const { moreAvailable, posts: olderPosts } = action.payload;
+      const { userPostInfo } = state;
+      const { posts } = userPostInfo;
+      const olderPostsWithCaption = olderPosts.map((post) => {
+        let mediaType = 'Carousel';
+        if (!post.carousel_media) {
+          mediaType = post.video_versions ? 'Video' : 'Photo';
+        }
+
+        const mediaUrl = post.carousel_media
+          ? post.carousel_media[0].image_versions2.candidates[0].url
+          : post.image_versions2.candidates[0].url;
 
         const {
           id,
@@ -109,11 +123,11 @@ const instagramDetails = createSlice({
 
         const previewComments: CommentItem[] = [];
         if (previewCommentInfo && previewCommentInfo.length) {
-          previewCommentInfo.forEach(comment => {
+          previewCommentInfo.forEach((comment) => {
             const { user, text } = comment;
             const { username } = user;
             return previewComments.push({ username, text });
-          })
+          });
         }
 
         const caption = {
@@ -133,27 +147,44 @@ const instagramDetails = createSlice({
           createdAt: takenAt * 1000,
         };
 
-        state.userPostInfo.posts.push(postWithCaption);
+        return postWithCaption;
       });
-    },
-    getUserPostsFailed(state, action:PayloadAction<string>) {
-    },
-    getTimelineSuccesss(state, action:PayloadAction<GetTimelineResponse>) {
-      const { moreAvailable, posts } = action.payload;
-      const postsWithoutAd = posts.filter(p => !p.injected);
 
-      state.timelineInfo.moreAvailable = moreAvailable;
+      return {
+        ...state,
+        userPostInfo: {
+          ...userPostInfo,
+          moreAvailable,
+          posts: posts.concat(olderPostsWithCaption),
+        },
+      };
+    },
+    /* eslint-disable-next-line no-unused-vars */
+    getUserPostsFailed(state, action: PayloadAction<string>) {},
+    getTimelineSuccesss(state, action: PayloadAction<GetTimelineResponse>) {
+      const { moreAvailable, posts: olderPosts } = action.payload;
+      const postsWithoutAd = olderPosts.filter((p) => !p.injected);
+
+      const { timelineInfo } = state;
       if (!postsWithoutAd.length) {
-        return;
+        return {
+          ...state,
+          timelineInfo: {
+            ...timelineInfo,
+            moreAvailable,
+          },
+        };
       }
 
-      postsWithoutAd.forEach(post => {
-        const mediaType = post.carousel_media ? 'Carousel' :
-          post.video_versions ? 'Video' : 'Photo';
+      const olderPostsWithCaption = postsWithoutAd.map((post) => {
+        let mediaType = 'Carousel';
+        if (!post.carousel_media) {
+          mediaType = post.video_versions ? 'Video' : 'Photo';
+        }
 
-        const mediaUrl = post.carousel_media ?
-          post.carousel_media[0].image_versions2.candidates[0].url :
-          post.image_versions2!.candidates[0].url;
+        const mediaUrl = post.carousel_media
+          ? post.carousel_media[0].image_versions2.candidates[0].url
+          : post.image_versions2!.candidates[0].url;
 
         const {
           id,
@@ -175,11 +206,11 @@ const instagramDetails = createSlice({
 
         const previewComments: CommentItem[] = [];
         if (previewCommentInfo && previewCommentInfo.length) {
-          previewCommentInfo.forEach(comment => {
-            const { user, text } = comment;
-            const { username } = user;
+          previewCommentInfo.forEach((comment) => {
+            const { user: commenter, text } = comment;
+            const { username } = commenter;
             return previewComments.push({ username, text });
-          })
+          });
         }
 
         const caption = {
@@ -199,15 +230,25 @@ const instagramDetails = createSlice({
           createdAt: takenAt * 1000,
         };
 
-        state.timelineInfo.posts.push({
+        return {
           user: userInfo,
           post: postWithCaption,
-        });
+        };
       });
+
+      const { posts } = timelineInfo;
+      return {
+        ...state,
+        timelineInfo: {
+          ...timelineInfo,
+          moreAvailable,
+          posts: posts.concat(olderPostsWithCaption),
+        },
+      };
     },
-    getTimelineFailed(state, action:PayloadAction<string>) {
-    },
-    getNewsSuccess(state, action:PayloadAction<GetNewsResponse>) {
+    /* eslint-disable-next-line no-unused-vars */
+    getTimelineFailed(state, action: PayloadAction<string>) {},
+    getNewsSuccess(state, action: PayloadAction<GetNewsResponse>) {
       const {
         partition,
         new_stories: newStories,
@@ -215,11 +256,10 @@ const instagramDetails = createSlice({
       } = action.payload;
 
       const { time_bucket: timePartition } = partition;
-      state.newsInfo.timePartition = timePartition;
 
       const stories = [...newStories, ...oldStories];
-      const storiesWithProfile = stories.filter(s => s.args.profile_image);
-      storiesWithProfile.forEach(story => {
+      const storiesWithProfile = stories.filter((s) => s.args.profile_image);
+      const olderNews = storiesWithProfile.map((story) => {
         const { args } = story;
         const {
           text,
@@ -229,46 +269,134 @@ const instagramDetails = createSlice({
           profile_image: profilePictureUrl,
         } = args;
 
-        let thumbnail = undefined;
+        let thumbnail;
         if (media && media.length) {
           thumbnail = { mediaUrl: media[0].image };
         }
 
         const createdAt = parseInt(timestamp, 10);
 
-        state.newsInfo.news.push({
+        return {
           text,
           links,
           thumbnail,
           createdAt,
           profilePicture: { mediaUrl: profilePictureUrl! },
-        });
+        };
       });
+
+      const { newsInfo } = state;
+      const { news } = newsInfo;
+      return {
+        ...state,
+        newsInfo: {
+          ...newsInfo,
+          timePartition,
+          news: news.concat(olderNews),
+        },
+      };
     },
-    getNewsFailed(state, action:PayloadAction<string>) {
-    },
+    /* eslint-disable-next-line no-unused-vars */
+    getNewsFailed(state, action: PayloadAction<string>) {},
     setPixelizedUserProfile(state, action: PayloadAction<string>) {
-      state.userInfo!.profilePicture.pixelizedMediaUrl = action.payload;
+      const { userInfo } = state;
+      if (!userInfo) {
+        return state;
+      }
+
+      const { profilePicture } = userInfo;
+      return {
+        ...state,
+        userInfo: {
+          ...userInfo,
+          profilePicture: {
+            ...profilePicture,
+            pixelizedMediaUrl: action.payload,
+          },
+        },
+      };
     },
     setPixelizedUserPost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.userPostInfo.posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
+      const { userPostInfo } = state;
+      const { posts } = userPostInfo;
+      posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
+
+      return {
+        ...state,
+        userPostInfo: {
+          ...userPostInfo,
+          posts,
+        },
+      };
     },
-    setPixelizedNewsProfile(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+    setPixelizedNewsProfile(
+      state,
+      action: PayloadAction<SetPixelizedUrlPayload>
+    ) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.newsInfo.news[index].profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+      const { newsInfo } = state;
+      const { news } = newsInfo;
+      news[index].profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+
+      return {
+        ...state,
+        newsInfo: {
+          ...newsInfo,
+          news,
+        },
+      };
     },
-    setPixelizedNewsThumbnail(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+    setPixelizedNewsThumbnail(
+      state,
+      action: PayloadAction<SetPixelizedUrlPayload>
+    ) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.newsInfo.news[index].thumbnail!.pixelizedMediaUrl = pixelizedMediaUrl;
+      const { newsInfo } = state;
+      const { news } = newsInfo;
+      news[index].thumbnail!.pixelizedMediaUrl = pixelizedMediaUrl;
+
+      return {
+        ...state,
+        newsInfo: {
+          ...newsInfo,
+          news,
+        },
+      };
     },
-    setPixelizedTimelineProfile(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+    setPixelizedTimelineProfile(
+      state,
+      action: PayloadAction<SetPixelizedUrlPayload>
+    ) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.timelineInfo.posts[index].user.profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+      const { timelineInfo } = state;
+      const { posts } = timelineInfo;
+      posts[index].user.profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
+
+      return {
+        ...state,
+        timelineInfo: {
+          ...timelineInfo,
+          posts,
+        },
+      };
     },
-    setPixelizedTimelinePost(state, action: PayloadAction<SetPixelizedUrlPayload>) {
+    setPixelizedTimelinePost(
+      state,
+      action: PayloadAction<SetPixelizedUrlPayload>
+    ) {
       const { index, pixelizedMediaUrl } = action.payload;
-      state.timelineInfo.posts[index].post.pixelizedMediaUrl = pixelizedMediaUrl;
+      const { timelineInfo } = state;
+      const { posts } = timelineInfo;
+      posts[index].post.pixelizedMediaUrl = pixelizedMediaUrl;
+
+      return {
+        ...state,
+        timelineInfo: {
+          ...timelineInfo,
+          posts,
+        },
+      };
     },
   },
 });
@@ -300,7 +428,6 @@ export const signInInstagram = (username: string, password: string) =>
       const pk = await InstagramAPI.signIn(username, password);
       dispatch(signInInstagramSuccess(pk));
     } catch (err) {
-      console.error(err);
       dispatch(signInInstagramFailed(err.toString()));
     }
   });
@@ -349,26 +476,27 @@ export const setPixelizedUrl = (
   type: string,
   pixelizedMediaUrl: string,
   idx?: number
-) =>
-  (dispatch: Dispatch) => {
-    switch (type) {
-      case 'feed-post':
-        dispatch(setPixelizedTimelinePost({index: idx!, pixelizedMediaUrl}));
-        break;
-      case 'feed-profile':
-        dispatch(setPixelizedTimelineProfile({index: idx!, pixelizedMediaUrl}));
-        break;
-      case 'news-thumbnail':
-        dispatch(setPixelizedNewsThumbnail({index: idx!, pixelizedMediaUrl}));
-        break;
-      case 'news-profile':
-        dispatch(setPixelizedNewsProfile({index: idx!, pixelizedMediaUrl}));
-        break;
-      case 'user-thumbnail':
-        dispatch(setPixelizedUserPost({index: idx!, pixelizedMediaUrl}));
-        break;
-      case 'user-profile':
-        dispatch(setPixelizedUserProfile(pixelizedMediaUrl));
-        break;
-    }
-  };
+) => (dispatch: Dispatch) => {
+  switch (type) {
+    case 'feed-post':
+      dispatch(setPixelizedTimelinePost({ index: idx!, pixelizedMediaUrl }));
+      break;
+    case 'feed-profile':
+      dispatch(setPixelizedTimelineProfile({ index: idx!, pixelizedMediaUrl }));
+      break;
+    case 'news-thumbnail':
+      dispatch(setPixelizedNewsThumbnail({ index: idx!, pixelizedMediaUrl }));
+      break;
+    case 'news-profile':
+      dispatch(setPixelizedNewsProfile({ index: idx!, pixelizedMediaUrl }));
+      break;
+    case 'user-thumbnail':
+      dispatch(setPixelizedUserPost({ index: idx!, pixelizedMediaUrl }));
+      break;
+    case 'user-profile':
+      dispatch(setPixelizedUserProfile(pixelizedMediaUrl));
+      break;
+    default:
+      break;
+  }
+};
