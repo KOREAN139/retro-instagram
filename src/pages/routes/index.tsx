@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
 import PageContainer from '@components/page-container';
-import HomeFeed from '@pages/home-feed';
-import Explore from '@pages/explore';
 import Camera from '@pages/camera';
+import Explore from '@pages/explore';
+import HomeFeed from '@pages/home-feed';
+import Loading from '@pages/loading';
 import News from '@pages/news';
+import SignIn from '@pages/sign-in';
 import User from '@pages/user';
 import UserScroll from '@pages/user/scroll';
-import SignIn from '@pages/sign-in';
-import Loading from '@pages/loading';
+import React, { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import {
-  ROUTE_HOME_FEED,
-  ROUTE_EXPLORE,
   ROUTE_CAMERA,
+  ROUTE_EXPLORE,
+  ROUTE_HOME_FEED,
   ROUTE_NEWS,
   ROUTE_USER,
-  ROUTE_USER_SCROLL
+  ROUTE_USER_SCROLL,
 } from './constants';
 
 const Routes: React.FC = () => {
@@ -23,14 +24,11 @@ const Routes: React.FC = () => {
 
   const handleClose = () => {
     setSignedIn(true);
-  }
+  };
 
   return (
     <>
-      {!signedIn &&
-        <SignIn
-          onClickClose={handleClose}
-        />}
+      {!signedIn && <SignIn onClickClose={handleClose} />}
       <Loading />
       <PageContainer>
         <Switch>
