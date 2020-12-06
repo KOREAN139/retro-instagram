@@ -1,12 +1,13 @@
-import React from 'react';
 import './index.scss';
-import TitleBar from '@components/title-bar';
+
 import Button from '@components/button';
+import TitleBar from '@components/title-bar';
+import React from 'react';
 
 interface Props {
-  likeCount: number
-  commentCount: number
-  onClickClose: () => void
+  likeCount: number;
+  commentCount: number;
+  onClickClose: () => void;
 }
 
 const formatText = (likeCount: number, commentCount: number) => {
@@ -37,32 +38,28 @@ const formatText = (likeCount: number, commentCount: number) => {
   return `You earned no reaction yet :(`;
 };
 
-const PostInfoModal: React.FC<Props> = (props) => {
+const PostInfoModal: React.FC<Props> = (props: Props) => {
   const { onClickClose, likeCount, commentCount } = props;
 
   return (
     <>
-      <div className={'Post-info-modal-overlay'} />
-      <div className={'Post-info-modal-animation'} />
-      <div className={'Post-info-modal-container'}>
+      <div className='Post-info-modal-overlay' />
+      <div className='Post-info-modal-animation' />
+      <div className='Post-info-modal-container'>
         <TitleBar
           displayIcon={false}
-          location={'Post-info-modal'}
-          title={'Congratulation!'}
+          location='Post-info-modal'
+          title='Congratulation!'
           onClickClose={onClickClose}
         />
-        <div className={'Post-info-modal-container__Text'}>
+        <div className='Post-info-modal-container__Text'>
           {formatText(likeCount, commentCount)}
         </div>
-        <div className={'Post-info-modal-container__Buttons'}>
+        <div className='Post-info-modal-container__Buttons'>
+          <Button location='Post-info-modal' text='OK' onClick={onClickClose} />
           <Button
-            location={'Post-info-modal'}
-            text={'OK'}
-            onClick={onClickClose}
-          />
-          <Button
-            location={'Post-info-modal'}
-            text={'Cancel'}
+            location='Post-info-modal'
+            text='Cancel'
             onClick={onClickClose}
           />
         </div>

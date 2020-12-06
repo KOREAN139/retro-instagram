@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
 import './index.scss';
+
 import Button from '@components/button';
 import Page from '@components/page';
-import PostInfoModal from '@pages/user/post-info-modal';
 import PixelImage from '@components/pixel-image';
-import moreIcon from '@static/more-button.png';
+import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
+import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
+import PostInfoModal from '@pages/user/post-info-modal';
 import gridIcon from '@static/grid-icon.png';
-import scrollIcon from '@static/scroll-icon.png';
 import locationIcon from '@static/location-icon.png';
+import moreIcon from '@static/more-button.png';
+import scrollIcon from '@static/scroll-icon.png';
 import tagIcon from '@static/tag-icon.png';
 import { RootState } from '@store';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
-import { PostItem } from 'retro-instagram';
 import { NavLink } from 'react-router-dom';
-import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
+import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
 
 const User = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const User = () => {
     (state: RootState) => state.instagram.userPostInfo
   );
   const { moreAvailable, posts } = userPostInfo;
-  const postLoaded = posts.every(post => {
+  const postLoaded = posts.every((post) => {
     return !!post.pixelizedMediaUrl;
   });
 
@@ -71,10 +72,8 @@ const User = () => {
   }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
 
   if (userInfo) {
-    const exist = userInfo.fullName
-                  || userInfo.biography
-                  || userInfo.externalUrl
-                  || false;
+    const exist =
+      userInfo.fullName || userInfo.biography || userInfo.externalUrl || false;
     infoExists = !!exist;
     pixelizedProfile = !!userInfo.profilePicture.pixelizedMediaUrl;
   }
@@ -82,7 +81,7 @@ const User = () => {
   const onClickProfileLink = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     const { shell } = window.require('electron');
-    let link = userInfo.externalUrl;
+    const link = userInfo.externalUrl;
     shell.openExternal(link);
   };
 
@@ -116,150 +115,142 @@ const User = () => {
       title={userInfo ? userInfo.username : 'Username'}
       loaded={infoLoaded && postLoaded}
     >
-      <div className={'Userpage-container'}>
-        <div className={'Userpage-container__Userinfo'}>
-          <div className={'Userpage-container__Userinfo__Profile'}>
-            <div
-              className={'Userpage-container__Userinfo__Profile__Picture'}
-            >
-              {userInfo &&
+      <div className='Userpage-container'>
+        <div className='Userpage-container__Userinfo'>
+          <div className='Userpage-container__Userinfo__Profile'>
+            <div className='Userpage-container__Userinfo__Profile__Picture'>
+              {userInfo && (
                 <PixelImage
-                  type={'user-profile'}
-                  source={pixelizedProfile ?
-                    userInfo.profilePicture.pixelizedMediaUrl :
-                    userInfo.profilePicture.mediaUrl}
+                  type='user-profile'
+                  source={
+                    pixelizedProfile
+                      ? userInfo.profilePicture.pixelizedMediaUrl
+                      : userInfo.profilePicture.mediaUrl
+                  }
                   centered
                   pixelized={pixelizedProfile}
-                />}
+                />
+              )}
             </div>
-              <div className={'Userpage-container__Userinfo__Profile__Follow'}>
-                <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers'}>
-                  <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
-                    <div>
-                      <b>{userInfo ? userInfo.mediaCount : 1}</b>
-                    </div>
-                    <div>
-                      posts
-                    </div>
+            <div className='Userpage-container__Userinfo__Profile__Follow'>
+              <div className='Userpage-container__Userinfo__Profile__Follow__Numbers'>
+                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                  <div>
+                    <b>{userInfo ? userInfo.mediaCount : 1}</b>
                   </div>
-                  <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
-                    <div>
-                      <b>{userInfo ? userInfo.followerCount : 3}</b>
-                    </div>
-                    <div>
-                      followers
-                    </div>
+                  <div>posts</div>
+                </div>
+                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                  <div>
+                    <b>{userInfo ? userInfo.followerCount : 3}</b>
                   </div>
-                  <div className={'Userpage-container__Userinfo__Profile__Follow__Numbers Number'}>
-                    <div>
-                      <b>{userInfo ? userInfo.followingCount : 9}</b>
-                    </div>
-                    <div>
-                      following
-                    </div>
+                  <div>followers</div>
+                </div>
+                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                  <div>
+                    <b>{userInfo ? userInfo.followingCount : 9}</b>
                   </div>
+                  <div>following</div>
+                </div>
               </div>
-              <div className={'Userpage-container__Userinfo__Profile__Follow__Buttons'}>
-                <Button
-                  location={'Follow'}
-                  text={'+ Follow'}
-                />
-                <Button
-                  location={'Follow More'}
-                  icon={moreIcon}
-                />
+              <div className='Userpage-container__Userinfo__Profile__Follow__Buttons'>
+                <Button location='Follow' text='+ Follow' />
+                <Button location='Follow More' icon={moreIcon} />
               </div>
             </div>
           </div>
-          {infoExists &&
-            <div className={'Userpage-container__Userinfo__Description'}>
-              {userInfo.fullName &&
-                <div className={'Userpage-container__Userinfo__Description__Name'}>
+          {infoExists && (
+            <div className='Userpage-container__Userinfo__Description'>
+              {userInfo.fullName && (
+                <div className='Userpage-container__Userinfo__Description__Name'>
                   {userInfo.fullName}
-                </div>}
-              {userInfo.biography &&
-                <div className={'Userpage-container__Userinfo__Description__Bio'}>
+                </div>
+              )}
+              {userInfo.biography && (
+                <div className='Userpage-container__Userinfo__Description__Bio'>
                   {userInfo.biography}
-                </div>}
-              {userInfo.externalUrl &&
-                <div className={'Userpage-container__Userinfo__Description__Website'}>
+                </div>
+              )}
+              {userInfo.externalUrl && (
+                <div className='Userpage-container__Userinfo__Description__Website'>
                   <a
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target='_blank'
+                    rel='noopener noreferrer'
                     href={userInfo.externalUrl}
                     onClick={onClickProfileLink}
                   >
                     {userInfo.externalUrl}
                   </a>
-                </div>}
-            </div>}
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        <div className={'Userpage-container__Contents'}>
-          <div className={'Userpage-container__Contents__Categories'}>
+        <div className='Userpage-container__Contents'>
+          <div className='Userpage-container__Contents__Categories'>
             <Button
-              location={'User-contents-category'}
+              location='User-contents-category'
               icon={gridIcon}
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
             />
-            <NavLink
-              className={'Button'}
-              to={ROUTE_USER_SCROLL}
-            >
+            <NavLink className='Button' to={ROUTE_USER_SCROLL}>
               <Button
-                location={'User-contents-category'}
+                location='User-contents-category'
                 icon={scrollIcon}
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
               />
             </NavLink>
             <Button
-              location={'User-contents-category'}
+              location='User-contents-category'
               icon={locationIcon}
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
             />
             <Button
-              location={'User-contents-category'}
+              location='User-contents-category'
               icon={tagIcon}
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}
             />
           </div>
-          <div className={'Userpage-container__Contents__Box'}>
+          <div className='Userpage-container__Contents__Box'>
             <div
-              className={'Userpage-container__Contents__Box__Scrollable'}
+              className='Userpage-container__Contents__Box__Scrollable'
               ref={containerRef}
             >
-              {posts.length > 0 && posts.map((post, i) => {
-                const { mediaUrl, pixelizedMediaUrl } = post;
-                const source = pixelizedMediaUrl ? pixelizedMediaUrl : mediaUrl;
-                return (
-                  <PixelImage
-                    type={'user-thumbnail'}
-                    source={source}
-                    centered
-                    pixelized={!!pixelizedMediaUrl}
-                    index={i}
-                    key={i}
-                    onClick={() => onClickPost(i)}
-                  />
-                );
-              })}
+              {posts.length > 0 &&
+                posts.map((post, i) => {
+                  const { mediaUrl, pixelizedMediaUrl } = post;
+                  const source = pixelizedMediaUrl || mediaUrl;
+                  return (
+                    <PixelImage
+                      type='user-thumbnail'
+                      source={source}
+                      centered
+                      pixelized={!!pixelizedMediaUrl}
+                      index={i}
+                      key={post.id}
+                      onClick={() => onClickPost(i)}
+                    />
+                  );
+                })}
               <div
-                className={'Userpage-container__Contents__Box__Scrollable__Bottom'}
+                className='Userpage-container__Contents__Box__Scrollable__Bottom'
                 ref={bottomRef}
               />
             </div>
           </div>
         </div>
       </div>
-      {displayModal && !!selectedPostItem &&
+      {displayModal && !!selectedPostItem && (
         <PostInfoModal
           likeCount={selectedPostItem.likeCount}
           commentCount={selectedPostItem.commentCount}
           onClickClose={onClickModelClose}
-        />}
+        />
+      )}
     </Page>
   );
 };
