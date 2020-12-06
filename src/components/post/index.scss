@@ -105,6 +105,10 @@ $static-folder-url: '../../static';
         word-wrap: normal;
         word-break: keep-all;
         color: #606060;
+
+        &:focus {
+          outline: 1px dotted black;
+        }
       }
     }
   }
