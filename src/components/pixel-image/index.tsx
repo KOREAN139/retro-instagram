@@ -1,21 +1,22 @@
-import React, { useRef } from 'react';
 import './index.scss';
-import { useDispatch } from 'react-redux';
+
 import { setPixelizedUrl } from '@ducks/instagram';
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface PixelImageProps {
-  type: string
-  source: string
-  pixelized: boolean
-  centered?: boolean
-  pixelPerLine?: number
-  index?: number
+  type: string;
+  source: string;
+  pixelized: boolean;
+  centered?: boolean;
+  pixelPerLine?: number;
+  index?: number;
 }
 
-export type Props = PixelImageProps
-                    & React.HTMLAttributes<HTMLCanvasElement | HTMLImageElement>;
+export type Props = PixelImageProps &
+  React.HTMLAttributes<HTMLCanvasElement | HTMLImageElement>;
 
-const PixelImage: React.FC<Props> = (props) => {
+const PixelImage: React.FC<Props> = (props: Props) => {
   const {
     source,
     pixelized,
@@ -23,29 +24,22 @@ const PixelImage: React.FC<Props> = (props) => {
     index,
     centered,
     pixelPerLine: ppl,
-    ...otherProps
+    children,
   } = props;
 
   const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   if (pixelized) {
-    return (
-      <img
-        src={source}
-        alt={''}
-        className={'Pixel-image'}
-        {...otherProps}
-      />
-    );
+    return <img src={source} alt='' className='Pixel-image' />;
   }
 
-  let image = new Image();
+  const image = new Image();
   image.src = source;
   image.crossOrigin = 'Anonymous';
   // pixelize image
   image.onload = () => {
-    let canvas = canvasRef.current;
+    const canvas = canvasRef.current;
     if (!canvas) {
       return;
     }
@@ -53,29 +47,48 @@ const PixelImage: React.FC<Props> = (props) => {
     const context = canvas.getContext('2d')!;
     const { width, height } = image;
 
-    let lineLength = centered ? Math.min(width, height)
-                                : Math.max(width, height);
+    const lineLength = centered
+      ? Math.min(width, height)
+      : Math.max(width, height);
     const diff = Math.abs(width - height) / 2;
 
     context.canvas.width = lineLength;
     context.canvas.height = lineLength;
-    context.drawImage(image,
-      centered ? width > height ? diff : 0 : width > height ? 0 : -diff,
-      centered ? width > height ? 0 : diff : width > height ? -diff : 0,
-      lineLength, lineLength,
-      0, 0,
-      lineLength, lineLength,
-    );
+    if (centered) {
+      context.drawImage(
+        image,
+        width > height ? diff : 0,
+        width > height ? 0 : diff,
+        lineLength,
+        lineLength,
+        0,
+        0,
+        lineLength,
+        lineLength
+      );
+    } else {
+      context.drawImage(
+        image,
+        width > height ? 0 : -diff,
+        width > height ? -diff : 0,
+        lineLength,
+        lineLength,
+        0,
+        0,
+        lineLength,
+        lineLength
+      );
+    }
 
-    let pixelPerLine = ppl ? ppl : 100;
-    let pixelSize = Math.round(lineLength / pixelPerLine);
+    const pixelPerLine = ppl || 100;
+    const pixelSize = Math.round(lineLength / pixelPerLine);
 
     for (let x = 0; x < lineLength; x += pixelSize) {
       for (let y = 0; y < lineLength; y += pixelSize) {
         const rgba = context.getImageData(x, y, 1, 1).data;
-        const red = Math.round(rgba[0] * 8 / 255) * 32 - 1;
-        const green = Math.round(rgba[1] * 8 / 255) * 32 - 1;
-        const blue = Math.round(rgba[2] * 4 / 255) * 64 - 1;
+        const red = Math.round((rgba[0] * 8) / 255) * 32 - 1;
+        const green = Math.round((rgba[1] * 8) / 255) * 32 - 1;
+        const blue = Math.round((rgba[2] * 4) / 255) * 64 - 1;
         context.fillStyle = `rgb(${red},${green},${blue})`;
         context.fillRect(x, y, pixelSize, pixelSize);
       }
@@ -86,12 +99,8 @@ const PixelImage: React.FC<Props> = (props) => {
   };
 
   return (
-    <canvas
-      className={'Pixel-image'}
-      ref={canvasRef}
-      {...otherProps}
-    >
-      {props.children}
+    <canvas className='Pixel-image' ref={canvasRef}>
+      {children}
     </canvas>
   );
 };
