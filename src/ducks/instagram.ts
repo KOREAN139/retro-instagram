@@ -155,7 +155,7 @@ const instagramDetails = createSlice({
         userPostInfo: {
           ...userPostInfo,
           moreAvailable,
-          posts: posts.concat(olderPostsWithCaption),
+          posts: [...posts, ...olderPostsWithCaption],
         },
       };
     },
@@ -242,7 +242,7 @@ const instagramDetails = createSlice({
         timelineInfo: {
           ...timelineInfo,
           moreAvailable,
-          posts: posts.concat(olderPostsWithCaption),
+          posts: [...posts, ...olderPostsWithCaption],
         },
       };
     },
@@ -292,7 +292,7 @@ const instagramDetails = createSlice({
         newsInfo: {
           ...newsInfo,
           timePartition,
-          news: news.concat(olderNews),
+          news: [...news, ...olderNews],
         },
       };
     },
@@ -321,14 +321,6 @@ const instagramDetails = createSlice({
       const { userPostInfo } = state;
       const { posts } = userPostInfo;
       posts[index].pixelizedMediaUrl = pixelizedMediaUrl;
-
-      return {
-        ...state,
-        userPostInfo: {
-          ...userPostInfo,
-          posts,
-        },
-      };
     },
     setPixelizedNewsProfile(
       state,
@@ -338,14 +330,6 @@ const instagramDetails = createSlice({
       const { newsInfo } = state;
       const { news } = newsInfo;
       news[index].profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
-
-      return {
-        ...state,
-        newsInfo: {
-          ...newsInfo,
-          news,
-        },
-      };
     },
     setPixelizedNewsThumbnail(
       state,
@@ -355,14 +339,6 @@ const instagramDetails = createSlice({
       const { newsInfo } = state;
       const { news } = newsInfo;
       news[index].thumbnail!.pixelizedMediaUrl = pixelizedMediaUrl;
-
-      return {
-        ...state,
-        newsInfo: {
-          ...newsInfo,
-          news,
-        },
-      };
     },
     setPixelizedTimelineProfile(
       state,
@@ -372,14 +348,6 @@ const instagramDetails = createSlice({
       const { timelineInfo } = state;
       const { posts } = timelineInfo;
       posts[index].user.profilePicture.pixelizedMediaUrl = pixelizedMediaUrl;
-
-      return {
-        ...state,
-        timelineInfo: {
-          ...timelineInfo,
-          posts,
-        },
-      };
     },
     setPixelizedTimelinePost(
       state,
@@ -389,14 +357,6 @@ const instagramDetails = createSlice({
       const { timelineInfo } = state;
       const { posts } = timelineInfo;
       posts[index].post.pixelizedMediaUrl = pixelizedMediaUrl;
-
-      return {
-        ...state,
-        timelineInfo: {
-          ...timelineInfo,
-          posts,
-        },
-      };
     },
   },
 });
