@@ -11,6 +11,8 @@ interface PixelImageProps {
   centered?: boolean;
   pixelPerLine?: number;
   index?: number;
+
+  onClick?: () => void;
 }
 
 export type Props = PixelImageProps &
@@ -24,6 +26,7 @@ const PixelImage: React.FC<Props> = (props: Props) => {
     index,
     centered,
     pixelPerLine: ppl,
+    onClick,
     children,
   } = props;
 
@@ -31,6 +34,19 @@ const PixelImage: React.FC<Props> = (props: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   if (pixelized) {
+    if (onClick) {
+      return (
+        <img
+          src={source}
+          alt=''
+          onClick={onClick}
+          role='presentation'
+          className='Pixel-image'
+          onKeyUp={() => {}}
+        />
+      );
+    }
+
     return <img src={source} alt='' className='Pixel-image' />;
   }
 
@@ -99,7 +115,7 @@ const PixelImage: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <canvas className='Pixel-image' ref={canvasRef}>
+    <canvas className='Pixel-image' ref={canvasRef} onClick={onClick}>
       {children}
     </canvas>
   );
