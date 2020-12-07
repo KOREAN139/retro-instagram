@@ -1,19 +1,16 @@
+import RootPage from '@pages';
+import * as Mousetrap from 'mousetrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
-import RootPage from '@pages';
+
 import * as serviceWorker from '~/serviceWorker';
-import * as Mousetrap from 'mousetrap';
+
+import './index.scss';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 // prevent refresh on app
-Mousetrap.bindGlobal([
-    'command+r',
-    'command+shift+r',
-    'f5',
-    'ctrl+f5',
-    'ctrl+r'
-  ],
+Mousetrap.bindGlobal(
+  ['command+r', 'command+shift+r', 'f5', 'ctrl+f5', 'ctrl+r'],
   () => false
 );
 
