@@ -1,8 +1,8 @@
-import './index.scss';
-
 import { setPixelizedUrl } from '@ducks/instagram';
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
+
+import './index.scss';
 
 interface PixelImageProps {
   type: string;

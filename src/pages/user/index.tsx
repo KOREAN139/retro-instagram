@@ -1,5 +1,3 @@
-import './index.scss';
-
 import Button from '@components/button';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
@@ -16,6 +14,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import './index.scss';
 
 const User = () => {
   const dispatch = useDispatch();

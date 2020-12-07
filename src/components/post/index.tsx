@@ -1,5 +1,3 @@
-import './index.scss';
-
 import Button from '@components/button';
 import PixelImage from '@components/pixel-image';
 import React, { useRef } from 'react';
@@ -7,6 +5,8 @@ import {
   PostWithCaptionItem,
   UserInfo,
 } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import './index.scss';
 
 interface PostProps {
   postInfo: PostWithCaptionItem;

@@ -1,5 +1,3 @@
-import './index.scss';
-
 import Button from '@components/button';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
@@ -10,6 +8,8 @@ import { RootState } from '@store';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserPostInfo } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import './index.scss';
 
 interface UserScrollProps {
   title: string;

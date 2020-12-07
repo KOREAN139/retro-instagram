@@ -1,11 +1,11 @@
-import './index.scss';
-
 import Page from '@components/page';
 import Post from '@components/post';
 import { getTimeline } from '@ducks/instagram';
 import { RootState } from '@store';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import './index.scss';
 
 const HomeFeed = () => {
   const dispatch = useDispatch();

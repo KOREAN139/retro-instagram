@@ -1,11 +1,11 @@
-import './index.scss';
-
 import Button from '@components/button';
 import TitleBar from '@components/title-bar';
 import { signInInstagram } from '@ducks/instagram';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+
+import './index.scss';
 
 interface Props {
   onClickClose: () => void;

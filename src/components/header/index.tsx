@@ -1,8 +1,8 @@
-import './index.scss';
-
 import Button from '@components/button';
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import './index.scss';
 
 interface HeaderProps {
   title: string;

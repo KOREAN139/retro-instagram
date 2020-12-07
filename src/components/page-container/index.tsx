@@ -1,6 +1,6 @@
-import './index.scss';
-
 import React from 'react';
+
+import './index.scss';
 
 interface PageContainerProps {}
 

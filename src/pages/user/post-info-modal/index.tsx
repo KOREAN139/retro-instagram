@@ -1,8 +1,8 @@
-import './index.scss';
-
 import Button from '@components/button';
 import TitleBar from '@components/title-bar';
 import React from 'react';
+
+import './index.scss';
 
 interface Props {
   likeCount: number;

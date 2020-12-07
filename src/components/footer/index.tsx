@@ -1,5 +1,3 @@
-import './index.scss';
-
 import Button from '@components/button';
 import {
   ROUTE_HOME_FEED,
@@ -13,6 +11,8 @@ import newsIcon from '@static/news-icon.png';
 import userIcon from '@static/user-icon.png';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import './index.scss';
 
 interface FooterProps {}
 

@@ -1,11 +1,11 @@
-import './index.scss';
-
 import NewsStory from '@components/news-story';
 import Page from '@components/page';
 import { getNews } from '@ducks/instagram';
 import { RootState } from '@store';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import './index.scss';
 
 const News = () => {
   const dispatch = useDispatch();

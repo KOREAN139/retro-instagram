@@ -1,8 +1,8 @@
-import './index.scss';
-
 import PixelImage from '@components/pixel-image';
 import React from 'react';
 import { NewsItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import './index.scss';
 
 interface NewsStoryProps {
   newsInfo: NewsItem;

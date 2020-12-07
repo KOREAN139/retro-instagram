@@ -1,7 +1,7 @@
-import './index.scss';
-
 import classNames from 'classnames';
 import React from 'react';
+
+import './index.scss';
 
 interface MutableMenuProps {
   name: string;

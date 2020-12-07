@@ -1,8 +1,8 @@
-import './index.scss';
-
 import Header from '@components/header';
 import classnames from 'classnames';
 import React from 'react';
+
+import './index.scss';
 
 interface PageProps {
   title: string;

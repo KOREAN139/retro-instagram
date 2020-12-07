@@ -1,7 +1,7 @@
-import './index.scss';
-
 import Menu, { disabledMenuOf, menuOf } from '@components/menu';
 import React, { useState } from 'react';
+
+import './index.scss';
 
 interface MenuBarProps {}
 

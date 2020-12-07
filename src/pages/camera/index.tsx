@@ -1,7 +1,7 @@
-import './index.scss';
-
 import Page from '@components/page';
 import React from 'react';
+
+import './index.scss';
 
 const Camera = () => {
   return (

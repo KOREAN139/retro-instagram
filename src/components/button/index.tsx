@@ -1,7 +1,7 @@
-import './index.scss';
-
 import classNames from 'classnames';
 import React, { useRef } from 'react';
+
+import './index.scss';
 
 interface ButtonProps {
   id?: string;
