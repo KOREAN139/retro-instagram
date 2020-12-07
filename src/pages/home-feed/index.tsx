@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import './index.scss';
 import Page from '@components/page';
 import Post from '@components/post';
-import { RootState } from '@store';
-import { useDispatch, useSelector } from 'react-redux';
 import { getTimeline } from '@ducks/instagram';
+import { RootState } from '@store';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import './index.scss';
 
 const HomeFeed = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const HomeFeed = () => {
     (state: RootState) => state.instagram.timelineInfo
   );
   const { moreAvailable, posts } = timelineInfo;
-  const loaded = posts.every(item => {
+  const loaded = posts.every((item) => {
     const { user, post } = item;
     return !!user.profilePicture.pixelizedMediaUrl && !!post.pixelizedMediaUrl;
   });
@@ -27,7 +28,7 @@ const HomeFeed = () => {
   useEffect(() => {
     const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
       if (isIntersecting && moreAvailable) {
-        dispatch(getTimeline(userPk));
+        dispatch(getTimeline());
       }
     };
 
@@ -44,28 +45,26 @@ const HomeFeed = () => {
   }, [userPk, moreAvailable, containerRef, bottomRef, dispatch]);
 
   return (
-    <Page
-      title={'Feed'}
-      loaded={loaded}
-    >
-      <div className={'Home-feed-container'}>
-        <div className={'Home-feed-container__Contents'}>
+    <Page title='Feed' loaded={loaded}>
+      <div className='Home-feed-container'>
+        <div className='Home-feed-container__Contents'>
           <div
-            className={'Home-feed-container__Contents__Scrollable'}
+            className='Home-feed-container__Contents__Scrollable'
             ref={containerRef}
           >
-            {posts && posts.map((post, i) => {
-              return (
-                <Post
-                  postInfo={post.post}
-                  userInfo={post.user}
-                  index={i}
-                  key={i}
-                />
-              );
-            })}
+            {posts &&
+              posts.map((post, i) => {
+                return (
+                  <Post
+                    postInfo={post.post}
+                    userInfo={post.user}
+                    index={i}
+                    key={post.post.id}
+                  />
+                );
+              })}
             <div
-              className={'Home-feed-container__Contents__Scrollable__Bottom'}
+              className='Home-feed-container__Contents__Scrollable__Bottom'
               ref={bottomRef}
             />
           </div>

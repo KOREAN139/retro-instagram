@@ -26,3 +26,7 @@ yarn-error.log*
 
 # auto-generated temp files when editing file
 *.swp
+
+# lint cache file
+.eslintcache
+.stylelintcache

@@ -1,11 +1,11 @@
-%scrollable_box_container {
-  height: 0;
-  font-size: 0;
+%scrollable-box-container {
   display: flex;
   flex-direction: column;
+  font-size: 0;
+  height: 0;
 }
 
-%scrollable_box_vertical {
+%scrollable-box-vertical {
   flex: 1;
-  overflow-y: scroll
+  overflow-y: scroll;
 }

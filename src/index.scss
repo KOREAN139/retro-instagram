@@ -5,7 +5,7 @@ $static-folder-url: 'static';
 @include font('W95FA', 'W95FARegular');
 
 body {
-  @include defaultBoxShadow(1.6px);
+  @include default-box-shadow(1.6px);
 
   width: 308px;
   height: 556px;
@@ -41,13 +41,13 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  @include defaultBoxShadow;
+  @include default-box-shadow;
 
   background-image: url('#{$static-folder-url}/background-pattern.png');
 }
 
 ::-webkit-scrollbar-button:start:decrement {
-  @include defaultBoxShadow;
+  @include default-box-shadow;
 
   display: block;
   height: 18px;
@@ -58,7 +58,7 @@ code {
 }
 
 ::-webkit-scrollbar-button:end:increment {
-  @include defaultBoxShadow;
+  @include default-box-shadow;
 
   display: block;
   height: 18px;

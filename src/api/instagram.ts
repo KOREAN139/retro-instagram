@@ -1,8 +1,8 @@
 import {
-  GetUserInfoResponse,
-  GetUserFeedResponse,
+  GetNewsResponse,
   GetTimelineResponse,
-  GetNewsResponse
+  GetUserFeedResponse,
+  GetUserInfoResponse,
 } from 'instagram-private-api';
 
 const { ipcRenderer } = window;
@@ -29,9 +29,7 @@ export const getUserPosts = async (
   return res;
 };
 
-export const getTimeline = async (
-  userPk: number
-): Promise<GetTimelineResponse> => {
+export const getTimeline = async (): Promise<GetTimelineResponse> => {
   const res = await ipcRenderer.callMain('get-timeline');
   return res;
 };

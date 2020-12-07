@@ -1,20 +1,21 @@
-import React, { useRef } from 'react';
 import classNames from 'classnames';
+import React, { useRef } from 'react';
+
 import './index.scss';
 
 interface ButtonProps {
-  icon?: string
-  location?: string
-  selected?: boolean
-  disabled?: boolean
-  text?: string
-  onClick?: () => void
+  id?: string;
+  icon?: string;
+  selected?: boolean;
+  disabled?: boolean;
+  text?: string;
+  onClick?: () => void;
 }
 
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
-const Button: React.FC<Props> = (props) => {
-  const { selected, icon, text, disabled, onClick, ...otherProps } = props;
+const Button: React.FC<Props> = (props: Props) => {
+  const { id, selected, icon, text, disabled, onClick } = props;
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -28,29 +29,30 @@ const Button: React.FC<Props> = (props) => {
     <div
       className={classNames(
         'Button',
-        { 'Able': !disabled },
-        { 'Disabled': disabled },
-        { 'Selected': !disabled && selected },
-        props.location,
+        { Able: !disabled },
+        { Disabled: disabled },
+        { Selected: !disabled && selected }
       )}
+      id={id}
+      role='button'
       tabIndex={0}
       ref={buttonRef}
       onClick={handleClick}
-      {...otherProps}
+      onKeyUp={() => {}}
     >
-      {icon &&
+      {icon && (
         <div
           className={classNames(
             'Button__Icon',
-            { 'Able': !disabled },
-            { 'Disabled': disabled },
+            { Able: !disabled },
+            { Disabled: disabled }
           )}
           style={{
             backgroundRepeat: 'no-repeat',
-            backgroundImage: `url('${icon}')`
+            backgroundImage: `url('${icon}')`,
           }}
-        />}
-      {props.children}
+        />
+      )}
       {text}
     </div>
   );

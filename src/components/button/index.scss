@@ -2,7 +2,7 @@
 $static-folder-url: '../../static';
 
 .Button {
-  @include defaultButtonShadow;
+  @include default-button-shadow;
 
   display: flex;
   cursor: url('#{$static-folder-url}/pointer.cur'), pointer;
@@ -17,7 +17,7 @@ $static-folder-url: '../../static';
 
   &.Able:active,
   &.Selected {
-    @include activeButtonShadow;
+    @include active-button-shadow;
 
     background-color: white;
     background-image:

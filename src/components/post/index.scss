@@ -31,7 +31,7 @@ $static-folder-url: '../../static';
   }
 
   &__Media {
-    @include mediaBoxShadow;
+    @include media-box-shadow;
 
     padding-top: 2px;
     padding-bottom: 2px;
@@ -105,6 +105,10 @@ $static-folder-url: '../../static';
         word-wrap: normal;
         word-break: keep-all;
         color: #606060;
+
+        &:focus {
+          outline: 1px dotted black;
+        }
       }
     }
   }

@@ -1,22 +1,22 @@
+import Button from '@components/button';
+import TitleBar from '@components/title-bar';
+import { signInInstagram } from '@ducks/instagram';
 import React from 'react';
-import './index.scss';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import TitleBar from '@components/title-bar';
-import Button from '@components/button';
-import { signInInstagram } from '@ducks/instagram';
+
+import './index.scss';
 
 interface Props {
-  onClickClose: () => void
-  onSubmit?: () => void
+  onClickClose: () => void;
 }
 
 interface signInFormData {
-  username: string
-  password: string
+  username: string;
+  password: string;
 }
 
-const SignIn: React.FC<Props> = (props) => {
+const SignIn: React.FC<Props> = (props: Props) => {
   const { onClickClose } = props;
 
   const dispatch = useDispatch();
@@ -29,49 +29,37 @@ const SignIn: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div className={'Sign-in-page-overlay'} />
-      <div className={'Sign-in-page-container'}>
+      <div className='Sign-in-page-overlay' />
+      <div className='Sign-in-page-container'>
         <TitleBar
           displayIcon
-          location={'Sign-in'}
-          title={'Log On to Instagram'}
+          location='Sign-in'
+          title='Log On to Instagram'
           onClickClose={onClickClose}
         />
-        <div className={'Sign-in-page-container__Logo'} />
-        <div className={'Sign-in-page-container__Input'}>
-          <span>
-            {`User name: `}
-          </span>
+        <div className='Sign-in-page-container__Logo' />
+        <div className='Sign-in-page-container__Input'>
+          <span>{`User name: `}</span>
           <input
-            name={'username'}
+            name='username'
             ref={register({
               required: 'Required',
             })}
           />
         </div>
-        <div className={'Sign-in-page-container__Input'}>
-          <span>
-            {`Password: `}
-          </span>
+        <div className='Sign-in-page-container__Input'>
+          <span>{`Password: `}</span>
           <input
-            name={'password'}
-            type={'password'}
+            name='password'
+            type='password'
             ref={register({
               required: 'Required',
             })}
           />
         </div>
-        <div className={'Sign-in-page-container__Buttons'}>
-          <Button
-            location={'Sign-in'}
-            text={'OK'}
-            onClick={handleSubmit(onSubmit)}
-          />
-          <Button
-            location={'Sign-in'}
-            text={'Cancel'}
-            onClick={onClickClose}
-          />
+        <div className='Sign-in-page-container__Buttons'>
+          <Button id='Ok' text='OK' onClick={handleSubmit(onSubmit)} />
+          <Button id='Cancel' text='Cancel' onClick={onClickClose} />
         </div>
       </div>
     </>

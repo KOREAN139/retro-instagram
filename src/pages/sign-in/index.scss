@@ -11,7 +11,7 @@ $static-folder-url: '../../static';
 }
 
 .Sign-in-page-container {
-  @include defaultBoxShadow(1.6px);
+  @include default-box-shadow(1.6px);
 
   position: fixed;
   top: 50%;
@@ -48,7 +48,7 @@ $static-folder-url: '../../static';
     }
 
     input {
-      @include activeButtonShadow(0.8px);
+      @include active-button-shadow(0.8px);
 
       flex: 1;
       font-family: W95FA;

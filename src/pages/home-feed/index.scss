@@ -7,8 +7,8 @@
   flex-direction: column;
 
   &__Contents {
-    @extend %scrollable_box_container;
-    @include scrollableBoxShadow;
+    @extend %scrollable-box-container;
+    @include scrollable-box-shadow;
 
     width: inherit;
     flex: 1;
@@ -16,7 +16,7 @@
     padding: 2px;
 
     &__Scrollable {
-      @extend %scrollable_box_vertical;
+      @extend %scrollable-box-vertical;
 
       &__Bottom {
         width: 0;

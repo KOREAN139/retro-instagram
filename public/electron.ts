@@ -1,9 +1,10 @@
 // public/electron.ts
+import './instagram-ipc';
+
 import { app, BrowserWindow } from 'electron';
 import { ipcMain } from 'electron-better-ipc';
 import * as isDev from 'electron-is-dev';
 import * as path from 'path';
-import './instagram-ipc';
 
 let mainWindow: BrowserWindow;
 
@@ -17,8 +18,8 @@ function createWindow() {
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      preload: path.join(__dirname, './preload.js')
-    }
+      preload: path.join(__dirname, './preload.js'),
+    },
   });
 
   if (isDev) {
