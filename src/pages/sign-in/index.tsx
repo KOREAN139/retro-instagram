@@ -58,12 +58,8 @@ const SignIn: React.FC<Props> = (props: Props) => {
           />
         </div>
         <div className='Sign-in-page-container__Buttons'>
-          <Button
-            location='Sign-in'
-            text='OK'
-            onClick={handleSubmit(onSubmit)}
-          />
-          <Button location='Sign-in' text='Cancel' onClick={onClickClose} />
+          <Button id='Ok' text='OK' onClick={handleSubmit(onSubmit)} />
+          <Button id='Cancel' text='Cancel' onClick={onClickClose} />
         </div>
       </div>
     </>

@@ -38,24 +38,11 @@ const TitleBar: React.FC<Props> = (props: Props) => {
         </div>
         <div className='Title-bar__Title__Buttons'>
           {onRootPage && (
-            <Button
-              location='Title-bar'
-              id='Title-bar__minimize-button'
-              icon={minIcon}
-              onClick={handleMinimize}
-            />
+            <Button id='Minimize' icon={minIcon} onClick={handleMinimize} />
           )}
-          {onRootPage && (
-            <Button
-              location='Title-bar'
-              id='Title-bar__maximize-button'
-              icon={maxIcon}
-              disabled
-            />
-          )}
+          {onRootPage && <Button id='Maximize' icon={maxIcon} disabled />}
           <Button
-            location='Title-bar'
-            id='Title-bar__close-button'
+            id='Close'
             icon={closeIcon}
             onClick={onRootPage ? handleClose : onClickClose}
           />

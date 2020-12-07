@@ -85,7 +85,7 @@ const UserScroll: React.FC<Props> = () => {
             {userInfo ? userInfo.username : 'username'}
           </div>
           <div className='Userpage-scroll-container__Userinfo__Option-button'>
-            <Button location='Userpage-scroll-userinfo' icon={optionIcon} />
+            <Button id='Option' icon={optionIcon} />
           </div>
         </div>
         <div className='Userpage-scroll-container__Contents'>

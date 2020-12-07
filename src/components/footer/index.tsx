@@ -51,33 +51,33 @@ const Footer: React.FC<Props> = () => {
     <div className='Footer'>
       <div className='Footer__Pages'>
         <Button
-          location='Footer Home-feed'
+          id='Home-feed'
           icon={homeFeedIcon}
           selected={currentPage === 'home-feed'}
           onClick={onClickHomeFeed}
         />
         <Button
-          location='Footer Explore'
+          id='Explore'
           icon={exploreIcon}
           disabled
           selected={currentPage === 'explore'}
           onClick={onClickExplore}
         />
         <Button
-          location='Footer Camera'
+          id='Camera'
           icon={cameraIcon}
           disabled
           selected={currentPage === 'camera'}
           onClick={onClickCamera}
         />
         <Button
-          location='Footer News'
+          id='News'
           icon={newsIcon}
           selected={currentPage === 'news'}
           onClick={onClickNews}
         />
         <Button
-          location='Footer User'
+          id='User'
           icon={userIcon}
           selected={currentPage === 'user'}
           onClick={onClickUser}

@@ -56,12 +56,8 @@ const PostInfoModal: React.FC<Props> = (props: Props) => {
           {formatText(likeCount, commentCount)}
         </div>
         <div className='Post-info-modal-container__Buttons'>
-          <Button location='Post-info-modal' text='OK' onClick={onClickClose} />
-          <Button
-            location='Post-info-modal'
-            text='Cancel'
-            onClick={onClickClose}
-          />
+          <Button id='Ok' text='OK' onClick={onClickClose} />
+          <Button id='Cancel' text='Cancel' onClick={onClickClose} />
         </div>
       </div>
     </>

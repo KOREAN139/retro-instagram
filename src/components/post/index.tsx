@@ -132,9 +132,9 @@ const Post: React.FC<Props> = (props: Props) => {
         />
       </div>
       <div className='Post-container__Buttons'>
-        <Button location='Post' text='Like' selected={hasLiked} />
-        <Button location='Post' text='Comment' />
-        <Button location='Post' text='Share' />
+        <Button id='Like' text='Like' selected={hasLiked} />
+        <Button id='Comment' text='Comment' />
+        <Button id='Share' text='Share' />
       </div>
       {likeCount > 0 && (
         <div className='Post-container__Likes'>

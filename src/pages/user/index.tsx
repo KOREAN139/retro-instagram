@@ -154,8 +154,8 @@ const User = () => {
                 </div>
               </div>
               <div className='Userpage-container__Userinfo__Profile__Follow__Buttons'>
-                <Button location='Follow' text='+ Follow' />
-                <Button location='Follow More' icon={moreIcon} />
+                <Button id='Follow' text='+ Follow' />
+                <Button id='More' icon={moreIcon} />
               </div>
             </div>
           </div>
@@ -189,27 +189,27 @@ const User = () => {
         <div className='Userpage-container__Contents'>
           <div className='Userpage-container__Contents__Categories'>
             <Button
-              location='User-contents-category'
+              id='Grid'
               icon={gridIcon}
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
             />
             <NavLink className='Button' to={ROUTE_USER_SCROLL}>
               <Button
-                location='User-contents-category'
+                id='Scroll'
                 icon={scrollIcon}
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
               />
             </NavLink>
             <Button
-              location='User-contents-category'
+              id='Location'
               icon={locationIcon}
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
             />
             <Button
-              location='User-contents-category'
+              id='Tagged'
               icon={tagIcon}
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}

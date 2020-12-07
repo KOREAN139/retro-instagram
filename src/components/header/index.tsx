@@ -23,11 +23,13 @@ const Header: React.FC<Props> = (props: Props) => {
   return (
     <div className='Header'>
       <div className='Header__Button-holder'>
-        {backButton && <Button text='Back' onClick={onClickBackButton} />}
+        {backButton && (
+          <Button id='Back' text='Back' onClick={onClickBackButton} />
+        )}
       </div>
       <div className='Header__Title-holder'>{title}</div>
       <div className='Header__Button-holder'>
-        {reloadButton && <Button text='Reload' />}
+        {reloadButton && <Button id='Reload' text='Reload' />}
       </div>
     </div>
   );

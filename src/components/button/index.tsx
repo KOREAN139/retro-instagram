@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import React, { useRef } from 'react';
 
 interface ButtonProps {
+  id?: string;
   icon?: string;
-  location?: string;
   selected?: boolean;
   disabled?: boolean;
   text?: string;
@@ -15,7 +15,7 @@ interface ButtonProps {
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Button: React.FC<Props> = (props: Props) => {
-  const { selected, icon, location, text, disabled, onClick } = props;
+  const { id, selected, icon, text, disabled, onClick } = props;
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -31,9 +31,9 @@ const Button: React.FC<Props> = (props: Props) => {
         'Button',
         { Able: !disabled },
         { Disabled: disabled },
-        { Selected: !disabled && selected },
-        location
+        { Selected: !disabled && selected }
       )}
+      id={id}
       role='button'
       tabIndex={0}
       ref={buttonRef}
