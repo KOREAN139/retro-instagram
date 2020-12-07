@@ -25,7 +25,12 @@ module.exports = {
     },
   },
   rules: {
-    'simple-import-sort/imports': 'error',
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [['^@?\\w'], ['^'], ['^\\.'], ['^\\u0000']],
+      },
+    ],
     'simple-import-sort/exports': 'error',
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
