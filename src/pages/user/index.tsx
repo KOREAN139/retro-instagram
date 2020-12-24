@@ -21,6 +21,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
 
+const categoryIconStyle = css`
+  width: 18px;
+  height: 18px;
+  background-size: 12px 12px;
+`;
+
 const User = () => {
   const dispatch = useDispatch();
   const [currentCategory, setCurrentCategory] = useState('grid');
@@ -275,7 +281,7 @@ const User = () => {
                       background-position: 48% 50%;
                       background-size: 7px 7px;
 
-                      &.Able:active {
+                      &:active {
                         background-position: 55% 60%;
                       }
                     `}
@@ -367,15 +373,7 @@ const User = () => {
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
             >
-              <Icon
-                icon={gridIcon}
-                selected={currentCategory === 'grid'}
-                customStyle={css`
-                  width: 18px;
-                  height: 18px;
-                  background-size: 12px 12px;
-                `}
-              />
+              <Icon icon={gridIcon} customStyle={categoryIconStyle} />
             </Button>
             <NavLink className='Button' to={ROUTE_USER_SCROLL}>
               <Button
@@ -383,15 +381,7 @@ const User = () => {
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
               >
-                <Icon
-                  icon={scrollIcon}
-                  selected={currentCategory === 'scroll'}
-                  customStyle={css`
-                    width: 18px;
-                    height: 18px;
-                    background-size: 12px 12px;
-                  `}
-                />
+                <Icon icon={scrollIcon} customStyle={categoryIconStyle} />
               </Button>
             </NavLink>
             <Button
@@ -399,30 +389,14 @@ const User = () => {
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
             >
-              <Icon
-                icon={locationIcon}
-                selected={currentCategory === 'location'}
-                customStyle={css`
-                  width: 18px;
-                  height: 18px;
-                  background-size: 12px 12px;
-                `}
-              />
+              <Icon icon={locationIcon} customStyle={categoryIconStyle} />
             </Button>
             <Button
               id='Tagged'
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}
             >
-              <Icon
-                icon={tagIcon}
-                selected={currentCategory === 'tagged'}
-                customStyle={css`
-                  width: 18px;
-                  height: 18px;
-                  background-size: 12px 12px;
-                `}
-              />
+              <Icon icon={tagIcon} customStyle={categoryIconStyle} />
             </Button>
           </div>
           <ScrollableBox
