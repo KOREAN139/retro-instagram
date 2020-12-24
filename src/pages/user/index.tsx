@@ -139,12 +139,6 @@ const User = () => {
                 border-radius: 50%;
                 background-color: black;
                 display: flex;
-
-                .Pixel-image {
-                  width: 60px;
-                  height: 60px;
-                  border-radius: 50%;
-                }
               `}
             >
               {userInfo && (
@@ -157,6 +151,11 @@ const User = () => {
                   }
                   centered
                   pixelized={pixelizedProfile}
+                  customStyle={css`
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                  `}
                 />
               )}
             </div>
@@ -402,23 +401,6 @@ const User = () => {
                 margin-left: 1px;
                 margin-top: 1px;
               }
-
-              .Pixel-image {
-                width: 94.5px;
-                height: 94.5px;
-                object-fit: cover;
-                cursor: url(${pointerCursor}), pointer;
-
-                @for $i from 1 through 3 {
-                  &:nth-of-type(#{$i}) {
-                    margin-top: 0px;
-                  }
-                }
-
-                &:nth-of-type(3n + 1) {
-                  margin-left: 0px;
-                }
-              }
             `}
             onBottom={fetchUserPosts}
           >
@@ -435,6 +417,22 @@ const User = () => {
                     index={i}
                     key={post.id}
                     onClick={() => onClickPost(i)}
+                    customStyle={css`
+                      width: 94.5px;
+                      height: 94.5px;
+                      object-fit: cover;
+                      cursor: url(${pointerCursor}), pointer;
+
+                      @for $i from 1 through 3 {
+                        &:nth-of-type(#{$i}) {
+                          margin-top: 0px;
+                        }
+                      }
+
+                      &:nth-of-type(3n + 1) {
+                        margin-left: 0px;
+                      }
+                    `}
                   />
                 );
               })}

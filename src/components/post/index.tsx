@@ -128,12 +128,6 @@ const Post: React.FC<Props> = (props: Props) => {
             className='Post-container__Header__Profile-picture'
             css={css`
               margin-right: 8px;
-
-              .Pixel-image {
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-              }
             `}
           >
             <PixelImage
@@ -143,6 +137,11 @@ const Post: React.FC<Props> = (props: Props) => {
               pixelized={pixelizedProfilePicture}
               index={index}
               pixelPerLine={30}
+              customStyle={css`
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+              `}
             />
           </div>
           <div
@@ -165,11 +164,6 @@ const Post: React.FC<Props> = (props: Props) => {
             padding-top: 2px;
             padding-bottom: 2px;
             background-color: black;
-
-            .Pixel-image {
-              width: 286px;
-              height: 290px;
-            }
           `,
         ]}
       >
@@ -179,6 +173,10 @@ const Post: React.FC<Props> = (props: Props) => {
           pixelized={pixelizedPostMedia}
           index={index}
           pixelPerLine={200}
+          customStyle={css`
+            width: 286px;
+            height: 290px;
+          `}
         />
       </div>
       <div

@@ -83,12 +83,6 @@ const UserScroll: React.FC<Props> = () => {
               height: 24px;
               border-radius: 50%;
               background-color: black;
-
-              .Pixel-image {
-                width: 24px;
-                height: 24px;
-                border-radius: 50%;
-              }
             `}
           >
             {userInfo && (
@@ -101,6 +95,11 @@ const UserScroll: React.FC<Props> = () => {
                 }
                 centered
                 pixelized={pixelizedProfile}
+                customStyle={css`
+                  width: 24px;
+                  height: 24px;
+                  border-radius: 50%;
+                `}
               />
             )}
           </div>

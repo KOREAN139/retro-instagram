@@ -78,22 +78,18 @@ const NewsStory: React.FC<Props> = (props: Props) => {
           `,
         ]}
       >
-        <div
-          className='News-story__Wrapper__Profile-picture'
-          css={css`
-            .Pixel-image {
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
-            }
-          `}
-        >
+        <div className='News-story__Wrapper__Profile-picture'>
           <PixelImage
             type='news-profile'
             source={profilePictureUrl}
             pixelized={pixelizedProfilePicture}
             index={index}
             pixelPerLine={30}
+            css={css`
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+            `}
           />
         </div>
         <div
@@ -134,21 +130,17 @@ const NewsStory: React.FC<Props> = (props: Props) => {
           </span>
         </div>
         {thumbnail && (
-          <div
-            className='News-story__Wrapper__Thumbnail'
-            css={css`
-              .Pixel-image {
-                width: 35px;
-                height: 35px;
-              }
-            `}
-          >
+          <div className='News-story__Wrapper__Thumbnail'>
             <PixelImage
               type='news-thumbnail'
               source={thumbnailPictureUrl}
               pixelized={pixelizedThumbnail}
               index={index}
               pixelPerLine={50}
+              customStyle={css`
+                width: 35px;
+                height: 35px;
+              `}
             />
           </div>
         )}
