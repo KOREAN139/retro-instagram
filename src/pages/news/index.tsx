@@ -1,11 +1,16 @@
+/** @jsx jsx */
 import NewsStory from '@components/news-story';
 import Page from '@components/page';
 import { getNews } from '@ducks/instagram';
+import { css, jsx } from '@emotion/react';
 import { RootState } from '@store';
-import React, { useEffect, useRef } from 'react';
+import { scrollableBoxShadow } from '@styles/mixins';
+import {
+  scrollableBoxContainer,
+  scrollableBoxVertical,
+} from '@styles/placeholders';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import './index.scss';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -45,11 +50,31 @@ const News = () => {
 
   return (
     <Page title='News' loaded={loaded}>
-      <div className='News-page-container'>
-        <div className='News-page-container__Contents'>
+      <div
+        className='News-page-container'
+        css={css`
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <div
+          className='News-page-container__Contents'
+          css={[
+            scrollableBoxContainer,
+            scrollableBoxShadow(),
+            css`
+              width: inherit;
+              flex: 1;
+              margin-top: 2px;
+              padding: 2px;
+            `,
+          ]}
+        >
           <div
             className='News-page-container__Contents__Scrollable'
             ref={containerRef}
+            css={scrollableBoxVertical}
           >
             {news &&
               news.map((newsItem, i) => {
@@ -65,6 +90,10 @@ const News = () => {
             <div
               className='News-page-container__Contents__Scrollable__Bottom'
               ref={bottomRef}
+              css={css`
+                width: 0;
+                height: 0;
+              `}
             />
           </div>
         </div>

@@ -1,21 +1,27 @@
+/** @jsx jsx */
 import Button from '@components/button';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
+import { css, jsx } from '@emotion/react';
 import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
 import PostInfoModal from '@pages/user/post-info-modal';
+import pointerCursor from '@static/cursor-pointer.png';
 import gridIcon from '@static/grid-icon.png';
 import locationIcon from '@static/location-icon.png';
 import moreIcon from '@static/more-button.png';
 import scrollIcon from '@static/scroll-icon.png';
 import tagIcon from '@static/tag-icon.png';
 import { RootState } from '@store';
+import { dividerTopBottomShadow, scrollableBoxShadow } from '@styles/mixins';
+import {
+  scrollableBoxContainer,
+  scrollableBoxVertical,
+} from '@styles/placeholders';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
-
-import './index.scss';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -115,10 +121,50 @@ const User = () => {
       title={userInfo ? userInfo.username : 'Username'}
       loaded={infoLoaded && postLoaded}
     >
-      <div className='Userpage-container'>
-        <div className='Userpage-container__Userinfo'>
-          <div className='Userpage-container__Userinfo__Profile'>
-            <div className='Userpage-container__Userinfo__Profile__Picture'>
+      <div
+        className='Userpage-container'
+        css={css`
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          background-image: inherit;
+        `}
+      >
+        <div
+          className='Userpage-container__Userinfo'
+          css={[
+            dividerTopBottomShadow(),
+            css`
+              padding-top: 5px;
+              padding-bottom: 5px;
+              margin-bottom: 2px;
+            `,
+          ]}
+        >
+          <div
+            className='Userpage-container__Userinfo__Profile'
+            css={css`
+              display: flex;
+              flex-direction: row;
+              padding: 6px;
+            `}
+          >
+            <div
+              className='Userpage-container__Userinfo__Profile__Picture'
+              css={css`
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: black;
+                display: flex;
+
+                .Pixel-image {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 50%;
+                }
+              `}
+            >
               {userInfo && (
                 <PixelImage
                   type='user-profile'
@@ -132,37 +178,158 @@ const User = () => {
                 />
               )}
             </div>
-            <div className='Userpage-container__Userinfo__Profile__Follow'>
-              <div className='Userpage-container__Userinfo__Profile__Follow__Numbers'>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+            <div
+              className='Userpage-container__Userinfo__Profile__Follow'
+              css={css`
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                margin-left: 14px;
+
+                font-size: 13px;
+              `}
+            >
+              <div
+                className='Userpage-container__Userinfo__Profile__Follow__Numbers'
+                css={css`
+                  display: flex;
+                  flex-basis: 100%;
+                  padding-right: 27px;
+                `}
+              >
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={css`
+                    display: flex;
+                    flex-basis: 100%;
+                    flex-direction: column;
+                    justify-items: center;
+                    align-items: center;
+                    padding: 0;
+
+                    * + * {
+                      margin-top: 2px;
+                    }
+                  `}
+                >
                   <div>
                     <b>{userInfo ? userInfo.mediaCount : 1}</b>
                   </div>
                   <div>posts</div>
                 </div>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={css`
+                    display: flex;
+                    flex-basis: 100%;
+                    flex-direction: column;
+                    justify-items: center;
+                    align-items: center;
+                    padding: 0;
+
+                    * + * {
+                      margin-top: 2px;
+                    }
+                  `}
+                >
                   <div>
                     <b>{userInfo ? userInfo.followerCount : 3}</b>
                   </div>
                   <div>followers</div>
                 </div>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={css`
+                    display: flex;
+                    flex-basis: 100%;
+                    flex-direction: column;
+                    justify-items: center;
+                    align-items: center;
+                    padding: 0;
+
+                    * + * {
+                      margin-top: 2px;
+                    }
+                  `}
+                >
                   <div>
                     <b>{userInfo ? userInfo.followingCount : 9}</b>
                   </div>
                   <div>following</div>
                 </div>
               </div>
-              <div className='Userpage-container__Userinfo__Profile__Follow__Buttons'>
+              <div
+                className='Userpage-container__Userinfo__Profile__Follow__Buttons'
+                css={css`
+                  display: flex;
+                  padding-top: 4px;
+                  padding-bottom: 2px;
+                  flex-basis: 100%;
+                  flex-direction: row;
+
+                  .Button {
+                    width: 100%;
+                    height: 24px;
+                    font-size: 13px;
+
+                    &__Icon {
+                      width: 24px;
+                      height: 24px;
+                      background-position: 48% 50%;
+                      background-size: 7px 7px;
+
+                      &.Able:active {
+                        background-position: 55% 60%;
+                      }
+                    }
+
+                    &#More {
+                      width: 24px;
+                      height: 24px;
+                      float: right;
+                    }
+                  }
+
+                  .Button + .Button {
+                    margin-left: 3px;
+                  }
+                `}
+              >
                 <Button id='Follow' text='+ Follow' />
                 <Button id='More' icon={moreIcon} />
               </div>
             </div>
           </div>
           {infoExists && (
-            <div className='Userpage-container__Userinfo__Description'>
+            <div
+              className='Userpage-container__Userinfo__Description'
+              css={css`
+                display: flex;
+                flex-direction: column;
+                padding: 6px;
+                margin-top: 1px;
+                margin-bottom: 1px;
+
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                word-break: break-all;
+                font-size: 13px;
+                white-space: pre-wrap;
+                line-height: 15px;
+
+                * + * {
+                  margin-top: 4px;
+                }
+              `}
+            >
               {userInfo.fullName && (
-                <div className='Userpage-container__Userinfo__Description__Name'>
+                <div
+                  className='Userpage-container__Userinfo__Description__Name'
+                  css={css`
+                    font-size: 14px;
+                    font-weight: bolder;
+                  `}
+                >
                   {userInfo.fullName}
                 </div>
               )}
@@ -186,8 +353,38 @@ const User = () => {
             </div>
           )}
         </div>
-        <div className='Userpage-container__Contents'>
-          <div className='Userpage-container__Contents__Categories'>
+        <div
+          className='Userpage-container__Contents'
+          css={css`
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+          `}
+        >
+          <div
+            className='Userpage-container__Contents__Categories'
+            css={css`
+              display: flex;
+              flex-direction: row;
+              margin: 2px;
+
+              .Button {
+                flex-basis: 100%;
+                height: 24px;
+
+                &__Icon {
+                  width: 18px;
+                  height: 18px;
+                  background-position: center;
+                  background-size: 12px 12px;
+                }
+              }
+
+              .Button + .Button {
+                margin-left: 1px;
+              }
+            `}
+          >
             <Button
               id='Grid'
               icon={gridIcon}
@@ -215,10 +412,50 @@ const User = () => {
               onClick={onClickTagged}
             />
           </div>
-          <div className='Userpage-container__Contents__Box'>
+          <div
+            className='Userpage-container__Contents__Box'
+            css={[
+              scrollableBoxContainer,
+              scrollableBoxShadow(),
+              css`
+                width: inherit;
+                flex: 1;
+                margin-top: 2px;
+                padding: 2px;
+              `,
+            ]}
+          >
             <div
               className='Userpage-container__Contents__Box__Scrollable'
               ref={containerRef}
+              css={[
+                scrollableBoxVertical,
+                css`
+                  align-content: flex-start;
+
+                  .Pixel-image + .Pixel-image {
+                    margin-left: 1px;
+                    margin-top: 1px;
+                  }
+
+                  .Pixel-image {
+                    width: 94.5px;
+                    height: 94.5px;
+                    object-fit: cover;
+                    cursor: url(${pointerCursor}), pointer;
+
+                    @for $i from 1 through 3 {
+                      &:nth-of-type(#{$i}) {
+                        margin-top: 0px;
+                      }
+                    }
+
+                    &:nth-of-type(3n + 1) {
+                      margin-left: 0px;
+                    }
+                  }
+                `,
+              ]}
             >
               {posts.length > 0 &&
                 posts.map((post, i) => {
@@ -239,6 +476,10 @@ const User = () => {
               <div
                 className='Userpage-container__Contents__Box__Scrollable__Bottom'
                 ref={bottomRef}
+                css={css`
+                  width: 0;
+                  height: 0;
+                `}
               />
             </div>
           </div>
