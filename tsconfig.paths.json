@@ -25,6 +25,9 @@
       ],
       "@api/*": [
         "src/api/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
       ]
     }
   }
