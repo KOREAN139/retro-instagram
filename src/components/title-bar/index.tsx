@@ -25,10 +25,12 @@ const disabledButtonIconStyle = css`
   height: 100%;
   background-position: 40% 40%;
   background-size: 11px 11px;
+  opacity: 0.3;
 `;
 
 const buttonIconStyle = css`
   ${disabledButtonIconStyle}
+  opacity: 1;
 
   &:active {
     background-position: 50% 50%;
