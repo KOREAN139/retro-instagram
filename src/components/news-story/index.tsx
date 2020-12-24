@@ -1,8 +1,9 @@
+/** @jsx jsx */
 import PixelImage from '@components/pixel-image';
+import { css, jsx } from '@emotion/react';
+import { dividerBottomShadow } from '@styles/mixins';
 import React from 'react';
 import { NewsItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
-
-import './index.scss';
 
 interface NewsStoryProps {
   newsInfo: NewsItem;
@@ -57,9 +58,36 @@ const NewsStory: React.FC<Props> = (props: Props) => {
   const profilePictureUrl = pixelizedMediaUrl || mediaUrl;
 
   return (
-    <div className='News-story'>
-      <div className='News-story__Wrapper'>
-        <div className='News-story__Wrapper__Profile-picture'>
+    <div
+      className='News-story'
+      css={css`
+        display: flex;
+        padding: 4px 6px 0px 6px;
+      `}
+    >
+      <div
+        className='News-story__Wrapper'
+        css={[
+          dividerBottomShadow(),
+          css`
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 4px;
+            justify-content: space-between;
+          `,
+        ]}
+      >
+        <div
+          className='News-story__Wrapper__Profile-picture'
+          css={css`
+            .Pixel-image {
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+            }
+          `}
+        >
           <PixelImage
             type='news-profile'
             source={profilePictureUrl}
@@ -68,7 +96,15 @@ const NewsStory: React.FC<Props> = (props: Props) => {
             pixelPerLine={30}
           />
         </div>
-        <div className='News-story__Wrapper__Text'>
+        <div
+          className='News-story__Wrapper__Text'
+          css={css`
+            flex: 1;
+            font-size: 12px;
+            line-height: 1.3;
+            padding: 0 4px;
+          `}
+        >
           <span>
             {links
               ? links.map((link, i) => {
@@ -86,12 +122,27 @@ const NewsStory: React.FC<Props> = (props: Props) => {
                 })
               : text}
           </span>
-          <span className='News-story__Wrapper__Text__Elapsed'>
+          <span
+            className='News-story__Wrapper__Text__Elapsed'
+            css={css`
+              margin-left: 3px;
+              font-size: 11px;
+              color: #606060;
+            `}
+          >
             {formatElapsedTime(createdAt)}
           </span>
         </div>
         {thumbnail && (
-          <div className='News-story__Wrapper__Thumbnail'>
+          <div
+            className='News-story__Wrapper__Thumbnail'
+            css={css`
+              .Pixel-image {
+                width: 35px;
+                height: 35px;
+              }
+            `}
+          >
             <PixelImage
               type='news-thumbnail'
               source={thumbnailPictureUrl}

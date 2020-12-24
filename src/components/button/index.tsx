@@ -1,7 +1,10 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import backgroundPattern from '@static/background-pattern.png';
+import pointerCursor from '@static/cursor-pointer.png';
+import { activeButtonShadow, defaultButtonShadow } from '@styles/mixins';
 import classNames from 'classnames';
 import React, { useRef } from 'react';
-
-import './index.scss';
 
 interface ButtonProps {
   id?: string;
@@ -39,6 +42,50 @@ const Button: React.FC<Props> = (props: Props) => {
       ref={buttonRef}
       onClick={handleClick}
       onKeyUp={() => {}}
+      css={[
+        defaultButtonShadow(),
+        css`
+          display: flex;
+          cursor: url(${pointerCursor}), pointer;
+          align-items: center;
+          justify-content: center;
+          background-image: url(${backgroundPattern});
+
+          &:focus {
+            outline: 1px dotted black;
+            outline-offset: -4px;
+          }
+
+          &:active {
+            ${!disabled && [
+              activeButtonShadow(),
+              `
+              background-color: white;
+              background-image:
+                linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
+                linear-gradient(-45deg, #bdbdbd 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
+                linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
+              background-size: 2px 2px;
+            `,
+            ]}
+          }
+
+          ${!disabled &&
+          selected && [
+            activeButtonShadow(),
+            `
+              background-color: white;
+              background-image:
+                linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
+                linear-gradient(-45deg, #bdbdbd 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
+                linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
+              background-size: 2px 2px;
+            `,
+          ]}
+        `,
+      ]}
     >
       {icon && (
         <div

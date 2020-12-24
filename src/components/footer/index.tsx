@@ -1,4 +1,6 @@
+/** @jsx jsx */
 import Button from '@components/button';
+import { css, jsx } from '@emotion/react';
 import {
   ROUTE_HOME_FEED,
   ROUTE_NEWS,
@@ -11,8 +13,6 @@ import newsIcon from '@static/news-icon.png';
 import userIcon from '@static/user-icon.png';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
-import './index.scss';
 
 interface FooterProps {}
 
@@ -48,8 +48,48 @@ const Footer: React.FC<Props> = () => {
   };
 
   return (
-    <div className='Footer'>
-      <div className='Footer__Pages'>
+    <div
+      className='Footer'
+      css={css`
+        display: flex;
+        flex-direction: row;
+        flex-basis: 100%;
+        margin-top: 1px;
+      `}
+    >
+      <div
+        className='Footer__Pages'
+        css={css`
+          display: flex;
+          flex-direction: row;
+          flex-basis: 100%;
+          .Button {
+            flex-basis: 100%;
+            height: 26px;
+
+            &__Icon {
+              flex-basis: 100%;
+              height: 26px;
+              background-position: center;
+              background-size: 14px 14px;
+
+              &.Disabled {
+                opacity: 0.3;
+              }
+            }
+
+            &.Camera {
+              .Button__Icon {
+                background-size: 18px 18px;
+              }
+            }
+          }
+
+          .Button + .Button {
+            margin-left: 1px;
+          }
+        `}
+      >
         <Button
           id='Home-feed'
           icon={homeFeedIcon}
