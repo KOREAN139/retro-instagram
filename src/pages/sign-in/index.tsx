@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import TitleBar from '@components/title-bar';
 import { signInInstagram } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
@@ -68,14 +69,10 @@ const SignIn: React.FC<Props> = (props: Props) => {
           title='Log On to Instagram'
           onClickClose={onClickClose}
         />
-        <div
-          className='Sign-in-page-container__Logo'
-          css={css`
+        <Icon
+          icon={logoWithWindows}
+          customStyle={css`
             height: 80px;
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            background-image: url(${logoWithWindows});
           `}
         />
         <div

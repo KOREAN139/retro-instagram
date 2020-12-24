@@ -8,7 +8,6 @@ import React, { useRef } from 'react';
 
 interface ButtonProps {
   id?: string;
-  icon?: string;
   selected?: boolean;
   disabled?: boolean;
   text?: string;
@@ -18,7 +17,7 @@ interface ButtonProps {
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Button: React.FC<Props> = (props: Props) => {
-  const { id, selected, icon, text, disabled, onClick } = props;
+  const { id, selected, text, disabled, onClick, children } = props;
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -87,19 +86,7 @@ const Button: React.FC<Props> = (props: Props) => {
         `,
       ]}
     >
-      {icon && (
-        <div
-          className={classNames(
-            'Button__Icon',
-            { Able: !disabled },
-            { Disabled: disabled }
-          )}
-          style={{
-            backgroundRepeat: 'no-repeat',
-            backgroundImage: `url('${icon}')`,
-          }}
-        />
-      )}
+      {children}
       {text}
     </div>
   );

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import { css, jsx } from '@emotion/react';
 import closeIcon from '@static/close-button.png';
 import cursor from '@static/cursor.png';
@@ -49,16 +50,12 @@ const TitleBar: React.FC<Props> = (props: Props) => {
       `}
     >
       {displayIcon && (
-        <div
-          className='Title-bar__Icon'
-          css={css`
+        <Icon
+          icon={instagramIconWithShadow}
+          customStyle={css`
             width: 18px;
             height: 22px;
             margin-left: 4px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-image: url(${instagramIconWithShadow});
           `}
         />
       )}
@@ -94,21 +91,6 @@ const TitleBar: React.FC<Props> = (props: Props) => {
               width: 18px;
               height: 18px;
               cursor: url(${cursor}), auto;
-
-              &__Icon {
-                width: 100%;
-                height: 100%;
-                background-position: 40% 40%;
-                background-size: 11px 11px;
-
-                &.Able:active {
-                  background-position: 50% 50%;
-                }
-
-                &.Disabled {
-                  opacity: 0.3;
-                }
-              }
             }
 
             > .Button:last-child {
@@ -117,14 +99,55 @@ const TitleBar: React.FC<Props> = (props: Props) => {
           `}
         >
           {onRootPage && (
-            <Button id='Minimize' icon={minIcon} onClick={handleMinimize} />
+            <Button id='Minimize' onClick={handleMinimize}>
+              <Icon
+                icon={minIcon}
+                customStyle={css`
+                  width: 100%;
+                  height: 100%;
+                  background-position: 40% 40%;
+                  background-size: 11px 11px;
+
+                  &.Able:active {
+                    background-position: 50% 50%;
+                  }
+                `}
+              />
+            </Button>
           )}
-          {onRootPage && <Button id='Maximize' icon={maxIcon} disabled />}
-          <Button
-            id='Close'
-            icon={closeIcon}
-            onClick={onRootPage ? handleClose : onClickClose}
-          />
+          {onRootPage && (
+            <Button id='Maximize' disabled>
+              <Icon
+                icon={maxIcon}
+                disabled
+                customStyle={css`
+                  width: 100%;
+                  height: 100%;
+                  background-position: 40% 40%;
+                  background-size: 11px 11px;
+
+                  &.Able:active {
+                    background-position: 50% 50%;
+                  }
+                `}
+              />
+            </Button>
+          )}
+          <Button id='Close' onClick={onRootPage ? handleClose : onClickClose}>
+            <Icon
+              icon={closeIcon}
+              customStyle={css`
+                width: 100%;
+                height: 100%;
+                background-position: 40% 40%;
+                background-size: 11px 11px;
+
+                &.Able:active {
+                  background-position: 50% 50%;
+                }
+              `}
+            />
+          </Button>
         </div>
       </div>
     </div>

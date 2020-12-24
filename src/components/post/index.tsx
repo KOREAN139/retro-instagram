@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import PixelImage from '@components/pixel-image';
 import { css, jsx } from '@emotion/react';
 import pointerCursor from '@static/cursor-pointer.png';
@@ -209,15 +210,11 @@ const Post: React.FC<Props> = (props: Props) => {
             margin: 6px 8px 8px 8px;
           `}
         >
-          <div
-            className='Post-container__Likes__Icon'
-            css={css`
+          <Icon
+            icon={likeIcon}
+            customStyle={css`
               width: 11px;
               height: 11px;
-              background-size: contain;
-              background-repeat: no-repeat;
-              background-position: center;
-              background-image: url(${likeIcon});
             `}
           />
           <div

@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
+import ScrollableBox from '@components/scrollable-box';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
 import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
@@ -18,8 +20,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
-
-import ScrollableBox from '~/components/scrollable-box';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -253,17 +253,6 @@ const User = () => {
                     height: 24px;
                     font-size: 13px;
 
-                    &__Icon {
-                      width: 24px;
-                      height: 24px;
-                      background-position: 48% 50%;
-                      background-size: 7px 7px;
-
-                      &.Able:active {
-                        background-position: 55% 60%;
-                      }
-                    }
-
                     &#More {
                       width: 24px;
                       height: 24px;
@@ -277,7 +266,21 @@ const User = () => {
                 `}
               >
                 <Button id='Follow' text='+ Follow' />
-                <Button id='More' icon={moreIcon} />
+                <Button id='More'>
+                  <Icon
+                    icon={moreIcon}
+                    customStyle={css`
+                      width: 24px;
+                      height: 24px;
+                      background-position: 48% 50%;
+                      background-size: 7px 7px;
+
+                      &.Able:active {
+                        background-position: 55% 60%;
+                      }
+                    `}
+                  />
+                </Button>
               </div>
             </div>
           </div>
@@ -352,13 +355,6 @@ const User = () => {
               .Button {
                 flex-basis: 100%;
                 height: 24px;
-
-                &__Icon {
-                  width: 18px;
-                  height: 18px;
-                  background-position: center;
-                  background-size: 12px 12px;
-                }
               }
 
               .Button + .Button {
@@ -368,30 +364,66 @@ const User = () => {
           >
             <Button
               id='Grid'
-              icon={gridIcon}
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
-            />
+            >
+              <Icon
+                icon={gridIcon}
+                selected={currentCategory === 'grid'}
+                customStyle={css`
+                  width: 18px;
+                  height: 18px;
+                  background-size: 12px 12px;
+                `}
+              />
+            </Button>
             <NavLink className='Button' to={ROUTE_USER_SCROLL}>
               <Button
                 id='Scroll'
-                icon={scrollIcon}
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
-              />
+              >
+                <Icon
+                  icon={scrollIcon}
+                  selected={currentCategory === 'scroll'}
+                  customStyle={css`
+                    width: 18px;
+                    height: 18px;
+                    background-size: 12px 12px;
+                  `}
+                />
+              </Button>
             </NavLink>
             <Button
               id='Location'
-              icon={locationIcon}
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
-            />
+            >
+              <Icon
+                icon={locationIcon}
+                selected={currentCategory === 'location'}
+                customStyle={css`
+                  width: 18px;
+                  height: 18px;
+                  background-size: 12px 12px;
+                `}
+              />
+            </Button>
             <Button
               id='Tagged'
-              icon={tagIcon}
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}
-            />
+            >
+              <Icon
+                icon={tagIcon}
+                selected={currentCategory === 'tagged'}
+                customStyle={css`
+                  width: 18px;
+                  height: 18px;
+                  background-size: 12px 12px;
+                `}
+              />
+            </Button>
           </div>
           <ScrollableBox
             customStyle={css`

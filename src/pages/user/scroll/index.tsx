@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
 import Post from '@components/post';
+import ScrollableBox from '@components/scrollable-box';
 import { getUserPosts } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
 import optionIcon from '@static/option-icon.png';
@@ -11,8 +13,6 @@ import { dividerTopShadow } from '@styles/mixins';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserPostInfo } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
-
-import ScrollableBox from '~/components/scrollable-box';
 
 interface UserScrollProps {
   title: string;
@@ -122,17 +122,19 @@ const UserScroll: React.FC<Props> = () => {
               .Button {
                 width: 24px;
                 height: 24px;
-
-                &__Icon {
-                  width: 18px;
-                  height: 18px;
-                  background-position: center;
-                  background-size: 12px 12px;
-                }
               }
             `}
           >
-            <Button id='Option' icon={optionIcon} />
+            <Button id='Option'>
+              <Icon
+                icon={optionIcon}
+                customStyle={css`
+                  width: 18px;
+                  height: 18px;
+                  background-size: 12px 12px;
+                `}
+              />
+            </Button>
           </div>
         </div>
         <ScrollableBox

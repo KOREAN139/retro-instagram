@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import { css, jsx } from '@emotion/react';
 import {
   ROUTE_HOME_FEED,
@@ -66,23 +67,6 @@ const Footer: React.FC<Props> = () => {
           .Button {
             flex-basis: 100%;
             height: 26px;
-
-            &__Icon {
-              flex-basis: 100%;
-              height: 26px;
-              background-position: center;
-              background-size: 14px 14px;
-
-              &.Disabled {
-                opacity: 0.3;
-              }
-            }
-
-            &.Camera {
-              .Button__Icon {
-                background-size: 18px 18px;
-              }
-            }
           }
 
           .Button + .Button {
@@ -92,36 +76,83 @@ const Footer: React.FC<Props> = () => {
       >
         <Button
           id='Home-feed'
-          icon={homeFeedIcon}
           selected={currentPage === 'home-feed'}
           onClick={onClickHomeFeed}
-        />
+        >
+          <Icon
+            icon={homeFeedIcon}
+            selected={currentPage === 'home-feed'}
+            customStyle={css`
+              flex-basis: 100%;
+              height: 26px;
+              background-size: 14px 14px;
+            `}
+          />
+        </Button>
         <Button
           id='Explore'
-          icon={exploreIcon}
           disabled
           selected={currentPage === 'explore'}
           onClick={onClickExplore}
-        />
+        >
+          <Icon
+            icon={exploreIcon}
+            disabled
+            selected={currentPage === 'explore'}
+            customStyle={css`
+              flex-basis: 100%;
+              height: 26px;
+              background-size: 14px 14px;
+            `}
+          />
+        </Button>
         <Button
           id='Camera'
-          icon={cameraIcon}
           disabled
           selected={currentPage === 'camera'}
           onClick={onClickCamera}
-        />
+        >
+          <Icon
+            icon={cameraIcon}
+            disabled
+            selected={currentPage === 'camera'}
+            customStyle={css`
+              flex-basis: 100%;
+              height: 26px;
+              background-size: 18px 18px;
+            `}
+          />
+        </Button>
         <Button
           id='News'
-          icon={newsIcon}
           selected={currentPage === 'news'}
           onClick={onClickNews}
-        />
+        >
+          <Icon
+            icon={newsIcon}
+            selected={currentPage === 'news'}
+            customStyle={css`
+              flex-basis: 100%;
+              height: 26px;
+              background-size: 14px 14px;
+            `}
+          />
+        </Button>
         <Button
           id='User'
-          icon={userIcon}
           selected={currentPage === 'user'}
           onClick={onClickUser}
-        />
+        >
+          <Icon
+            icon={userIcon}
+            selected={currentPage === 'user'}
+            customStyle={css`
+              flex-basis: 100%;
+              height: 26px;
+              background-size: 14px 14px;
+            `}
+          />
+        </Button>
       </div>
     </div>
   );
