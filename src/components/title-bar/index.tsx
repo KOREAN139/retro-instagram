@@ -20,6 +20,21 @@ export type Props = TitleBarProps & React.HTMLAttributes<HTMLDivElement>;
 
 const { ipcRenderer } = window;
 
+const disabledButtonIconStyle = css`
+  width: 100%;
+  height: 100%;
+  background-position: 40% 40%;
+  background-size: 11px 11px;
+`;
+
+const buttonIconStyle = css`
+  ${disabledButtonIconStyle}
+
+  &:active {
+    background-position: 50% 50%;
+  }
+`;
+
 const TitleBar: React.FC<Props> = (props: Props) => {
   const { onClickClose, location, title, displayIcon } = props;
   const onRootPage = location === 'Root';
@@ -100,53 +115,16 @@ const TitleBar: React.FC<Props> = (props: Props) => {
         >
           {onRootPage && (
             <Button id='Minimize' onClick={handleMinimize}>
-              <Icon
-                icon={minIcon}
-                customStyle={css`
-                  width: 100%;
-                  height: 100%;
-                  background-position: 40% 40%;
-                  background-size: 11px 11px;
-
-                  &.Able:active {
-                    background-position: 50% 50%;
-                  }
-                `}
-              />
+              <Icon icon={minIcon} customStyle={buttonIconStyle} />
             </Button>
           )}
           {onRootPage && (
             <Button id='Maximize' disabled>
-              <Icon
-                icon={maxIcon}
-                disabled
-                customStyle={css`
-                  width: 100%;
-                  height: 100%;
-                  background-position: 40% 40%;
-                  background-size: 11px 11px;
-
-                  &.Able:active {
-                    background-position: 50% 50%;
-                  }
-                `}
-              />
+              <Icon icon={maxIcon} customStyle={disabledButtonIconStyle} />
             </Button>
           )}
           <Button id='Close' onClick={onRootPage ? handleClose : onClickClose}>
-            <Icon
-              icon={closeIcon}
-              customStyle={css`
-                width: 100%;
-                height: 100%;
-                background-position: 40% 40%;
-                background-size: 11px 11px;
-
-                &.Able:active {
-                  background-position: 50% 50%;
-                }
-              `}
-            />
+            <Icon icon={closeIcon} customStyle={buttonIconStyle} />
           </Button>
         </div>
       </div>
