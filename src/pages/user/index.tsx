@@ -13,15 +13,13 @@ import moreIcon from '@static/more-button.png';
 import scrollIcon from '@static/scroll-icon.png';
 import tagIcon from '@static/tag-icon.png';
 import { RootState } from '@store';
-import { dividerTopBottomShadow, scrollableBoxShadow } from '@styles/mixins';
-import {
-  scrollableBoxContainer,
-  scrollableBoxVertical,
-} from '@styles/placeholders';
-import React, { useEffect, useRef, useState } from 'react';
+import { dividerTopBottomShadow } from '@styles/mixins';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import ScrollableBox from '~/components/scrollable-box';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -51,31 +49,15 @@ const User = () => {
     return !!post.pixelizedMediaUrl;
   });
 
-  const containerRef = useRef(null);
-  const bottomRef = useRef(null);
-
   useEffect(() => {
     dispatch(getSignedInUserInfo(userPk));
   }, [dispatch, userPk]);
 
-  useEffect(() => {
-    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-      if (isIntersecting && moreAvailable) {
-        dispatch(getUserPosts(userPk));
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersect, {
-      root: containerRef.current,
-      threshold: 1.0,
-    });
-
-    observer.observe(bottomRef.current!);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
+  const fetchUserPosts = useCallback(() => {
+    if (moreAvailable) {
+      dispatch(getUserPosts(userPk));
+    }
+  }, [moreAvailable, userPk, dispatch]);
 
   if (userInfo) {
     const exist =
@@ -412,77 +394,51 @@ const User = () => {
               onClick={onClickTagged}
             />
           </div>
-          <div
-            className='Userpage-container__Contents__Box'
-            css={[
-              scrollableBoxContainer,
-              scrollableBoxShadow(),
-              css`
-                width: inherit;
-                flex: 1;
-                margin-top: 2px;
-                padding: 2px;
-              `,
-            ]}
+          <ScrollableBox
+            customStyle={css`
+              align-content: flex-start;
+
+              .Pixel-image + .Pixel-image {
+                margin-left: 1px;
+                margin-top: 1px;
+              }
+
+              .Pixel-image {
+                width: 94.5px;
+                height: 94.5px;
+                object-fit: cover;
+                cursor: url(${pointerCursor}), pointer;
+
+                @for $i from 1 through 3 {
+                  &:nth-of-type(#{$i}) {
+                    margin-top: 0px;
+                  }
+                }
+
+                &:nth-of-type(3n + 1) {
+                  margin-left: 0px;
+                }
+              }
+            `}
+            onBottom={fetchUserPosts}
           >
-            <div
-              className='Userpage-container__Contents__Box__Scrollable'
-              ref={containerRef}
-              css={[
-                scrollableBoxVertical,
-                css`
-                  align-content: flex-start;
-
-                  .Pixel-image + .Pixel-image {
-                    margin-left: 1px;
-                    margin-top: 1px;
-                  }
-
-                  .Pixel-image {
-                    width: 94.5px;
-                    height: 94.5px;
-                    object-fit: cover;
-                    cursor: url(${pointerCursor}), pointer;
-
-                    @for $i from 1 through 3 {
-                      &:nth-of-type(#{$i}) {
-                        margin-top: 0px;
-                      }
-                    }
-
-                    &:nth-of-type(3n + 1) {
-                      margin-left: 0px;
-                    }
-                  }
-                `,
-              ]}
-            >
-              {posts.length > 0 &&
-                posts.map((post, i) => {
-                  const { mediaUrl, pixelizedMediaUrl } = post;
-                  const source = pixelizedMediaUrl || mediaUrl;
-                  return (
-                    <PixelImage
-                      type='user-thumbnail'
-                      source={source}
-                      centered
-                      pixelized={!!pixelizedMediaUrl}
-                      index={i}
-                      key={post.id}
-                      onClick={() => onClickPost(i)}
-                    />
-                  );
-                })}
-              <div
-                className='Userpage-container__Contents__Box__Scrollable__Bottom'
-                ref={bottomRef}
-                css={css`
-                  width: 0;
-                  height: 0;
-                `}
-              />
-            </div>
-          </div>
+            {posts.length > 0 &&
+              posts.map((post, i) => {
+                const { mediaUrl, pixelizedMediaUrl } = post;
+                const source = pixelizedMediaUrl || mediaUrl;
+                return (
+                  <PixelImage
+                    type='user-thumbnail'
+                    source={source}
+                    centered
+                    pixelized={!!pixelizedMediaUrl}
+                    index={i}
+                    key={post.id}
+                    onClick={() => onClickPost(i)}
+                  />
+                );
+              })}
+          </ScrollableBox>
         </div>
       </div>
       {displayModal && !!selectedPostItem && (

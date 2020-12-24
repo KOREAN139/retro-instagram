@@ -1,11 +1,7 @@
 /** @jsx jsx */
 import Page from '@components/page';
+import ScrollableBox from '@components/scrollable-box';
 import { css, jsx } from '@emotion/react';
-import { scrollableBoxShadow } from '@styles/mixins';
-import {
-  scrollableBoxContainer,
-  scrollableBoxVertical,
-} from '@styles/placeholders';
 
 const Explore = () => {
   return (
@@ -18,24 +14,7 @@ const Explore = () => {
           flex-direction: column;
         `}
       >
-        <div
-          className='Explore-page-container__Contents'
-          css={[
-            scrollableBoxContainer,
-            scrollableBoxShadow(),
-            css`
-              width: inherit;
-              flex: 1;
-              margin-top: 2px;
-              padding: 2px;
-            `,
-          ]}
-        >
-          <div
-            className='Explore-page-container__Contents__Scrollable'
-            css={scrollableBoxVertical}
-          />
-        </div>
+        <ScrollableBox />
       </div>
     </Page>
   );

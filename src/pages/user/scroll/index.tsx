@@ -7,14 +7,12 @@ import { getUserPosts } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
 import optionIcon from '@static/option-icon.png';
 import { RootState } from '@store';
-import { dividerTopShadow, scrollableBoxShadow } from '@styles/mixins';
-import {
-  scrollableBoxContainer,
-  scrollableBoxVertical,
-} from '@styles/placeholders';
-import React, { useEffect, useRef } from 'react';
+import { dividerTopShadow } from '@styles/mixins';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserPostInfo } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
+
+import ScrollableBox from '~/components/scrollable-box';
 
 interface UserScrollProps {
   title: string;
@@ -42,27 +40,11 @@ const UserScroll: React.FC<Props> = () => {
   );
   const { moreAvailable, posts } = userPostInfo;
 
-  const containerRef = useRef(null);
-  const bottomRef = useRef(null);
-
-  useEffect(() => {
-    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-      if (isIntersecting && moreAvailable) {
-        dispatch(getUserPosts(userPk));
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersect, {
-      root: containerRef.current,
-      threshold: 1.0,
-    });
-
-    observer.observe(bottomRef.current!);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
+  const fetchUserPosts = useCallback(() => {
+    if (moreAvailable) {
+      dispatch(getUserPosts(userPk));
+    }
+  }, [moreAvailable, userPk, dispatch]);
 
   if (userInfo) {
     pixelizedProfile = !!userInfo.profilePicture.pixelizedMediaUrl;
@@ -154,45 +136,19 @@ const UserScroll: React.FC<Props> = () => {
             <Button id='Option' icon={optionIcon} />
           </div>
         </div>
-        <div
-          className='Userpage-scroll-container__Contents'
-          css={[
-            scrollableBoxContainer,
-            scrollableBoxShadow(),
-            css`
-              width: inherit;
-              flex: 1;
-              margin-top: 2px;
-              padding: 2px;
-            `,
-          ]}
+        <ScrollableBox
+          customStyle={css`
+            .Post-container + .Post-container {
+              margin-top: 16px;
+            }
+          `}
+          onBottom={fetchUserPosts}
         >
-          <div
-            className='Userpage-scroll-container__Contents__Scrollable'
-            ref={containerRef}
-            css={[
-              scrollableBoxVertical,
-              css`
-                .Post-container + .Post-container {
-                  margin-top: 16px;
-                }
-              `,
-            ]}
-          >
-            {posts &&
-              posts.map((post, i) => {
-                return <Post postInfo={post} index={i} key={post.id} />;
-              })}
-            <div
-              className='Userpage-container__Contents__Box__Scrollable__Bottom'
-              ref={bottomRef}
-              css={css`
-                width: 0;
-                height: 0;
-              `}
-            />
-          </div>
-        </div>
+          {posts &&
+            posts.map((post, i) => {
+              return <Post postInfo={post} index={i} key={post.id} />;
+            })}
+        </ScrollableBox>
       </div>
     </Page>
   );
