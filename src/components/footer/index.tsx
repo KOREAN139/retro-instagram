@@ -19,6 +19,17 @@ interface FooterProps {}
 
 export type Props = FooterProps & React.HTMLAttributes<HTMLDivElement>;
 
+const footerIconStyle = css`
+  flex-basis: 100%;
+  height: 26px;
+  background-size: 14px 14px;
+`;
+
+const footerDisabledIconStyle = css`
+  ${footerIconStyle}
+  opacity: 0.3;
+`;
+
 const Footer: React.FC<Props> = () => {
   const history = useHistory();
   const [currentPage, setCurrentPage] = useState('home-feed');
@@ -79,15 +90,7 @@ const Footer: React.FC<Props> = () => {
           selected={currentPage === 'home-feed'}
           onClick={onClickHomeFeed}
         >
-          <Icon
-            icon={homeFeedIcon}
-            selected={currentPage === 'home-feed'}
-            customStyle={css`
-              flex-basis: 100%;
-              height: 26px;
-              background-size: 14px 14px;
-            `}
-          />
+          <Icon icon={homeFeedIcon} customStyle={footerIconStyle} />
         </Button>
         <Button
           id='Explore'
@@ -95,16 +98,7 @@ const Footer: React.FC<Props> = () => {
           selected={currentPage === 'explore'}
           onClick={onClickExplore}
         >
-          <Icon
-            icon={exploreIcon}
-            disabled
-            selected={currentPage === 'explore'}
-            customStyle={css`
-              flex-basis: 100%;
-              height: 26px;
-              background-size: 14px 14px;
-            `}
-          />
+          <Icon icon={exploreIcon} customStyle={footerDisabledIconStyle} />
         </Button>
         <Button
           id='Camera'
@@ -114,11 +108,8 @@ const Footer: React.FC<Props> = () => {
         >
           <Icon
             icon={cameraIcon}
-            disabled
-            selected={currentPage === 'camera'}
             customStyle={css`
-              flex-basis: 100%;
-              height: 26px;
+              ${footerDisabledIconStyle}
               background-size: 18px 18px;
             `}
           />
@@ -128,30 +119,14 @@ const Footer: React.FC<Props> = () => {
           selected={currentPage === 'news'}
           onClick={onClickNews}
         >
-          <Icon
-            icon={newsIcon}
-            selected={currentPage === 'news'}
-            customStyle={css`
-              flex-basis: 100%;
-              height: 26px;
-              background-size: 14px 14px;
-            `}
-          />
+          <Icon icon={newsIcon} customStyle={footerIconStyle} />
         </Button>
         <Button
           id='User'
           selected={currentPage === 'user'}
           onClick={onClickUser}
         >
-          <Icon
-            icon={userIcon}
-            selected={currentPage === 'user'}
-            customStyle={css`
-              flex-basis: 100%;
-              height: 26px;
-              background-size: 14px 14px;
-            `}
-          />
+          <Icon icon={userIcon} customStyle={footerIconStyle} />
         </Button>
       </div>
     </div>
