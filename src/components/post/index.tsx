@@ -363,9 +363,11 @@ const Post: React.FC<Props> = (props: Props) => {
         >
           {formatDate(createdAt)}
         </span>
-        <span className='Post-container__Additional__Translate'>
-          SEE TRANSLATION
-        </span>
+        {caption.text && (
+          <span className='Post-container__Additional__Translate'>
+            SEE TRANSLATION
+          </span>
+        )}
       </div>
       {children}
     </div>
