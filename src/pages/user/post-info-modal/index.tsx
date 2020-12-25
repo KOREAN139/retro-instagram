@@ -4,6 +4,7 @@ import TitleBar from '@components/title-bar';
 import { css, jsx, keyframes } from '@emotion/react';
 import backgroundPattern from '@static/background-pattern.png';
 import { defaultBoxShadow } from '@styles/mixins';
+import { modalContainer, overlay } from '@styles/placeholders';
 import React from 'react';
 
 interface Props {
@@ -58,42 +59,28 @@ const PostInfoModal: React.FC<Props> = (props: Props) => {
 
   return (
     <React.Fragment>
-      <div
-        className='Post-info-modal-overlay'
-        css={css`
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-        `}
-      />
+      <div className='Post-info-modal-overlay' css={overlay} />
       <div
         className='Post-info-modal-animation'
-        css={css`
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          border: solid 2px white;
+        css={[
+          modalContainer,
+          css`
+            border: solid 2px white;
+            padding: 0;
 
-          width: 60%;
-          height: 96px;
+            width: 60%;
+            height: 96px;
 
-          animation: ${retroZoomIn} 0.3s steps(7);
-        `}
+            animation: ${retroZoomIn} 0.3s steps(7);
+          `,
+        ]}
       />
       <div
         className='Post-info-modal-container'
         css={[
           defaultBoxShadow(1.6),
+          modalContainer,
           css`
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            padding: 6px;
-            transform: translate(-50%, -50%);
-
             display: flex;
             flex-direction: column;
             width: 60%;

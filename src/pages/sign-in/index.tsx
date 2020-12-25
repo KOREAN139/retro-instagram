@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import backgroundPattern from '@static/background-pattern.png';
 import logoWithWindows from '@static/logo-with-windows.gif';
 import { activeButtonShadow, defaultBoxShadow } from '@styles/mixins';
+import { modalContainer, overlay } from '@styles/placeholders';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -35,26 +36,19 @@ const SignIn: React.FC<Props> = (props: Props) => {
     <React.Fragment>
       <div
         className='Sign-in-page-overlay'
-        css={css`
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-          background-color: rgba(0, 0, 0, 0.7);
-        `}
+        css={[
+          overlay,
+          css`
+            background-color: rgba(0, 0, 0, 0.7);
+          `,
+        ]}
       />
       <div
         className='Sign-in-page-container'
         css={[
           defaultBoxShadow(1.6),
+          modalContainer,
           css`
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            padding: 6px;
-            transform: translate(-50%, -50%);
-
             display: flex;
             flex-direction: column;
             width: 80%;

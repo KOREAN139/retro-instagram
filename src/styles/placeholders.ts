@@ -11,3 +11,19 @@ export const scrollableBoxVertical = () => css`
   flex: 1;
   overflow-y: scroll;
 `;
+
+export const overlay = () => css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`;
+
+export const modalContainer = () => css`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 6px;
+  transform: translate(-50%, -50%);
+`;
