@@ -37,6 +37,12 @@ const buttonIconStyle = css`
   }
 `;
 
+const buttonStyle = css`
+  width: 18px;
+  height: 18px;
+  cursor: url(${cursor}), auto;
+`;
+
 const TitleBar: React.FC<Props> = (props: Props) => {
   const { onClickClose, location, title, displayIcon } = props;
   const onRootPage = location === 'Root';
@@ -103,29 +109,30 @@ const TitleBar: React.FC<Props> = (props: Props) => {
           css={css`
             display: flex;
             padding: 3px 2px 1px 2px;
-
-            .Button {
-              width: 18px;
-              height: 18px;
-              cursor: url(${cursor}), auto;
-            }
-
-            > .Button:last-child {
-              margin-left: 2px;
-            }
           `}
         >
           {onRootPage && (
-            <Button id='Minimize' onClick={handleMinimize}>
+            <Button
+              id='Minimize'
+              onClick={handleMinimize}
+              customStyle={buttonStyle}
+            >
               <Icon icon={minIcon} customStyle={buttonIconStyle} />
             </Button>
           )}
           {onRootPage && (
-            <Button id='Maximize' disabled>
+            <Button id='Maximize' disabled customStyle={buttonStyle}>
               <Icon icon={maxIcon} customStyle={disabledButtonIconStyle} />
             </Button>
           )}
-          <Button id='Close' onClick={onRootPage ? handleClose : onClickClose}>
+          <Button
+            id='Close'
+            onClick={onRootPage ? handleClose : onClickClose}
+            customStyle={css`
+              ${buttonStyle}
+              margin-left: 2px;
+            `}
+          >
             <Icon icon={closeIcon} customStyle={buttonIconStyle} />
           </Button>
         </div>

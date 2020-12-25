@@ -27,6 +27,11 @@ const categoryIconStyle = css`
   background-size: 12px 12px;
 `;
 
+const categoryButtonStyle = css`
+  flex-basis: 100%;
+  height: 24px;
+`;
+
 const profilePictureStyle = css`
   width: 60px;
   height: 60px;
@@ -236,25 +241,29 @@ const User = () => {
                   flex-basis: 100%;
                   flex-direction: row;
 
-                  .Button {
-                    width: 100%;
-                    height: 24px;
-                    font-size: 13px;
-
-                    &#More {
-                      width: 24px;
-                      height: 24px;
-                      float: right;
-                    }
-                  }
-
                   .Button + .Button {
                     margin-left: 3px;
                   }
                 `}
               >
-                <Button id='Follow' text='+ Follow' />
-                <Button id='More'>
+                <Button
+                  id='Follow'
+                  text='+ Follow'
+                  customStyle={css`
+                    width: 100%;
+                    height: 24px;
+                    font-size: 13px;
+                  `}
+                />
+                <Button
+                  id='More'
+                  customStyle={css`
+                    width: 24px;
+                    height: 24px;
+                    font-size: 13px;
+                    float: right;
+                  `}
+                >
                   <Icon
                     icon={moreIcon}
                     customStyle={css`
@@ -340,11 +349,6 @@ const User = () => {
               flex-direction: row;
               margin: 2px;
 
-              .Button {
-                flex-basis: 100%;
-                height: 24px;
-              }
-
               .Button + .Button {
                 margin-left: 1px;
               }
@@ -354,14 +358,16 @@ const User = () => {
               id='Grid'
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
+              customStyle={categoryButtonStyle}
             >
               <Icon icon={gridIcon} customStyle={categoryIconStyle} />
             </Button>
-            <NavLink className='Button' to={ROUTE_USER_SCROLL}>
+            <NavLink to={ROUTE_USER_SCROLL} css={categoryButtonStyle}>
               <Button
                 id='Scroll'
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
+                customStyle={categoryButtonStyle}
               >
                 <Icon icon={scrollIcon} customStyle={categoryIconStyle} />
               </Button>
@@ -370,6 +376,7 @@ const User = () => {
               id='Location'
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
+              customStyle={categoryButtonStyle}
             >
               <Icon icon={locationIcon} customStyle={categoryIconStyle} />
             </Button>
@@ -377,6 +384,7 @@ const User = () => {
               id='Tagged'
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}
+              customStyle={categoryButtonStyle}
             >
               <Icon icon={tagIcon} customStyle={categoryIconStyle} />
             </Button>

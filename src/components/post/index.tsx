@@ -69,6 +69,11 @@ const formatCaption = (username: string, caption: string): string => {
   return caption;
 };
 
+const postButtonStyle = css`
+  padding: 7px 12px 7px 12px;
+  font-size: 13px;
+`;
+
 const Post: React.FC<Props> = (props: Props) => {
   const { postInfo, userInfo, index, children } = props;
 
@@ -187,19 +192,19 @@ const Post: React.FC<Props> = (props: Props) => {
           flex-direction: row;
           margin: 6px 8px 8px 8px;
 
-          .Button {
-            padding: 7px 12px 7px 12px;
-            font-size: 13px;
-          }
-
           .Button + .Button {
             margin-left: 1px;
           }
         `}
       >
-        <Button id='Like' text='Like' selected={hasLiked} />
-        <Button id='Comment' text='Comment' />
-        <Button id='Share' text='Share' />
+        <Button
+          id='Like'
+          text='Like'
+          selected={hasLiked}
+          customStyle={postButtonStyle}
+        />
+        <Button id='Comment' text='Comment' customStyle={postButtonStyle} />
+        <Button id='Share' text='Share' customStyle={postButtonStyle} />
       </div>
       {likeCount > 0 && (
         <div

@@ -47,6 +47,12 @@ const inputStyle = css`
   }
 `;
 
+const buttonStyle = css`
+  font-size: 12px;
+  width: 65px;
+  height: 20px;
+`;
+
 const SignIn: React.FC<Props> = (props: Props) => {
   const { onClickClose } = props;
 
@@ -132,19 +138,23 @@ const SignIn: React.FC<Props> = (props: Props) => {
             margin-bottom: 4px;
             justify-content: flex-end;
 
-            .Button {
-              font-size: 12px;
-              width: 65px;
-              height: 20px;
-            }
-
             .Button + .Button {
               margin-left: 4px;
             }
           `}
         >
-          <Button id='Ok' text='OK' onClick={handleSubmit(onSubmit)} />
-          <Button id='Cancel' text='Cancel' onClick={onClickClose} />
+          <Button
+            id='Ok'
+            text='OK'
+            onClick={handleSubmit(onSubmit)}
+            customStyle={buttonStyle}
+          />
+          <Button
+            id='Cancel'
+            text='Cancel'
+            onClick={onClickClose}
+            customStyle={buttonStyle}
+          />
         </div>
       </div>
     </React.Fragment>

@@ -30,6 +30,11 @@ const footerDisabledIconStyle = css`
   opacity: 0.3;
 `;
 
+const buttonStyle = css`
+  flex-basis: 100%;
+  height: 26px;
+`;
+
 const Footer: React.FC<Props> = () => {
   const history = useHistory();
   const [currentPage, setCurrentPage] = useState('home-feed');
@@ -75,10 +80,6 @@ const Footer: React.FC<Props> = () => {
           display: flex;
           flex-direction: row;
           flex-basis: 100%;
-          .Button {
-            flex-basis: 100%;
-            height: 26px;
-          }
 
           .Button + .Button {
             margin-left: 1px;
@@ -89,6 +90,7 @@ const Footer: React.FC<Props> = () => {
           id='Home-feed'
           selected={currentPage === 'home-feed'}
           onClick={onClickHomeFeed}
+          customStyle={buttonStyle}
         >
           <Icon icon={homeFeedIcon} customStyle={footerIconStyle} />
         </Button>
@@ -97,6 +99,7 @@ const Footer: React.FC<Props> = () => {
           disabled
           selected={currentPage === 'explore'}
           onClick={onClickExplore}
+          customStyle={buttonStyle}
         >
           <Icon icon={exploreIcon} customStyle={footerDisabledIconStyle} />
         </Button>
@@ -105,6 +108,7 @@ const Footer: React.FC<Props> = () => {
           disabled
           selected={currentPage === 'camera'}
           onClick={onClickCamera}
+          customStyle={buttonStyle}
         >
           <Icon
             icon={cameraIcon}
@@ -118,6 +122,7 @@ const Footer: React.FC<Props> = () => {
           id='News'
           selected={currentPage === 'news'}
           onClick={onClickNews}
+          customStyle={buttonStyle}
         >
           <Icon icon={newsIcon} customStyle={footerIconStyle} />
         </Button>
@@ -125,6 +130,7 @@ const Footer: React.FC<Props> = () => {
           id='User'
           selected={currentPage === 'user'}
           onClick={onClickUser}
+          customStyle={buttonStyle}
         >
           <Icon icon={userIcon} customStyle={footerIconStyle} />
         </Button>

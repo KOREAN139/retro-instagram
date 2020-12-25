@@ -119,14 +119,15 @@ const UserScroll: React.FC<Props> = () => {
             className='Userpage-scroll-container__Userinfo__Option-button'
             css={css`
               margin-left: auto;
-
-              .Button {
-                width: 24px;
-                height: 24px;
-              }
             `}
           >
-            <Button id='Option'>
+            <Button
+              id='Option'
+              customStyle={css`
+                width: 24px;
+                height: 24px;
+              `}
+            >
               <Icon
                 icon={optionIcon}
                 customStyle={css`

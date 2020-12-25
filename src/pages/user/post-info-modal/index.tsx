@@ -54,6 +54,12 @@ to {
 }
 `;
 
+const buttonStyle = css`
+  font-size: 12px;
+  width: 60px;
+  height: 20px;
+`;
+
 const PostInfoModal: React.FC<Props> = (props: Props) => {
   const { onClickClose, likeCount, commentCount } = props;
 
@@ -130,19 +136,23 @@ const PostInfoModal: React.FC<Props> = (props: Props) => {
             margin-bottom: 4px;
             justify-content: center;
 
-            .Button {
-              font-size: 12px;
-              width: 60px;
-              height: 20px;
-            }
-
             .Button + .Button {
               margin-left: 6px;
             }
           `}
         >
-          <Button id='Ok' text='OK' onClick={onClickClose} />
-          <Button id='Cancel' text='Cancel' onClick={onClickClose} />
+          <Button
+            id='Ok'
+            text='OK'
+            onClick={onClickClose}
+            customStyle={buttonStyle}
+          />
+          <Button
+            id='Cancel'
+            text='Cancel'
+            onClick={onClickClose}
+            customStyle={buttonStyle}
+          />
         </div>
       </div>
     </React.Fragment>

@@ -1,9 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 import backgroundPattern from '@static/background-pattern.png';
 import pointerCursor from '@static/cursor-pointer.png';
 import { activeButtonShadow, defaultButtonShadow } from '@styles/mixins';
-import classNames from 'classnames';
 import React, { useRef } from 'react';
 
 interface ButtonProps {
@@ -11,13 +10,22 @@ interface ButtonProps {
   selected?: boolean;
   disabled?: boolean;
   text?: string;
+  customStyle?: SerializedStyles;
   onClick?: () => void;
 }
 
 export type Props = ButtonProps & React.HTMLAttributes<HTMLDivElement>;
 
 const Button: React.FC<Props> = (props: Props) => {
-  const { id, selected, text, disabled, onClick, children } = props;
+  const {
+    id,
+    selected,
+    text,
+    disabled,
+    customStyle,
+    onClick,
+    children,
+  } = props;
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -29,12 +37,7 @@ const Button: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      className={classNames(
-        'Button',
-        { Able: !disabled },
-        { Disabled: disabled },
-        { Selected: !disabled && selected }
-      )}
+      className='Button'
       id={id}
       role='button'
       tabIndex={0}
@@ -84,6 +87,7 @@ const Button: React.FC<Props> = (props: Props) => {
             `,
           ]}
         `,
+        customStyle,
       ]}
     >
       {children}

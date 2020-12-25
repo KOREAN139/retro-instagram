@@ -36,17 +36,20 @@ const Header: React.FC<Props> = (props: Props) => {
         className='Header__Button-holder'
         css={css`
           padding: 0 4px;
-
-          .Button {
-            height: 26px;
-            padding: 0 10px;
-
-            font-size: 15px;
-          }
         `}
       >
         {backButton && (
-          <Button id='Back' text='Back' onClick={onClickBackButton} />
+          <Button
+            id='Back'
+            text='Back'
+            onClick={onClickBackButton}
+            customStyle={css`
+              height: 26px;
+              padding: 0 10px;
+
+              font-size: 15px;
+            `}
+          />
         )}
       </div>
       <div
@@ -62,16 +65,20 @@ const Header: React.FC<Props> = (props: Props) => {
         className='Header__Button-holder'
         css={css`
           padding: 0 4px;
-
-          .Button {
-            height: 26px;
-            padding: 0 10px;
-
-            font-size: 15px;
-          }
         `}
       >
-        {reloadButton && <Button id='Reload' text='Reload' />}
+        {reloadButton && (
+          <Button
+            id='Reload'
+            text='Reload'
+            customStyle={css`
+              height: 26px;
+              padding: 0 10px;
+
+              font-size: 15px;
+            `}
+          />
+        )}
       </div>
     </div>
   );
