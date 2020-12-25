@@ -28,6 +28,9 @@
       ],
       "@styles/*": [
         "src/styles/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
       ]
     }
   }

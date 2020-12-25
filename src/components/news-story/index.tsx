@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import PixelImage from '@components/pixel-image';
 import { css, jsx } from '@emotion/react';
+import { formatElapsedTime } from '@helpers/date-utils';
 import { dividerBottomShadow } from '@styles/mixins';
 import React from 'react';
 import { NewsItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
@@ -11,33 +12,6 @@ interface NewsStoryProps {
 }
 
 export type Props = NewsStoryProps & React.HTMLAttributes<HTMLDivElement>;
-
-const formatElapsedTime = (utc: number): string => {
-  const now = Date.now() / 1000;
-
-  let diff = now - utc;
-  if (diff < 60) {
-    return `${diff}s`;
-  }
-
-  diff = Math.trunc(diff / 60);
-  if (diff < 60) {
-    return `${diff}m`;
-  }
-
-  diff = Math.trunc(diff / 60);
-  if (diff < 24) {
-    return `${diff}h`;
-  }
-
-  diff = Math.trunc(diff / 24);
-  if (diff < 7) {
-    return `${diff}d`;
-  }
-
-  diff = Math.trunc(diff / 7);
-  return `${diff}w`;
-};
 
 const NewsStory: React.FC<Props> = (props: Props) => {
   const { newsInfo, index, children } = props;

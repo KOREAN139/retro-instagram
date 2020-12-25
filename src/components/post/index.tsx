@@ -3,6 +3,7 @@ import Button from '@components/button';
 import Icon from '@components/icon';
 import PixelImage from '@components/pixel-image';
 import { css, jsx } from '@emotion/react';
+import { formatDate } from '@helpers/date-utils';
 import pointerCursor from '@static/cursor-pointer.png';
 import likeIcon from '@static/like-icon.png';
 import { mediaBoxShadow } from '@styles/mixins';
@@ -19,29 +20,6 @@ interface PostProps {
 }
 
 export type Props = PostProps & React.HTMLAttributes<HTMLDivElement>;
-
-const formatDate = (utc: number): string => {
-  const monthString = [
-    'JANUARY',
-    'FEBRUARY',
-    'MARCH',
-    'APRIL',
-    'MAY',
-    'JUNE',
-    'JULY',
-    'AUGUST',
-    'SEPTEMBER',
-    'OCTOBER',
-    'NOVEMBER',
-    'DECEMBER',
-  ];
-  const date = new Date(utc);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-
-  return `${day} ${monthString[month]} ${year} . `;
-};
 
 const formatCaption = (username: string, caption: string): string => {
   const splited = caption.split('\n');
@@ -363,9 +341,11 @@ const Post: React.FC<Props> = (props: Props) => {
         >
           {formatDate(createdAt)}
         </span>
-        <span className='Post-container__Additional__Translate'>
-          SEE TRANSLATION
-        </span>
+        {caption.text && (
+          <span className='Post-container__Additional__Translate'>
+            SEE TRANSLATION
+          </span>
+        )}
       </div>
       {children}
     </div>

@@ -18,6 +18,7 @@ export const overlay = () => css`
   left: 0;
   bottom: 0;
   right: 0;
+  z-index: 39;
 `;
 
 export const modalContainer = () => css`
@@ -26,4 +27,5 @@ export const modalContainer = () => css`
   left: 50%;
   padding: 6px;
   transform: translate(-50%, -50%);
+  z-index: 139;
 `;
