@@ -59,7 +59,7 @@ const NewsStory: React.FC<Props> = (props: Props) => {
             pixelized={pixelizedProfilePicture}
             index={index}
             pixelPerLine={30}
-            css={css`
+            customStyle={css`
               width: 35px;
               height: 35px;
               border-radius: 50%;
