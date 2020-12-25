@@ -144,7 +144,7 @@ const instagramDetails = createSlice({
           hasLiked,
           likeCount,
           caption,
-          createdAt: takenAt * 1000,
+          createdAt: takenAt,
         };
 
         return postWithCaption;
@@ -227,7 +227,7 @@ const instagramDetails = createSlice({
           hasLiked,
           likeCount,
           caption,
-          createdAt: takenAt * 1000,
+          createdAt: takenAt,
         };
 
         return {
