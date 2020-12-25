@@ -23,6 +23,12 @@ interface UserScrollProps {
 
 export type Props = UserScrollProps & React.HTMLAttributes<HTMLDivElement>;
 
+const profilePictureStyle = css`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+`;
+
 const UserScroll: React.FC<Props> = () => {
   const dispatch = useDispatch();
   let pixelizedProfile = false;
@@ -76,14 +82,13 @@ const UserScroll: React.FC<Props> = () => {
         >
           <div
             className='Userpage-scroll-container__Userinfo__Profile-picture'
-            css={css`
-              margin-right: 8px;
-
-              width: 24px;
-              height: 24px;
-              border-radius: 50%;
-              background-color: black;
-            `}
+            css={[
+              profilePictureStyle,
+              css`
+                margin-right: 8px;
+                background-color: black;
+              `,
+            ]}
           >
             {userInfo && (
               <PixelImage
@@ -95,11 +100,7 @@ const UserScroll: React.FC<Props> = () => {
                 }
                 centered
                 pixelized={pixelizedProfile}
-                customStyle={css`
-                  width: 24px;
-                  height: 24px;
-                  border-radius: 50%;
-                `}
+                customStyle={profilePictureStyle}
               />
             )}
           </div>

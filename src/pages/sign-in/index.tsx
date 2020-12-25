@@ -21,6 +21,32 @@ interface signInFormData {
   password: string;
 }
 
+const inputContainerStyle = css`
+  width: 75%;
+  display: flex;
+  align-self: center;
+  font-size: 13px;
+  justify-items: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  span {
+    width: 36%;
+  }
+`;
+
+const inputStyle = css`
+  flex: 1;
+  font-family: W95FA;
+  border: none;
+  padding: 2.5px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const SignIn: React.FC<Props> = (props: Props) => {
   const { onClickClose } = props;
 
@@ -71,20 +97,7 @@ const SignIn: React.FC<Props> = (props: Props) => {
         />
         <div
           className='Sign-in-page-container__Input'
-          css={css`
-            width: 75%;
-            display: flex;
-            align-self: center;
-            font-size: 13px;
-            justify-items: center;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-
-            span {
-              width: 36%;
-            }
-          `}
+          css={inputContainerStyle}
         >
           <span>{`User name: `}</span>
           <input
@@ -92,36 +105,12 @@ const SignIn: React.FC<Props> = (props: Props) => {
             ref={register({
               required: 'Required',
             })}
-            css={css`
-              ${activeButtonShadow(0.8)}
-
-              flex: 1;
-              font-family: W95FA;
-              border: none;
-              padding: 2.5px;
-
-              &:focus {
-                outline: none;
-              }
-            `}
+            css={[activeButtonShadow(0.8), inputStyle]}
           />
         </div>
         <div
           className='Sign-in-page-container__Input'
-          css={css`
-            width: 75%;
-            display: flex;
-            align-self: center;
-            font-size: 13px;
-            justify-items: center;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 5px;
-
-            span {
-              width: 36%;
-            }
-          `}
+          css={inputContainerStyle}
         >
           <span>{`Password: `}</span>
           <input
@@ -130,18 +119,7 @@ const SignIn: React.FC<Props> = (props: Props) => {
             ref={register({
               required: 'Required',
             })}
-            css={css`
-              ${activeButtonShadow(0.8)}
-
-              flex: 1;
-              font-family: W95FA;
-              border: none;
-              padding: 2.5px;
-
-              &:focus {
-                outline: none;
-              }
-            `}
+            css={[activeButtonShadow(0.8), inputStyle]}
           />
         </div>
         <div

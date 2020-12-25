@@ -27,6 +27,25 @@ const categoryIconStyle = css`
   background-size: 12px 12px;
 `;
 
+const profilePictureStyle = css`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+`;
+
+const profileNumberContainerStyle = css`
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0;
+
+  * + * {
+    margin-top: 2px;
+  }
+`;
+
 const User = () => {
   const dispatch = useDispatch();
   const [currentCategory, setCurrentCategory] = useState('grid');
@@ -139,13 +158,13 @@ const User = () => {
           >
             <div
               className='Userpage-container__Userinfo__Profile__Picture'
-              css={css`
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background-color: black;
-                display: flex;
-              `}
+              css={[
+                profilePictureStyle,
+                css`
+                  background-color: black;
+                  display: flex;
+                `,
+              ]}
             >
               {userInfo && (
                 <PixelImage
@@ -157,11 +176,7 @@ const User = () => {
                   }
                   centered
                   pixelized={pixelizedProfile}
-                  customStyle={css`
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                  `}
+                  customStyle={profilePictureStyle}
                 />
               )}
             </div>
@@ -186,18 +201,7 @@ const User = () => {
               >
                 <div
                   className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
-                  css={css`
-                    display: flex;
-                    flex-basis: 100%;
-                    flex-direction: column;
-                    justify-items: center;
-                    align-items: center;
-                    padding: 0;
-
-                    * + * {
-                      margin-top: 2px;
-                    }
-                  `}
+                  css={profileNumberContainerStyle}
                 >
                   <div>
                     <b>{userInfo ? userInfo.mediaCount : 1}</b>
@@ -206,18 +210,7 @@ const User = () => {
                 </div>
                 <div
                   className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
-                  css={css`
-                    display: flex;
-                    flex-basis: 100%;
-                    flex-direction: column;
-                    justify-items: center;
-                    align-items: center;
-                    padding: 0;
-
-                    * + * {
-                      margin-top: 2px;
-                    }
-                  `}
+                  css={profileNumberContainerStyle}
                 >
                   <div>
                     <b>{userInfo ? userInfo.followerCount : 3}</b>
@@ -226,18 +219,7 @@ const User = () => {
                 </div>
                 <div
                   className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
-                  css={css`
-                    display: flex;
-                    flex-basis: 100%;
-                    flex-direction: column;
-                    justify-items: center;
-                    align-items: center;
-                    padding: 0;
-
-                    * + * {
-                      margin-top: 2px;
-                    }
-                  `}
+                  css={profileNumberContainerStyle}
                 >
                   <div>
                     <b>{userInfo ? userInfo.followingCount : 9}</b>
