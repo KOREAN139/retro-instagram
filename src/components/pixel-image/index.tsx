@@ -1,8 +1,8 @@
+/** @jsx jsx */
 import { setPixelizedUrl } from '@ducks/instagram';
+import { jsx, SerializedStyles } from '@emotion/react';
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-
-import './index.scss';
 
 interface PixelImageProps {
   type: string;
@@ -11,6 +11,7 @@ interface PixelImageProps {
   centered?: boolean;
   pixelPerLine?: number;
   index?: number;
+  customStyle?: SerializedStyles;
 
   onClick?: () => void;
 }
@@ -26,6 +27,7 @@ const PixelImage: React.FC<Props> = (props: Props) => {
     index,
     centered,
     pixelPerLine: ppl,
+    customStyle,
     onClick,
     children,
   } = props;
@@ -43,11 +45,14 @@ const PixelImage: React.FC<Props> = (props: Props) => {
           role='presentation'
           className='Pixel-image'
           onKeyUp={() => {}}
+          css={customStyle}
         />
       );
     }
 
-    return <img src={source} alt='' className='Pixel-image' />;
+    return (
+      <img src={source} alt='' className='Pixel-image' css={customStyle} />
+    );
   }
 
   const image = new Image();
@@ -115,7 +120,12 @@ const PixelImage: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <canvas className='Pixel-image' ref={canvasRef} onClick={onClick}>
+    <canvas
+      className='Pixel-image'
+      ref={canvasRef}
+      onClick={onClick}
+      css={customStyle}
+    >
       {children}
     </canvas>
   );

@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import NewsStory from '@components/news-story';
 import Page from '@components/page';
+import ScrollableBox from '@components/scrollable-box';
 import { getNews } from '@ducks/instagram';
+import { css, jsx } from '@emotion/react';
 import { RootState } from '@store';
-import React, { useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import './index.scss';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -21,53 +22,35 @@ const News = () => {
     return !!profilePicture.pixelizedMediaUrl && !!thumbnail.pixelizedMediaUrl;
   });
 
-  const containerRef = useRef(null);
-  const bottomRef = useRef(null);
-
-  useEffect(() => {
-    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-      if (isIntersecting && !news.length) {
-        dispatch(getNews());
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersect, {
-      root: containerRef.current,
-      threshold: 1.0,
-    });
-
-    observer.observe(bottomRef.current!);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [news, containerRef, bottomRef, dispatch]);
+  const fetchNews = useCallback(() => {
+    if (!news.length) {
+      dispatch(getNews());
+    }
+  }, [news, dispatch]);
 
   return (
     <Page title='News' loaded={loaded}>
-      <div className='News-page-container'>
-        <div className='News-page-container__Contents'>
-          <div
-            className='News-page-container__Contents__Scrollable'
-            ref={containerRef}
-          >
-            {news &&
-              news.map((newsItem, i) => {
-                const { profilePicture, createdAt } = newsItem;
-                return (
-                  <NewsStory
-                    newsInfo={newsItem}
-                    index={i}
-                    key={`${profilePicture}_${createdAt}`}
-                  />
-                );
-              })}
-            <div
-              className='News-page-container__Contents__Scrollable__Bottom'
-              ref={bottomRef}
-            />
-          </div>
-        </div>
+      <div
+        className='News-page-container'
+        css={css`
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <ScrollableBox onBottom={fetchNews}>
+          {news &&
+            news.map((newsItem, i) => {
+              const { profilePicture, createdAt } = newsItem;
+              return (
+                <NewsStory
+                  newsInfo={newsItem}
+                  index={i}
+                  key={`${profilePicture}_${createdAt}`}
+                />
+              );
+            })}
+        </ScrollableBox>
       </div>
     </Page>
   );

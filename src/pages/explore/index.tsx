@@ -1,15 +1,20 @@
+/** @jsx jsx */
 import Page from '@components/page';
-import React from 'react';
-
-import './index.scss';
+import ScrollableBox from '@components/scrollable-box';
+import { css, jsx } from '@emotion/react';
 
 const Explore = () => {
   return (
     <Page title='Explore' loaded>
-      <div className='Explore-page-container'>
-        <div className='Explore-page-container__Contents'>
-          <div className='Explore-page-container__Contents__Scrollable' />
-        </div>
+      <div
+        className='Explore-page-container'
+        css={css`
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <ScrollableBox />
       </div>
     </Page>
   );

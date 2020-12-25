@@ -1,12 +1,17 @@
+/** @jsx jsx */
 import Page from '@components/page';
-import React from 'react';
-
-import './index.scss';
+import { css, jsx } from '@emotion/react';
 
 const Camera = () => {
   return (
     <Page title='Camera' loaded>
-      <div className='Camera-page-container' />
+      <div
+        className='Camera-page-container'
+        css={css`
+          flex: 1;
+          display: flex;
+        `}
+      />
     </Page>
   );
 };

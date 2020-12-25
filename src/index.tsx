@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 
 import * as serviceWorker from '~/serviceWorker';
 
-import './index.scss';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 // prevent refresh on app

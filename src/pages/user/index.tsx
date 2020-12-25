@@ -1,21 +1,55 @@
+/** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
+import ScrollableBox from '@components/scrollable-box';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
+import { css, jsx } from '@emotion/react';
 import { ROUTE_USER_SCROLL } from '@pages/routes/constants';
 import PostInfoModal from '@pages/user/post-info-modal';
+import pointerCursor from '@static/cursor-pointer.png';
 import gridIcon from '@static/grid-icon.png';
 import locationIcon from '@static/location-icon.png';
 import moreIcon from '@static/more-button.png';
 import scrollIcon from '@static/scroll-icon.png';
 import tagIcon from '@static/tag-icon.png';
 import { RootState } from '@store';
-import React, { useEffect, useRef, useState } from 'react';
+import { dividerTopBottomShadow } from '@styles/mixins';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { PostItem } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
 
-import './index.scss';
+const categoryIconStyle = css`
+  width: 18px;
+  height: 18px;
+  background-size: 12px 12px;
+`;
+
+const categoryButtonStyle = css`
+  flex-basis: 100%;
+  height: 24px;
+`;
+
+const profilePictureStyle = css`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+`;
+
+const profileNumberContainerStyle = css`
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 0;
+
+  * + * {
+    margin-top: 2px;
+  }
+`;
 
 const User = () => {
   const dispatch = useDispatch();
@@ -45,31 +79,15 @@ const User = () => {
     return !!post.pixelizedMediaUrl;
   });
 
-  const containerRef = useRef(null);
-  const bottomRef = useRef(null);
-
   useEffect(() => {
     dispatch(getSignedInUserInfo(userPk));
   }, [dispatch, userPk]);
 
-  useEffect(() => {
-    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-      if (isIntersecting && moreAvailable) {
-        dispatch(getUserPosts(userPk));
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersect, {
-      root: containerRef.current,
-      threshold: 1.0,
-    });
-
-    observer.observe(bottomRef.current!);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [dispatch, containerRef, bottomRef, userPk, moreAvailable]);
+  const fetchUserPosts = useCallback(() => {
+    if (moreAvailable) {
+      dispatch(getUserPosts(userPk));
+    }
+  }, [moreAvailable, userPk, dispatch]);
 
   if (userInfo) {
     const exist =
@@ -115,10 +133,44 @@ const User = () => {
       title={userInfo ? userInfo.username : 'Username'}
       loaded={infoLoaded && postLoaded}
     >
-      <div className='Userpage-container'>
-        <div className='Userpage-container__Userinfo'>
-          <div className='Userpage-container__Userinfo__Profile'>
-            <div className='Userpage-container__Userinfo__Profile__Picture'>
+      <div
+        className='Userpage-container'
+        css={css`
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          background-image: inherit;
+        `}
+      >
+        <div
+          className='Userpage-container__Userinfo'
+          css={[
+            dividerTopBottomShadow(),
+            css`
+              padding-top: 5px;
+              padding-bottom: 5px;
+              margin-bottom: 2px;
+            `,
+          ]}
+        >
+          <div
+            className='Userpage-container__Userinfo__Profile'
+            css={css`
+              display: flex;
+              flex-direction: row;
+              padding: 6px;
+            `}
+          >
+            <div
+              className='Userpage-container__Userinfo__Profile__Picture'
+              css={[
+                profilePictureStyle,
+                css`
+                  background-color: black;
+                  display: flex;
+                `,
+              ]}
+            >
               {userInfo && (
                 <PixelImage
                   type='user-profile'
@@ -129,40 +181,136 @@ const User = () => {
                   }
                   centered
                   pixelized={pixelizedProfile}
+                  customStyle={profilePictureStyle}
                 />
               )}
             </div>
-            <div className='Userpage-container__Userinfo__Profile__Follow'>
-              <div className='Userpage-container__Userinfo__Profile__Follow__Numbers'>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+            <div
+              className='Userpage-container__Userinfo__Profile__Follow'
+              css={css`
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                margin-left: 14px;
+
+                font-size: 13px;
+              `}
+            >
+              <div
+                className='Userpage-container__Userinfo__Profile__Follow__Numbers'
+                css={css`
+                  display: flex;
+                  flex-basis: 100%;
+                  padding-right: 27px;
+                `}
+              >
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={profileNumberContainerStyle}
+                >
                   <div>
                     <b>{userInfo ? userInfo.mediaCount : 1}</b>
                   </div>
                   <div>posts</div>
                 </div>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={profileNumberContainerStyle}
+                >
                   <div>
                     <b>{userInfo ? userInfo.followerCount : 3}</b>
                   </div>
                   <div>followers</div>
                 </div>
-                <div className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'>
+                <div
+                  className='Userpage-container__Userinfo__Profile__Follow__Numbers Number'
+                  css={profileNumberContainerStyle}
+                >
                   <div>
                     <b>{userInfo ? userInfo.followingCount : 9}</b>
                   </div>
                   <div>following</div>
                 </div>
               </div>
-              <div className='Userpage-container__Userinfo__Profile__Follow__Buttons'>
-                <Button id='Follow' text='+ Follow' />
-                <Button id='More' icon={moreIcon} />
+              <div
+                className='Userpage-container__Userinfo__Profile__Follow__Buttons'
+                css={css`
+                  display: flex;
+                  padding-top: 4px;
+                  padding-bottom: 2px;
+                  flex-basis: 100%;
+                  flex-direction: row;
+
+                  .Button + .Button {
+                    margin-left: 3px;
+                  }
+                `}
+              >
+                <Button
+                  id='Follow'
+                  text='+ Follow'
+                  customStyle={css`
+                    width: 100%;
+                    height: 24px;
+                    font-size: 13px;
+                  `}
+                />
+                <Button
+                  id='More'
+                  customStyle={css`
+                    width: 24px;
+                    height: 24px;
+                    font-size: 13px;
+                    float: right;
+                  `}
+                >
+                  <Icon
+                    icon={moreIcon}
+                    customStyle={css`
+                      width: 24px;
+                      height: 24px;
+                      background-position: 48% 50%;
+                      background-size: 7px 7px;
+
+                      &:active {
+                        background-position: 55% 60%;
+                      }
+                    `}
+                  />
+                </Button>
               </div>
             </div>
           </div>
           {infoExists && (
-            <div className='Userpage-container__Userinfo__Description'>
+            <div
+              className='Userpage-container__Userinfo__Description'
+              css={css`
+                display: flex;
+                flex-direction: column;
+                padding: 6px;
+                margin-top: 1px;
+                margin-bottom: 1px;
+
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                word-break: break-all;
+                font-size: 13px;
+                white-space: pre-wrap;
+                line-height: 15px;
+
+                * + * {
+                  margin-top: 4px;
+                }
+              `}
+            >
               {userInfo.fullName && (
-                <div className='Userpage-container__Userinfo__Description__Name'>
+                <div
+                  className='Userpage-container__Userinfo__Description__Name'
+                  css={css`
+                    font-size: 14px;
+                    font-weight: bolder;
+                  `}
+                >
                   {userInfo.fullName}
                 </div>
               )}
@@ -186,62 +334,105 @@ const User = () => {
             </div>
           )}
         </div>
-        <div className='Userpage-container__Contents'>
-          <div className='Userpage-container__Contents__Categories'>
+        <div
+          className='Userpage-container__Contents'
+          css={css`
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+          `}
+        >
+          <div
+            className='Userpage-container__Contents__Categories'
+            css={css`
+              display: flex;
+              flex-direction: row;
+              margin: 2px;
+
+              .Button + .Button {
+                margin-left: 1px;
+              }
+            `}
+          >
             <Button
               id='Grid'
-              icon={gridIcon}
               selected={currentCategory === 'grid'}
               onClick={onClickGrid}
-            />
-            <NavLink className='Button' to={ROUTE_USER_SCROLL}>
+              customStyle={categoryButtonStyle}
+            >
+              <Icon icon={gridIcon} customStyle={categoryIconStyle} />
+            </Button>
+            <NavLink to={ROUTE_USER_SCROLL} css={categoryButtonStyle}>
               <Button
                 id='Scroll'
-                icon={scrollIcon}
                 selected={currentCategory === 'scroll'}
                 onClick={onClickScroll}
-              />
+                customStyle={categoryButtonStyle}
+              >
+                <Icon icon={scrollIcon} customStyle={categoryIconStyle} />
+              </Button>
             </NavLink>
             <Button
               id='Location'
-              icon={locationIcon}
               selected={currentCategory === 'location'}
               onClick={onClickLocation}
-            />
+              customStyle={categoryButtonStyle}
+            >
+              <Icon icon={locationIcon} customStyle={categoryIconStyle} />
+            </Button>
             <Button
               id='Tagged'
-              icon={tagIcon}
               selected={currentCategory === 'tagged'}
               onClick={onClickTagged}
-            />
-          </div>
-          <div className='Userpage-container__Contents__Box'>
-            <div
-              className='Userpage-container__Contents__Box__Scrollable'
-              ref={containerRef}
+              customStyle={categoryButtonStyle}
             >
-              {posts.length > 0 &&
-                posts.map((post, i) => {
-                  const { mediaUrl, pixelizedMediaUrl } = post;
-                  const source = pixelizedMediaUrl || mediaUrl;
-                  return (
-                    <PixelImage
-                      type='user-thumbnail'
-                      source={source}
-                      centered
-                      pixelized={!!pixelizedMediaUrl}
-                      index={i}
-                      key={post.id}
-                      onClick={() => onClickPost(i)}
-                    />
-                  );
-                })}
-              <div
-                className='Userpage-container__Contents__Box__Scrollable__Bottom'
-                ref={bottomRef}
-              />
-            </div>
+              <Icon icon={tagIcon} customStyle={categoryIconStyle} />
+            </Button>
           </div>
+          <ScrollableBox
+            customStyle={css`
+              align-content: flex-start;
+
+              .Pixel-image + .Pixel-image {
+                margin-left: 1px;
+                margin-top: 1px;
+              }
+            `}
+            onBottom={fetchUserPosts}
+          >
+            {posts.length > 0 &&
+              posts.map((post, i) => {
+                const { mediaUrl, pixelizedMediaUrl } = post;
+                const source = pixelizedMediaUrl || mediaUrl;
+                return (
+                  <PixelImage
+                    type='user-thumbnail'
+                    source={source}
+                    centered
+                    pixelized={!!pixelizedMediaUrl}
+                    index={i}
+                    key={post.id}
+                    onClick={() => onClickPost(i)}
+                    customStyle={css`
+                      width: 94.5px;
+                      height: 94.5px;
+                      object-fit: cover;
+                      cursor: url(${pointerCursor}), pointer;
+
+                      @for $i from 1 through 3 {
+                        &:nth-of-type(#{$i}) {
+                          margin-top: 0px;
+                        }
+                      }
+
+                      &:nth-of-type(3n + 1) {
+                        margin-left: 0px;
+                      }
+                    `}
+                  />
+                );
+              })}
+          </ScrollableBox>
         </div>
       </div>
       {displayModal && !!selectedPostItem && (

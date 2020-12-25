@@ -1,7 +1,7 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import classNames from 'classnames';
 import React from 'react';
-
-import './index.scss';
 
 interface MutableMenuProps {
   name: string;
@@ -46,6 +46,27 @@ const Menu: React.FC<Props> = (props: Props) => {
       tabIndex={0}
       onClick={onClick}
       onKeyUp={() => {}}
+      css={css`
+        display: flex;
+        font-size: 13px;
+        padding-left: 6px;
+        padding-right: 6px;
+        align-items: center;
+        justify-items: center;
+
+        &:focus {
+          outline: none;
+        }
+
+        ${disabled && `color: grey;`}
+
+        ${!disabled &&
+        activated &&
+        `&:hover {
+          color: white;
+          background-color: rgb(2,0,125);
+        }`}
+      `}
     >
       <u>{firstChar.toUpperCase()}</u>
       {nameWithoutFirstChar}

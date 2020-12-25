@@ -1,12 +1,16 @@
+/** @jsx jsx */
 import Button from '@components/button';
+import Icon from '@components/icon';
 import PixelImage from '@components/pixel-image';
+import { css, jsx } from '@emotion/react';
+import pointerCursor from '@static/cursor-pointer.png';
+import likeIcon from '@static/like-icon.png';
+import { mediaBoxShadow } from '@styles/mixins';
 import React, { useRef } from 'react';
 import {
   PostWithCaptionItem,
   UserInfo,
 } from 'retro-instagram'; /* eslint-disable-line import/no-unresolved */
-
-import './index.scss';
 
 interface PostProps {
   postInfo: PostWithCaptionItem;
@@ -65,6 +69,11 @@ const formatCaption = (username: string, caption: string): string => {
   return caption;
 };
 
+const postButtonStyle = css`
+  padding: 7px 12px 7px 12px;
+  font-size: 13px;
+`;
+
 const Post: React.FC<Props> = (props: Props) => {
   const { postInfo, userInfo, index, children } = props;
 
@@ -104,10 +113,29 @@ const Post: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className='Post-container'>
+    <div
+      className='Post-container'
+      css={css`
+        display: flex;
+        flex-direction: column;
+        font-size: 0;
+      `}
+    >
       {userInfo && (
-        <div className='Post-container__Header'>
-          <div className='Post-container__Header__Profile-picture'>
+        <div
+          className='Post-container__Header'
+          css={css`
+            display: flex;
+            flex-direction: row;
+            margin: 8px 6px 8px 6px;
+          `}
+        >
+          <div
+            className='Post-container__Header__Profile-picture'
+            css={css`
+              margin-right: 8px;
+            `}
+          >
             <PixelImage
               type='feed-profile'
               source={profilePictureUrl}
@@ -115,38 +143,118 @@ const Post: React.FC<Props> = (props: Props) => {
               pixelized={pixelizedProfilePicture}
               index={index}
               pixelPerLine={30}
+              customStyle={css`
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+              `}
             />
           </div>
-          <div className='Post-container__Header__Username'>
+          <div
+            className='Post-container__Header__Username'
+            css={css`
+              align-self: center;
+              font-size: 13px;
+              font-weight: bolder;
+            `}
+          >
             {userInfo.username}
           </div>
         </div>
       )}
-      <div className='Post-container__Media'>
+      <div
+        className='Post-container__Media'
+        css={[
+          mediaBoxShadow(),
+          css`
+            padding-top: 2px;
+            padding-bottom: 2px;
+            background-color: black;
+          `,
+        ]}
+      >
         <PixelImage
           type='feed-post'
           source={postMediaUrl}
           pixelized={pixelizedPostMedia}
           index={index}
           pixelPerLine={200}
+          customStyle={css`
+            width: 286px;
+            height: 290px;
+          `}
         />
       </div>
-      <div className='Post-container__Buttons'>
-        <Button id='Like' text='Like' selected={hasLiked} />
-        <Button id='Comment' text='Comment' />
-        <Button id='Share' text='Share' />
+      <div
+        className='Post-container__Buttons'
+        css={css`
+          display: flex;
+          flex-direction: row;
+          margin: 6px 8px 8px 8px;
+
+          .Button + .Button {
+            margin-left: 1px;
+          }
+        `}
+      >
+        <Button
+          id='Like'
+          text='Like'
+          selected={hasLiked}
+          customStyle={postButtonStyle}
+        />
+        <Button id='Comment' text='Comment' customStyle={postButtonStyle} />
+        <Button id='Share' text='Share' customStyle={postButtonStyle} />
       </div>
       {likeCount > 0 && (
-        <div className='Post-container__Likes'>
-          <div className='Post-container__Likes__Icon' />
-          <div className='Post-container__Likes__Number'>
+        <div
+          className='Post-container__Likes'
+          css={css`
+            display: flex;
+            flex-direction: row;
+            margin: 6px 8px 8px 8px;
+          `}
+        >
+          <Icon
+            icon={likeIcon}
+            customStyle={css`
+              width: 11px;
+              height: 11px;
+            `}
+          />
+          <div
+            className='Post-container__Likes__Number'
+            css={css`
+              margin-left: 3px;
+              text-align: center;
+              font-size: 13px;
+              font-weight: bolder;
+            `}
+          >
             {`${likeCount} likes`}
           </div>
         </div>
       )}
       {caption.text && (
-        <div className='Post-container__Info'>
-          <span className='Post-container__Info__Username'>
+        <div
+          className='Post-container__Info'
+          css={css`
+            margin: 0 6px 1px 8px;
+
+            font-size: 13px;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+          `}
+        >
+          <span
+            className='Post-container__Info__Username'
+            css={css`
+              font-weight: bolder;
+              margin-right: 4px;
+            `}
+          >
             {caption.username}
           </span>
           <span className='Post-container__Info__Caption' ref={captionRef}>
@@ -158,6 +266,17 @@ const Post: React.FC<Props> = (props: Props) => {
                 role='button'
                 tabIndex={0}
                 onKeyUp={() => {}}
+                css={css`
+                  cursor: url(${pointerCursor}), pointer;
+                  margin-left: 2px;
+                  word-wrap: normal;
+                  word-break: keep-all;
+                  color: #606060;
+
+                  &:focus {
+                    outline: 1px dotted black;
+                  }
+                `}
               >
                 more
               </span>
@@ -166,9 +285,27 @@ const Post: React.FC<Props> = (props: Props) => {
         </div>
       )}
       {!!commentCount && (
-        <div className='Post-container__Comments'>
+        <div
+          className='Post-container__Comments'
+          css={css`
+            display: flex;
+            flex-direction: column;
+            margin: 0 6px 2px 8px;
+
+            font-size: 13px;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+          `}
+        >
           {commentCount > previewComments.length && (
-            <div className='Post-container__Comments__More'>
+            <div
+              className='Post-container__Comments__More'
+              css={css`
+                color: #606060;
+              `}
+            >
               {`View all ${commentCount} Comments`}
             </div>
           )}
@@ -178,7 +315,13 @@ const Post: React.FC<Props> = (props: Props) => {
                 className='Post-container__Comments__Preview'
                 key={comment.pk}
               >
-                <span className='Post-container__Comments__Preview__Username'>
+                <span
+                  className='Post-container__Comments__Preview__Username'
+                  css={css`
+                    font-weight: bolder;
+                    margin-right: 4px;
+                  `}
+                >
                   {comment.username}
                 </span>
                 <span className='Post-container__Comments__Preview__Comment'>
@@ -186,7 +329,15 @@ const Post: React.FC<Props> = (props: Props) => {
                     ? comment.text.substr(0, 50)
                     : comment.text}
                   {comment.text.length > 50 && (
-                    <span className='Post-container__Comments__Preview__Comment__More'>
+                    <span
+                      className='Post-container__Comments__Preview__Comment__More'
+                      css={css`
+                        margin-left: 2px;
+                        word-wrap: normal;
+                        word-break: keep-all;
+                        color: #606060;
+                      `}
+                    >
                       [...]
                     </span>
                   )}
@@ -195,8 +346,21 @@ const Post: React.FC<Props> = (props: Props) => {
             ))}
         </div>
       )}
-      <div className='Post-container__Additional'>
-        <span className='Post-container__Additional__Date'>
+      <div
+        className='Post-container__Additional'
+        css={css`
+          margin: 0 6px 2px 8px;
+
+          font-size: 10px;
+          line-height: 1.3;
+        `}
+      >
+        <span
+          className='Post-container__Additional__Date'
+          css={css`
+            color: #606060;
+          `}
+        >
           {formatDate(createdAt)}
         </span>
         <span className='Post-container__Additional__Translate'>

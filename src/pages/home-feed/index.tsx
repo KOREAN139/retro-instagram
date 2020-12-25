@@ -1,11 +1,12 @@
+/** @jsx jsx */
 import Page from '@components/page';
 import Post from '@components/post';
+import ScrollableBox from '@components/scrollable-box';
 import { getTimeline } from '@ducks/instagram';
+import { css, jsx } from '@emotion/react';
 import { RootState } from '@store';
-import React, { useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import './index.scss';
 
 const HomeFeed = () => {
   const dispatch = useDispatch();
@@ -23,52 +24,39 @@ const HomeFeed = () => {
     return !!user.profilePicture.pixelizedMediaUrl && !!post.pixelizedMediaUrl;
   });
 
-  const containerRef = useRef(null);
-  const bottomRef = useRef(null);
+  const fetchPosts = useCallback(() => {
+    if (moreAvailable) {
+      dispatch(getTimeline());
+    }
+  }, [moreAvailable, dispatch]);
+
   useEffect(() => {
-    const onIntersect = ([{ isIntersecting }]: IntersectionObserverEntry[]) => {
-      if (isIntersecting && moreAvailable) {
-        dispatch(getTimeline());
-      }
-    };
-
-    const observer = new IntersectionObserver(onIntersect, {
-      root: containerRef.current,
-      threshold: 1.0,
-    });
-
-    observer.observe(bottomRef.current!);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [userPk, moreAvailable, containerRef, bottomRef, dispatch]);
+    fetchPosts();
+  }, [userPk, fetchPosts]);
 
   return (
     <Page title='Feed' loaded={loaded}>
-      <div className='Home-feed-container'>
-        <div className='Home-feed-container__Contents'>
-          <div
-            className='Home-feed-container__Contents__Scrollable'
-            ref={containerRef}
-          >
-            {posts &&
-              posts.map((post, i) => {
-                return (
-                  <Post
-                    postInfo={post.post}
-                    userInfo={post.user}
-                    index={i}
-                    key={post.post.id}
-                  />
-                );
-              })}
-            <div
-              className='Home-feed-container__Contents__Scrollable__Bottom'
-              ref={bottomRef}
-            />
-          </div>
-        </div>
+      <div
+        className='Home-feed-container'
+        css={css`
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <ScrollableBox onBottom={fetchPosts}>
+          {posts &&
+            posts.map((post, i) => {
+              return (
+                <Post
+                  postInfo={post.post}
+                  userInfo={post.user}
+                  index={i}
+                  key={post.post.id}
+                />
+              );
+            })}
+        </ScrollableBox>
       </div>
     </Page>
   );

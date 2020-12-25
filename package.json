@@ -5,6 +5,7 @@
   "private": true,
   "main": "public/electron.js",
   "dependencies": {
+    "@emotion/react": "^11.1.3",
     "@reduxjs/toolkit": "^1.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -87,9 +88,10 @@
     "semantic-release": "^17.3.0",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-sass-guidelines": "^7.1.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
     "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0",
+    "stylelint-processor-styled-components": "^1.10.0",
     "wait-on": "^4.0.1"
   },
   "homepage": ".",
@@ -104,10 +106,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "eslint --cache --fix",
-      "prettier --write"
-    ],
-    "*.scss": [
-      "stylelint --cache --fix --syntax scss",
+      "stylelint --cache --syntax css-in-js",
       "prettier --write"
     ],
     "*.{js,css,md}": "prettier --write"
