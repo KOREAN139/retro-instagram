@@ -8,7 +8,7 @@ import { formatDate } from '@helpers/date-utils';
 import pointerCursor from '@static/cursor-pointer.png';
 import likeIcon from '@static/like-icon.png';
 import { mediaBoxShadow } from '@styles/mixins';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   PostWithCaptionItem,
   UserInfo,
@@ -18,6 +18,11 @@ interface PostProps {
   postInfo: PostWithCaptionItem;
   userInfo?: UserInfo;
   index: number;
+
+  // eslint-disable-next-line no-unused-vars
+  likePost: (mediaId: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  unlikePost: (mediaId: string) => void;
 }
 
 export type Props = PostProps & React.HTMLAttributes<HTMLDivElement>;
@@ -59,7 +64,7 @@ const profilePictureStyle = css`
 `;
 
 const Post: React.FC<Props> = (props: Props) => {
-  const { postInfo, userInfo, index, children } = props;
+  const { postInfo, userInfo, index, children, likePost, unlikePost } = props;
 
   const captionRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +100,14 @@ const Post: React.FC<Props> = (props: Props) => {
     const textDiv = captionRef.current!;
     textDiv.innerText = caption.text;
   };
+
+  const handleClickLike = useCallback(() => {
+    if (postInfo.hasLiked) {
+      unlikePost(postInfo.id);
+      return;
+    }
+    likePost(postInfo.id);
+  }, [likePost, unlikePost, postInfo]);
 
   return (
     <div
@@ -182,6 +195,7 @@ const Post: React.FC<Props> = (props: Props) => {
           text='Like'
           selected={hasLiked}
           customStyle={postButtonStyle}
+          onClick={handleClickLike}
         />
         <Button id='Comment' text='Comment' customStyle={postButtonStyle} />
         <Button id='Share' text='Share' customStyle={postButtonStyle} />
