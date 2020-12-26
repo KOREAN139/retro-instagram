@@ -4,6 +4,7 @@ import Icon from '@components/icon';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
 import Post from '@components/post';
+import ProfileImage from '@components/profile-image';
 import ScrollableBox from '@components/scrollable-box';
 import { getUserPosts } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
@@ -26,7 +27,6 @@ export type Props = UserScrollProps & React.HTMLAttributes<HTMLDivElement>;
 const profilePictureStyle = css`
   width: 24px;
   height: 24px;
-  border-radius: 50%;
 `;
 
 const UserScroll: React.FC<Props> = () => {
@@ -80,15 +80,11 @@ const UserScroll: React.FC<Props> = () => {
             `,
           ]}
         >
-          <div
-            className='Userpage-scroll-container__Userinfo__Profile-picture'
-            css={[
-              profilePictureStyle,
-              css`
-                margin-right: 8px;
-                background-color: black;
-              `,
-            ]}
+          <ProfileImage
+            customStyle={css`
+              ${profilePictureStyle}
+              margin-right: 8px;
+            `}
           >
             {userInfo && (
               <PixelImage
@@ -103,7 +99,7 @@ const UserScroll: React.FC<Props> = () => {
                 customStyle={profilePictureStyle}
               />
             )}
-          </div>
+          </ProfileImage>
           <div
             className='Userpage-scroll-container__Userinfo__Username'
             css={css`

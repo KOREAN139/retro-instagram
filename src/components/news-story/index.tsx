@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import PixelImage from '@components/pixel-image';
+import ProfileImage from '@components/profile-image';
 import { css, jsx } from '@emotion/react';
 import { formatElapsedTime } from '@helpers/date-utils';
 import { dividerBottomShadow } from '@styles/mixins';
@@ -12,6 +13,11 @@ interface NewsStoryProps {
 }
 
 export type Props = NewsStoryProps & React.HTMLAttributes<HTMLDivElement>;
+
+const profileImageStyle = css`
+  width: 35px;
+  height: 35px;
+`;
 
 const NewsStory: React.FC<Props> = (props: Props) => {
   const { newsInfo, index, children } = props;
@@ -52,20 +58,16 @@ const NewsStory: React.FC<Props> = (props: Props) => {
           `,
         ]}
       >
-        <div className='News-story__Wrapper__Profile-picture'>
+        <ProfileImage customStyle={profileImageStyle}>
           <PixelImage
             type='news-profile'
             source={profilePictureUrl}
             pixelized={pixelizedProfilePicture}
             index={index}
             pixelPerLine={30}
-            customStyle={css`
-              width: 35px;
-              height: 35px;
-              border-radius: 50%;
-            `}
+            customStyle={profileImageStyle}
           />
-        </div>
+        </ProfileImage>
         <div
           className='News-story__Wrapper__Text'
           css={css`
