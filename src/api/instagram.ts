@@ -3,6 +3,7 @@ import {
   GetTimelineResponse,
   GetUserFeedResponse,
   GetUserInfoResponse,
+  SignInResponse,
 } from 'instagram-private-api';
 
 const { ipcRenderer } = window;
@@ -10,9 +11,9 @@ const { ipcRenderer } = window;
 export const signIn = async (
   username: string,
   password: string
-): Promise<number> => {
+): Promise<SignInResponse> => {
   const res = await ipcRenderer.callMain('sign-in', { username, password });
-  return res.pk;
+  return res;
 };
 
 export const getUserInfo = async (

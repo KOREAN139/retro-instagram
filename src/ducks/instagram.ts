@@ -6,6 +6,7 @@ import {
   GetTimelineResponse,
   GetUserFeedResponse,
   GetUserInfoResponse,
+  SignInResponse,
 } from 'instagram-private-api';
 import { Dispatch } from 'redux';
 import {
@@ -19,6 +20,7 @@ import {
 interface InstagramState {
   signedIn: boolean;
   userPk: number;
+  username: string;
   userInfo: DetailUserInfo | null;
   userPostInfo: UserPostInfo;
   timelineInfo: TimelineInfo;
@@ -33,6 +35,7 @@ interface SetPixelizedUrlPayload {
 const initialState: InstagramState = {
   signedIn: false,
   userPk: 0,
+  username: '',
   userInfo: null,
   userPostInfo: {
     moreAvailable: true,
@@ -55,11 +58,13 @@ const instagramDetails = createSlice({
   name: 'instagram',
   initialState,
   reducers: {
-    signInInstagramSuccess(state, action: PayloadAction<number>) {
+    signInInstagramSuccess(state, action: PayloadAction<SignInResponse>) {
+      const { pk, username } = action.payload;
       return {
         ...state,
         signedIn: true,
-        userPk: action.payload,
+        userPk: pk,
+        username,
       };
     },
     /* eslint-disable-next-line no-unused-vars */
