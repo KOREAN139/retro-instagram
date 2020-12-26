@@ -363,6 +363,46 @@ const instagramDetails = createSlice({
       const { posts } = timelineInfo;
       posts[index].post.pixelizedMediaUrl = pixelizedMediaUrl;
     },
+    likePostSuccess(state, action: PayloadAction<string>) {
+      const { timelineInfo, userPostInfo } = state;
+
+      const { posts: userPosts } = userPostInfo;
+      const likedUserPostIndex = userPosts.findIndex(
+        (post) => post.id === action.payload
+      );
+      if (likedUserPostIndex >= 0) {
+        userPosts[likedUserPostIndex].hasLiked = true;
+        return;
+      }
+
+      const { posts: timelinePosts } = timelineInfo;
+      const likedTimelinePostIndex = timelinePosts.findIndex(
+        (post) => post.post.id === action.payload
+      );
+      timelinePosts[likedTimelinePostIndex].post.hasLiked = true;
+    },
+    /* eslint-disable-next-line no-unused-vars */
+    likePostFailed(state, action: PayloadAction<string>) {},
+    unlikePostSuccess(state, action: PayloadAction<string>) {
+      const { timelineInfo, userPostInfo } = state;
+
+      const { posts: userPosts } = userPostInfo;
+      const likedUserPostIndex = userPosts.findIndex(
+        (post) => post.id === action.payload
+      );
+      if (likedUserPostIndex >= 0) {
+        userPosts[likedUserPostIndex].hasLiked = false;
+        return;
+      }
+
+      const { posts: timelinePosts } = timelineInfo;
+      const likedTimelinePostIndex = timelinePosts.findIndex(
+        (post) => post.post.id === action.payload
+      );
+      timelinePosts[likedTimelinePostIndex].post.hasLiked = false;
+    },
+    /* eslint-disable-next-line no-unused-vars */
+    unlikePostFailed(state, action: PayloadAction<string>) {},
   },
 });
 
@@ -383,6 +423,10 @@ export const {
   setPixelizedNewsThumbnail,
   setPixelizedTimelineProfile,
   setPixelizedTimelinePost,
+  likePostSuccess,
+  likePostFailed,
+  unlikePostSuccess,
+  unlikePostFailed,
 } = instagramDetails.actions;
 
 export default instagramDetails.reducer;
@@ -465,3 +509,27 @@ export const setPixelizedUrl = (
       break;
   }
 };
+
+export const likeMedia = (userPk: number, username: string, mediaId: string) =>
+  showLoadingPage(async (dispatch: Dispatch) => {
+    try {
+      await InstagramAPI.likeMedia(userPk, username, mediaId);
+      dispatch(likePostSuccess(mediaId));
+    } catch (err) {
+      dispatch(likePostSuccess);
+    }
+  });
+
+export const unlikeMedia = (
+  userPk: number,
+  username: string,
+  mediaId: string
+) =>
+  showLoadingPage(async (dispatch: Dispatch) => {
+    try {
+      await InstagramAPI.unlikeMedia(userPk, username, mediaId);
+      dispatch(unlikePostSuccess(mediaId));
+    } catch (err) {
+      dispatch(unlikePostSuccess);
+    }
+  });

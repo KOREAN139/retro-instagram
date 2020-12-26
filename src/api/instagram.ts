@@ -39,3 +39,19 @@ export const getNews = async (): Promise<GetNewsResponse> => {
   const res = await ipcRenderer.callMain('get-news');
   return res;
 };
+
+export const likeMedia = async (
+  userPk: number,
+  username: string,
+  mediaId: string
+): Promise<void> => {
+  await ipcRenderer.callMain('like-post', { userPk, username, mediaId });
+};
+
+export const unlikeMedia = async (
+  userPk: number,
+  username: string,
+  mediaId: string
+): Promise<void> => {
+  await ipcRenderer.callMain('unlike-post', { userPk, username, mediaId });
+};
