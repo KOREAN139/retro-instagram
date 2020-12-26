@@ -2,7 +2,7 @@
 import Page from '@components/page';
 import Post from '@components/post';
 import ScrollableBox from '@components/scrollable-box';
-import { getTimeline } from '@ducks/instagram';
+import { getTimeline, likeMedia, unlikeMedia } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
 import { RootState } from '@store';
 import { useCallback, useEffect } from 'react';
@@ -13,6 +13,10 @@ const HomeFeed = () => {
 
   const userPk: number = useSelector(
     (state: RootState) => state.instagram.userPk
+  );
+
+  const username: string = useSelector(
+    (state: RootState) => state.instagram.username
   );
 
   const timelineInfo = useSelector(
@@ -29,6 +33,20 @@ const HomeFeed = () => {
       dispatch(getTimeline());
     }
   }, [moreAvailable, dispatch]);
+
+  const likePost = useCallback(
+    (mediaId: string) => {
+      dispatch(likeMedia(userPk, username, mediaId));
+    },
+    [userPk, username, dispatch]
+  );
+
+  const unlikePost = useCallback(
+    (mediaId: string) => {
+      dispatch(unlikeMedia(userPk, username, mediaId));
+    },
+    [userPk, username, dispatch]
+  );
 
   useEffect(() => {
     fetchPosts();
@@ -53,6 +71,8 @@ const HomeFeed = () => {
                   userInfo={post.user}
                   index={i}
                   key={post.post.id}
+                  likePost={likePost}
+                  unlikePost={unlikePost}
                 />
               );
             })}

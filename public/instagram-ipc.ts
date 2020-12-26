@@ -6,6 +6,12 @@ interface UserInfo {
   password: string;
 }
 
+interface LikeOrUnlikeMediaInfo {
+  userPk: number;
+  username: string;
+  mediaId: string;
+}
+
 const ig = new IgApiClient();
 let userFeed: UserFeed | null = null;
 let timelineFeed: TimelineFeed | null = null;
@@ -48,4 +54,31 @@ ipcMain.answerRenderer('get-timeline', async () => {
 ipcMain.answerRenderer('get-news', async () => {
   const news = await ig.news.inbox();
   return news;
+});
+
+ipcMain.answerRenderer('like-post', async (data: LikeOrUnlikeMediaInfo) => {
+  const { userPk, username, mediaId } = data;
+
+  await ig.media.like({
+    mediaId,
+    d: 1,
+    moduleInfo: {
+      user_id: userPk,
+      username,
+      module_name: 'profile',
+    },
+  });
+});
+
+ipcMain.answerRenderer('unlike-post', async (data: LikeOrUnlikeMediaInfo) => {
+  const { userPk, username, mediaId } = data;
+
+  await ig.media.unlike({
+    mediaId,
+    moduleInfo: {
+      user_id: userPk,
+      username,
+      module_name: 'profile',
+    },
+  });
 });

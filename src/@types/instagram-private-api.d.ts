@@ -2,6 +2,8 @@
 import * as Instagram from 'instagram-private-api';
 
 declare module 'instagram-private-api' {
+  type SignInResponse = Instagram.AccountRepositoryLoginResponseLogged_in_user;
+
   type GetUserInfoResponse = Instagram.UserRepositoryInfoResponseUser;
 
   interface GetUserFeedResponse {

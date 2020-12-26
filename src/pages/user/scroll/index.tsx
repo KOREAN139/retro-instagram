@@ -6,7 +6,7 @@ import PixelImage from '@components/pixel-image';
 import Post from '@components/post';
 import ProfileImage from '@components/profile-image';
 import ScrollableBox from '@components/scrollable-box';
-import { getUserPosts } from '@ducks/instagram';
+import { getUserPosts, likeMedia, unlikeMedia } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
 import optionIcon from '@static/option-icon.png';
 import { RootState } from '@store';
@@ -37,6 +37,10 @@ const UserScroll: React.FC<Props> = () => {
     (state: RootState) => state.instagram.userPk
   );
 
+  const username: string = useSelector(
+    (state: RootState) => state.instagram.username
+  );
+
   const userInfo: any = useSelector(
     (state: RootState) => state.instagram.userInfo
   );
@@ -55,6 +59,20 @@ const UserScroll: React.FC<Props> = () => {
   if (userInfo) {
     pixelizedProfile = !!userInfo.profilePicture.pixelizedMediaUrl;
   }
+
+  const likePost = useCallback(
+    (mediaId: string) => {
+      dispatch(likeMedia(userPk, username, mediaId));
+    },
+    [userPk, username, dispatch]
+  );
+
+  const unlikePost = useCallback(
+    (mediaId: string) => {
+      dispatch(unlikeMedia(userPk, username, mediaId));
+    },
+    [userPk, username, dispatch]
+  );
 
   return (
     <Page title='Posts' loaded backButton reloadButton>
@@ -145,7 +163,15 @@ const UserScroll: React.FC<Props> = () => {
         >
           {posts &&
             posts.map((post, i) => {
-              return <Post postInfo={post} index={i} key={post.id} />;
+              return (
+                <Post
+                  postInfo={post}
+                  index={i}
+                  key={post.id}
+                  likePost={likePost}
+                  unlikePost={unlikePost}
+                />
+              );
             })}
         </ScrollableBox>
       </div>
