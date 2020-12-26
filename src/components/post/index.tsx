@@ -2,6 +2,7 @@
 import Button from '@components/button';
 import Icon from '@components/icon';
 import PixelImage from '@components/pixel-image';
+import ProfileImage from '@components/profile-image';
 import { css, jsx } from '@emotion/react';
 import { formatDate } from '@helpers/date-utils';
 import pointerCursor from '@static/cursor-pointer.png';
@@ -50,6 +51,11 @@ const formatCaption = (username: string, caption: string): string => {
 const postButtonStyle = css`
   padding: 7px 12px 7px 12px;
   font-size: 13px;
+`;
+
+const profilePictureStyle = css`
+  width: 25px;
+  height: 25px;
 `;
 
 const Post: React.FC<Props> = (props: Props) => {
@@ -108,9 +114,9 @@ const Post: React.FC<Props> = (props: Props) => {
             margin: 8px 6px 8px 6px;
           `}
         >
-          <div
-            className='Post-container__Header__Profile-picture'
-            css={css`
+          <ProfileImage
+            customStyle={css`
+              ${profilePictureStyle}
               margin-right: 8px;
             `}
           >
@@ -121,13 +127,9 @@ const Post: React.FC<Props> = (props: Props) => {
               pixelized={pixelizedProfilePicture}
               index={index}
               pixelPerLine={30}
-              customStyle={css`
-                width: 25px;
-                height: 25px;
-                border-radius: 50%;
-              `}
+              customStyle={profilePictureStyle}
             />
-          </div>
+          </ProfileImage>
           <div
             className='Post-container__Header__Username'
             css={css`

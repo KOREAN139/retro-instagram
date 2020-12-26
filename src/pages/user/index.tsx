@@ -3,6 +3,7 @@ import Button from '@components/button';
 import Icon from '@components/icon';
 import Page from '@components/page';
 import PixelImage from '@components/pixel-image';
+import ProfileImage from '@components/profile-image';
 import ScrollableBox from '@components/scrollable-box';
 import { getSignedInUserInfo, getUserPosts } from '@ducks/instagram';
 import { css, jsx } from '@emotion/react';
@@ -35,7 +36,6 @@ const categoryButtonStyle = css`
 const profilePictureStyle = css`
   width: 60px;
   height: 60px;
-  border-radius: 50%;
 `;
 
 const profileNumberContainerStyle = css`
@@ -161,16 +161,7 @@ const User = () => {
               padding: 6px;
             `}
           >
-            <div
-              className='Userpage-container__Userinfo__Profile__Picture'
-              css={[
-                profilePictureStyle,
-                css`
-                  background-color: black;
-                  display: flex;
-                `,
-              ]}
-            >
+            <ProfileImage customStyle={profilePictureStyle}>
               {userInfo && (
                 <PixelImage
                   type='user-profile'
@@ -184,7 +175,7 @@ const User = () => {
                   customStyle={profilePictureStyle}
                 />
               )}
-            </div>
+            </ProfileImage>
             <div
               className='Userpage-container__Userinfo__Profile__Follow'
               css={css`
