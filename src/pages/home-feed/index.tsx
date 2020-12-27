@@ -49,8 +49,10 @@ const HomeFeed = () => {
   );
 
   useEffect(() => {
-    fetchPosts();
-  }, [userPk, fetchPosts]);
+    if (!posts.length && moreAvailable) {
+      fetchPosts();
+    }
+  }, [userPk, posts, moreAvailable, fetchPosts]);
 
   return (
     <Page title='Feed' loaded={loaded}>
