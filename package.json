@@ -21,7 +21,7 @@
     "electron-is-dev": "^1.1.0",
     "instagram-private-api": "^1.39.1",
     "mousetrap": "^1.6.5",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-hook-form": "^5.0.3",
