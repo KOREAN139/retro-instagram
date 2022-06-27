@@ -85,7 +85,7 @@
     "husky": ">=4",
     "lint-staged": ">=10",
     "prettier": "^2.2.1",
-    "semantic-release": "^17.3.0",
+    "semantic-release": "^19.0.3",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recommended": "^3.0.0",
