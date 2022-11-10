@@ -71,7 +71,7 @@
     "concurrently": "^5.1.0",
     "craco-alias": "^2.1.1",
     "cross-env": "^7.0.2",
-    "electron": "^15.5.5",
+    "electron": "^18.3.7",
     "electron-builder": "^22.4.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.1",
